@@ -13,7 +13,7 @@
 var cradle = require('cradle'),
     util   = require('util');
 
-exports.users = function(config) {
+exports.users = function(config, logger) {
     var connection = new (cradle.Connection)(config.database.host, config.database.port, {
         auth: {
             username: config.database.username,
@@ -61,7 +61,9 @@ exports.users = function(config) {
                               promise.fail(err);
                               return;
                         }
-                        console.log('user created: ' + util.inspect(doc));
+
+                        logger.log('Created user: ' + JSON.stringify(doc));
+
                         promise.fulfill(doc);
                       });
                 }

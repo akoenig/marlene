@@ -10,10 +10,12 @@
  * Judith Ngo (jud.ngo -[at]- gmail [*dot*] com)
  *
  */
-var express = require('express'),
-    config  = require('./lib/config').gulp,
-    users   = require('./lib/users').users(config),
-    Promise = everyauth.Promise;
+var express    = require('express'),
+    everyauth  = require('everyauth'),
+    config     = require('./lib/config').gulp,
+    logger     = require('./lib/logger').logger(config.loggly, true),
+    users      = require('./lib/users').users(config, logger),
+    Promise    = everyauth.Promise;
 
 var app = module.exports = express.createServer();
 
@@ -38,21 +40,30 @@ everyauth.twitter
 // Configuration
 
 app.configure(function() {
-  app.set('config', configuration);
-  app.set('views', __dirname + '/app/views');
-  app.set('view engine', 'jade');
-  app.use(express.bodyParser());
-  app.use(express.methodOverride());
-  app.use(app.router);
-  app.use(express.static(__dirname + '/public'));
+    app.set('config', config);
+    app.set('views', __dirname + '/app/views');
+    app.set('view engine', 'jade');
+    app.use(express.bodyParser());
+    app.use(express.methodOverride());
+    app.use(express.cookieParser());
+
+    app.use(express.session({
+        secret: 'secret',
+        key: 'express.sid'
+    }));
+
+    app.use(everyauth.middleware());
+    app.use(app.router);
+    app.use(express.static(__dirname + '/public'));
+    everyauth.helpExpress(app);
 });
 
 app.configure('development', function(){
-  app.use(express.errorHandler({ dumpExceptions: true, showStack: true })); 
+    app.use(express.errorHandler({ dumpExceptions: true, showStack: true })); 
 });
 
 app.configure('production', function(){
-  app.use(express.errorHandler()); 
+    app.use(express.errorHandler()); 
 });
 
 // Routes
@@ -64,6 +75,6 @@ app.get('/', function(req, res){
 });
 
 if (!module.parent) {
-  app.listen(app.set('config').server.port);
-  console.log("'" + app.set('config').name + "' listening on port %d", app.address().port);
+    app.listen(app.set('config').server.port);
+    console.log("'marlene' listening on port %d", app.address().port);
 }
