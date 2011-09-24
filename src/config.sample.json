@@ -1,0 +1,16 @@
+{
+	"database": {
+		"name": "databasename",
+		"host": "host",
+		"port": 80,
+		"username": "username",
+		"password": "password"
+	},
+	"oauth": {
+        "key": "asdgsdfgsdfgsdfg",
+        "secret": "sdfgsdfgsdfgsdfgsd"
+	},
+    "server": {
+        "port": 8888
+    }
+}

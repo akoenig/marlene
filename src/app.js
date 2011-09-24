@@ -1,27 +1,39 @@
 /*
  * marlene
- * @requires jQuery v1.6 or later
  *
  * Licensed under the MIT:
  * http://www.opensource.org/licenses/mit-license.php
  *
  * Copyright (c) 2011
+ *
  * André König (andre.koenig -[at]- gmail [*dot*] com)
  * Judith Ngo (jud.ngo -[at]- gmail [*dot*] com)
  *
  */
-var express = require('express');
+var express = require('express'),
+    config  = require('./lib/config').gulp,
+    users   = require('./lib/users').users(config),
+    Promise = everyauth.Promise;
 
 var app = module.exports = express.createServer();
 
-var configuration = {
-  name: 'marlene',
-  version: '0.1 build: 20110917',
+//
+// Twitter OAuth configuration
+//
+everyauth.twitter
+    .consumerKey(config.oauth.key)
+    .consumerSecret(config.oauth.secret)
+    .findOrCreateUser(function(session, accessToken, accessTokenSecret, twitterUserData) {
+        var promise = new Promise();
 
-  server: {
-    port: 8080
-  }
-};
+        config.oauth.accessToken = accessToken;
+        config.oauth.accessTokenSecret = accessTokenSecret;
+
+        users.findOrCreateByTwitterData(twitterUserData, accessToken, accessTokenSecret, promise);
+
+        return promise;
+    })
+    .redirectPath('/app');
 
 // Configuration
 
