@@ -10,14 +10,34 @@
  * Judith Ngo (jud.ngo -[at]- gmail [*dot*] com)
  *
  */
-var express    = require('express'),
+
+//
+// Dependencies / Libraries
+//
+var _          = require('underscore'),
+    express    = require('express'),
     everyauth  = require('everyauth'),
     config     = require('./lib/config').gulp,
+    lingua     = require('./lib/lingua'),
     logger     = require('./lib/logger').logger(config.loggly, true),
     users      = require('./lib/users').users(config, logger),
     Promise    = everyauth.Promise;
 
 var app = module.exports = express.createServer();
+
+//
+// Extending the external with the internal configuration.
+//
+config = _.extend(config, {
+    meta: {
+        name: 'marlene',
+        version: '0.1-20110924'
+    },
+    directories: {
+        app: __dirname + '/app',
+        controllers: __dirname + '/app/controllers'
+    }
+});
 
 //
 // Twitter OAuth configuration
@@ -37,15 +57,23 @@ everyauth.twitter
     })
     .redirectPath('/app');
 
+//
 // Configuration
-
+//
 app.configure(function() {
     app.set('config', config);
-    app.set('views', __dirname + '/app/views');
-    app.set('view engine', 'jade');
+
+    app.register(".html", require("jqtpl").express);
+    app.set('views', config.directories.app + '/views');
+    app.set("view engine", "html");
+
     app.use(express.bodyParser());
     app.use(express.methodOverride());
     app.use(express.cookieParser());
+
+    app.use(lingua(app, {
+        defaultLocale: 'de-de'
+    }));
 
     app.use(express.session({
         secret: 'secret',
@@ -66,15 +94,15 @@ app.configure('production', function(){
     app.use(express.errorHandler()); 
 });
 
-// Routes
+//
+// Init the controllers
+//
+require(config.directories.controllers)(app, logger);
 
-app.get('/', function(req, res){
-  res.render('index', {
-    title: 'Express'
-  });
-});
-
+//
+// Starting listening mechanism.
+//
 if (!module.parent) {
     app.listen(app.set('config').server.port);
-    console.log("'marlene' listening on port %d", app.address().port);
+    console.log("'" + config.meta.name + "' listening on port %d", app.address().port);
 }
