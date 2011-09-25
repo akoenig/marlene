@@ -18,7 +18,7 @@ var _          = require('underscore'),
     express    = require('express'),
     everyauth  = require('everyauth'),
     config     = require('./lib/config').gulp,
-    lingua     = require('./lib/lingua'),
+    lingua     = require('lingua'),
     logger     = require('./lib/logger').logger(config.loggly, true),
     users      = require('./lib/users').users(config, logger),
     Promise    = everyauth.Promise;
@@ -35,7 +35,8 @@ config = _.extend(config, {
     },
     directories: {
         app: __dirname + '/app',
-        controllers: __dirname + '/app/controllers'
+        controllers: __dirname + '/app/controllers',
+        i18n: __dirname + '/i18n'
     }
 });
 
@@ -72,7 +73,8 @@ app.configure(function() {
     app.use(express.cookieParser());
 
     app.use(lingua(app, {
-        defaultLocale: 'de-de'
+        defaultLocale: 'de-de',
+        path: config.directories.i18n
     }));
 
     app.use(express.session({
