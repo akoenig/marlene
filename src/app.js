@@ -37,6 +37,7 @@ config = _.extend(config, {
         app: __dirname + '/app',
         controllers: __dirname + '/app/controllers',
         middleware: __dirname + '/app/middleware',
+        lib: __dirname + '/lib',
         i18n: __dirname + '/i18n'
     }
 });
@@ -53,8 +54,8 @@ everyauth
 
 everyauth
     .twitter
-        .consumerKey(config.oauth.key)
-        .consumerSecret(config.oauth.secret)
+        .consumerKey(config.twitter.oauth.key)
+        .consumerSecret(config.twitter.oauth.secret)
         .findOrCreateUser(function(session, accessToken, accessTokenSecret, twitterUserData) {
             var promise = this.Promise();
 
@@ -62,7 +63,7 @@ everyauth
 
             return promise;
         })
-        .redirectPath('/twitter/timeline');
+        .redirectPath('/twitter/meta');
 
 //
 // Configuration

@@ -15,15 +15,18 @@
         "token": "the-long-input-token",
         "stdout": true
 	},
-	"oauth": {
-        "key": "asdgsdfgsdfgsdfg",
-        "secret": "sdfgsdfgsdfgsdfgsd"
-	},
 	"twitter": {
-		"exclude": {
-		    "retweets": true,
-		   "replies": true
-		}
+		"oauth": {
+	        "key": "asdgsdfgsdfgsdfg",
+	        "secret": "sdfgsdfgsdfgsdfgsd"
+		},
+		"timeline": {
+			"exclude": {
+			    "retweets": true,
+			    "replies": true
+			}
+		},
+		"cachelifetime": 20000
 	},
     "server": {
         "port": 8888

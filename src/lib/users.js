@@ -71,6 +71,7 @@ exports.users = function(config, logger) {
                     promise.fulfill(user);
 
                 } else {
+
                       var doc = {
                         accessToken: accessToken,
                         accessTokenSecret: accessTokenSecret,

@@ -10,41 +10,22 @@
  * Judith Ngo (jud.ngo -[at]- gmail [*dot*] com)
  *
  */
-
-var Twitter = require('twitter');
-
 exports.TwitterController = function(app, mw, logger) {
-
-// FOR DEVELOPMENT PURPOSES
-var ACCESS_TOKEN = 'lfzKo0zBGvgluSzvX5nYNag6hrAmyvHPsTNy6gJYXE';
-var ACCESS_TOKEN_SECRET = 'lfzKo0zBGvgluSzvX5nYNag6hrAmyvHPsTNy6gJYXE';
-
-    //
-    // DOCME
-    //
-    var oauth = app.set('config').oauth;
+var user = {
+  id: 14131939,
+  accessToken: '14131939-8UCoV8LfaysFwLpqscWIYZ0znSsa0dUMK5CgIRUxb',
+  accessTokenSecret: 'lfzKo0zBGvgluSzvX5nYNag6hrAmyvHPsTNy6gJYXE'
+};
 
     //
     // DOCME
     //
-    var config = app.set('config').twitter;
-    config.fetchcount = 200; // Twitter-API max.
+    var appconfig = app.set('config');
+    var config = appconfig.twitter;
 
-    //
-    // summary:
-    //     The API client.
-    //
-    // description:
-    //     DOCME
-    //
-    var _fetcher = function(accessToken, accessTokenSecret) {
-    	return new Twitter({
-            consumer_key: oauth.key,
-            consumer_secret: oauth.secret,
-            access_token_key: accessToken,
-            access_token_secret: accessTokenSecret
-        });
-    };
+    config.timeline.fetchcount = 200; // Twitter-API max.
+
+    var Twitter = require(appconfig.directories.lib + '/twitter')(config, logger);
 
     //
     // summary:
@@ -54,29 +35,14 @@ var ACCESS_TOKEN_SECRET = 'lfzKo0zBGvgluSzvX5nYNag6hrAmyvHPsTNy6gJYXE';
     //     DOCME
     //
     app.get('/twitter/meta', mw.rest.call, mw.rest.loginrequired, function(rew, res) {
-        /*
-        
-            user: name, profileImage, location, follower
-            timeline: count, pages
-        */
-        var meta = {
-        	user: {
-        		name: null,
-        		nick: null,
-                location: null,
-                follower: 0
-        	},
-        	timeline: {
-        		count: 0,
-        		pages: 0 / config.fetchcount
-        	}
-        };
+        var twitter = new Twitter(user);
 
-        var answer = res.answer;
-        answer.data = JSON.stringify(data);
+        twitter.getMeta(function(meta) {
+            var answer = res.answer;
+            answer.data = JSON.stringify(meta);
 
-        res.send(JSON.stringify(data), answer.code);
-
+            res.send(JSON.stringify(answer), answer.code);
+        });
     });
 
     //
@@ -97,38 +63,26 @@ var ACCESS_TOKEN_SECRET = 'lfzKo0zBGvgluSzvX5nYNag6hrAmyvHPsTNy6gJYXE';
     // description:
     //     DOCME
     //
-    app.get('/twitter/timeline/:page', mw.rest.call, mw.rest.loginrequired, function(req, res) {
+    app.get('/twitter/timeline/:pagenumber', mw.rest.call, mw.rest.loginrequired, function(req, res) {
+        // TODO: Insert user object.
+        var twitter = new Twitter(user);
 
-        var fetcher = _fetcher(ACCESS_TOKEN, ACCESS_TOKEN_SECRET);
+        var pagenumber = req.params.pagenumber;
 
-        fetcher.getUserTimeline({
-        	count: config.fetchcount,
-        	exclude_replies: (config.exclude.replies) ? true : false,
-        	include_rts: (config.exclude.retweets) ? false : true,
-        	include_entities: false,
-        	page: req.params.page
-        }, function(rawTweets) {
+        twitter.getTimeline(pagenumber, function(error, page) {
+            var answer = res.answer;
 
-        	var tweets = [];
+            if (!error) {
+                answer.success = true;
+                answer.data = JSON.stringify(page.tweets);
+            } else {
+                console.log(error);
+                answer.success = false;
+                answer.code = error.code;
+                answer.message = error.message;
+            }
 
-            rawTweets.forEach(function(rawTweet) {
-            	var tweet = function() {
-            		return {
-            			id: rawTweet.id_str,
-            			text: rawTweet.text,
-            			created: rawTweet.created_at
-            		};
-            	}();
-
-            	tweets.push(tweet);
-            });
-
-        	var answer = res.answer;
-
-        	answer.success = true;
-        	answer.data = JSON.stringify(tweets);
-
-        	res.send(JSON.stringify(answer), answer.code);
+            res.send(JSON.stringify(answer), answer.code);
         });
     });
 };
