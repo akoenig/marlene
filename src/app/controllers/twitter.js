@@ -11,10 +11,12 @@
  *
  */
 exports.TwitterController = function(app, mw, logger) {
+
+// TODO: Fix the problem with req.user
 var user = {
-  id: 14131939,
-  accessToken: '14131939-8UCoV8LfaysFwLpqscWIYZ0znSsa0dUMK5CgIRUxb',
-  accessTokenSecret: 'lfzKo0zBGvgluSzvX5nYNag6hrAmyvHPsTNy6gJYXE'
+    id: 14131939,
+    accessToken: '14131939-8UCoV8LfaysFwLpqscWIYZ0znSsa0dUMK5CgIRUxb',
+    accessTokenSecret: 'lfzKo0zBGvgluSzvX5nYNag6hrAmyvHPsTNy6gJYXE'
 };
 
     //
@@ -64,7 +66,6 @@ var user = {
     //     DOCME
     //
     app.get('/twitter/timeline/:pagenumber', mw.rest.call, mw.rest.loginrequired, function(req, res) {
-        // TODO: Insert user object.
         var twitter = new Twitter(user);
 
         var pagenumber = req.params.pagenumber;

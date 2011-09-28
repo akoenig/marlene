@@ -81,7 +81,8 @@ console.log(context.user);
                     location: data.location,
                     name: data.name,
                     nick: data.screen_name,
-                    statuscount: data.statuses_count
+                    statuscount: data.statuses_count,
+                    pages: Math.round(data.statuses_count / config.fetchcount)
                 };
 
                 context.user = _.extend(context.user, userdata);
