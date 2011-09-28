@@ -19,6 +19,12 @@
         "key": "asdgsdfgsdfgsdfg",
         "secret": "sdfgsdfgsdfgsdfgsd"
 	},
+	"twitter": {
+		"exclude": {
+		    "retweets": true,
+		   "replies": true
+		}
+	},
     "server": {
         "port": 8888
     }

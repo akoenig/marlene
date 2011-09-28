@@ -24,6 +24,32 @@ exports.users = function(config, logger) {
     var c = connection.database(config.database.name);
 
     return {
+
+        //
+        // summary:
+        //     DOCME
+        //
+        // description:
+        //     DOCME
+        //
+        findById : function(id, callback) {
+            c.view('docs/twitterId', function(err, docs) {
+              console.log("findById");
+                docs.forEach(function(doc) {
+                    if (doc.twitterId+'' === id) {
+                        callback(null, doc);
+                    }
+                });
+            });
+        },
+
+        //
+        // summary:
+        //     DOCME
+        //
+        // description:
+        //     DOCME
+        //
         findOrCreateByTwitterData: function(twitterUserData, accessToken, accessTokenSecret, promise) {
               c.view('docs/twitterId', function(err, docs) {
                 if (err) {
@@ -40,10 +66,11 @@ exports.users = function(config, logger) {
                 });
 
                 if (exists) {
-                      var user = docs[0].value;
-                      promise.fulfill(user);
-                } else {
+                    var user = docs[0].value;
 
+                    promise.fulfill(user);
+
+                } else {
                       var doc = {
                         accessToken: accessToken,
                         accessTokenSecret: accessTokenSecret,
@@ -56,13 +83,12 @@ exports.users = function(config, logger) {
 
                       c.save(doc, function(err, res) {
                         if (err) {
-                              console.log("Error using users:");
-                              console.log(err);
+                              logger.log('Module: users - Error while using user: ' +JSON.stringify(err));
                               promise.fail(err);
                               return;
                         }
 
-                        logger.log('Created user: ' + JSON.stringify(doc));
+                        logger.log('Module: users - Created user: ' + JSON.stringify(doc));
 
                         promise.fulfill(doc);
                       });

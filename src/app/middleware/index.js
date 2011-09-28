@@ -15,6 +15,7 @@ module.exports = function(logger) {
 	var middleware = {};
 
     middleware.auth = require('./auth')();
+    middleware.rest = require('./rest')();
 
 	return middleware;
 };

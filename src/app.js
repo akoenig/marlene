@@ -20,9 +20,9 @@ var _          = require('underscore'),
     config     = require('./lib/config').gulp,
     lingua     = require('lingua'),
     logger     = require('./lib/logger').logger(config.loggly, true),
-    users      = require('./lib/users').users(config, logger),
-    Promise    = everyauth.Promise;
+    users      = require('./lib/users').users(config, logger);
 
+// DOCME
 var app = module.exports = express.createServer();
 
 //
@@ -44,20 +44,25 @@ config = _.extend(config, {
 //
 // Twitter OAuth configuration
 //
-everyauth.twitter
-    .consumerKey(config.oauth.key)
-    .consumerSecret(config.oauth.secret)
-    .findOrCreateUser(function(session, accessToken, accessTokenSecret, twitterUserData) {
-        var promise = new Promise();
+everyauth
+    .everymodule
+        .findUserById( function (id, callback) {
+            console.log("alhfslkhflskdjhflksjdhflk");
+            callback(null, usersById[id]);
+        });
 
-        config.oauth.accessToken = accessToken;
-        config.oauth.accessTokenSecret = accessTokenSecret;
+everyauth
+    .twitter
+        .consumerKey(config.oauth.key)
+        .consumerSecret(config.oauth.secret)
+        .findOrCreateUser(function(session, accessToken, accessTokenSecret, twitterUserData) {
+            var promise = this.Promise();
 
-        users.findOrCreateByTwitterData(twitterUserData, accessToken, accessTokenSecret, promise);
+            users.findOrCreateByTwitterData(twitterUserData, accessToken, accessTokenSecret, promise);
 
-        return promise;
-    })
-    .redirectPath('/app');
+            return promise;
+        })
+        .redirectPath('/twitter/timeline');
 
 //
 // Configuration
@@ -79,13 +84,14 @@ app.configure(function() {
     }));
 
     app.use(express.session({
-        secret: 'secret',
-        key: 'express.sid'
+        secret: 'secret'
     }));
+
+    app.use(express.static(__dirname + '/public'));
 
     app.use(everyauth.middleware());
     app.use(app.router);
-    app.use(express.static(__dirname + '/public'));
+
     everyauth.helpExpress(app);
 });
 

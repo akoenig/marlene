@@ -1,6 +1,10 @@
 {
 	"app": {
-		"title": "marlene",
-		"description": "Generiert ein Poster aus einem Tweet..."
+		"title": "Hallo"
+	},
+	"rest": {
+		"errors": {
+			"loginrequired": "Du bist derzeit nicht angemeldet!!!"
+		}
 	}
 }

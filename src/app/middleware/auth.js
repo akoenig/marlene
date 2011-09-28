@@ -21,7 +21,7 @@ module.exports = function() {
     	// description:
     	//     DOCME
         //
-        signedup : function(req, res, next) {
+        loginrequired : function(req, res, next) {
         	var loggedin = req.loggedIn;
 
             if (!loggedin) {
