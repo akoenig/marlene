@@ -30,6 +30,5 @@ module.exports = function() {
             	next();
             }
     	}
-    }
-	
+    }	
 };
