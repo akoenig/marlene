@@ -70,6 +70,11 @@ module.exports = function(config, logger) {
 
             var fetcher = context._createFetcher();
 
+            // Before we fetch the new data, we have to lock the cache
+            // so that the 'punisher process' won't clear it until
+            // some fresh data has arrived.
+            cache.lock();
+
             fetcher.lookupUser(this.user.id, function(data) {   
                 var userdata = {
                     avatar: data.profile_image_url,
@@ -90,6 +95,8 @@ module.exports = function(config, logger) {
                 cache.add(context.user);
 
                 callback(context.user)
+
+                cache.unlock();
             });
         } else {
             logger.log('Twitter: Getting the user data from the cache.');
@@ -113,6 +120,11 @@ module.exports = function(config, logger) {
         if (!page) {
             logger.log("Twitter: Page was NOT in the cache ... Fetching it from the API.");
             var fetcher = context._createFetcher();
+
+            // Before we fetch the new data, we have to lock the cache
+            // so that the 'punisher process' won't clear it until
+            // some fresh data has arrived.
+            cache.lock();
 
             fetcher.getUserTimeline({
                 count: config.timeline.fetchcount,
@@ -151,6 +163,8 @@ module.exports = function(config, logger) {
                     cache.add(context.user, page);
 
                     callback(null, page);
+
+                    cache.unlock();
                 }
             });
         } else {

@@ -14,11 +14,14 @@ var _ = require('underscore');
 
 var TimelineCache = function(lifetime, logger) {
 	var context = this;
+
     this.logger = logger;
 
     context.logger.log('TimelineCache: Creating cache (lifetime='+lifetime+'ms).');
 
  	this.timelines = [];
+
+    this.locked = false;
 
     //
     // summary:
@@ -28,9 +31,12 @@ var TimelineCache = function(lifetime, logger) {
     //     DOCME
     //
     var punisher = setInterval(function() {
-        context.logger.log('TimelineCache: ## CLEARING THE CACHE ##');
-
-    	context.timelines = [];
+        if (!context.locked) {
+            context.logger.log('TimelineCache: ## CLEARING THE CACHE ##');
+    	    context.timelines = [];
+        } else {
+            context.logger.log('TimelineCache: ## CACHE IS LOCKED - WILL NOT CLEAR THE CACHE ##');
+        }
     }, lifetime);
 
     //
@@ -107,6 +113,9 @@ TimelineCache.prototype.add = function(user, page) {
 
     context.logger.log("TimelineCache: Cached timelines " + context.timelines.length);
     context.logger.log("TimelineCache: Current inspected timeline from '@" + timeline.user.nick + "' has " + timeline.pages.length + " cached page(s).");
+
+
+    console.log(this.timelines);
 };
 
 //
@@ -127,6 +136,28 @@ TimelineCache.prototype.lookup = function(user, pagenumber) {
     }
 
     return result;
+};
+
+//
+// summary:
+//     DOCME
+//
+// description:
+//     DOCME
+//
+TimelineCache.prototype.lock = function() {
+    this.locked = true;
+};
+
+//
+// summary:
+//     DOCME
+//
+// description:
+//     DOCME
+//
+TimelineCache.prototype.unlock = function() {
+    this.locked = false;
 };
 
 module.exports = TimelineCache;

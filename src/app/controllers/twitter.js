@@ -10,6 +10,9 @@
  * Judith Ngo (jud.ngo -[at]- gmail [*dot*] com)
  *
  */
+
+var Step = require('step');
+
 exports.TwitterController = function(app, mw, logger) {
 
     //
@@ -63,25 +66,37 @@ exports.TwitterController = function(app, mw, logger) {
 
         var pagenumber = req.params.pagenumber;
 
-        twitter.getTimeline(pagenumber, function(error, timeline) {
-            var answer = res.answer;
+        //
+        // The "meta data loading" is necessary because of the cache garbage collection.
+        // If the user will call this route while the cache was cleared all twitter user
+        // information will be not available anymore. So we have to ensure their existence.
+        //
+        Step(
+            function meta() {
+                twitter.getMeta(this) // Here we cache the twitter user information if the were removed.
+            },
+            function timeline() {
+                twitter.getTimeline(pagenumber, function(error, timeline) {
+                    var answer = res.answer;
 
-            var page = {
-                no: pagenumber,
-                tweets: null
+                    var page = {
+                        no: pagenumber,
+                        tweets: null
+                    }
+
+                    if (!error) {
+                        answer.success = true;
+                        page.tweets = timeline.tweets;
+                        answer.data = JSON.stringify(page);
+                    } else {
+                        answer.success = false;
+                        answer.code = error.code;
+                        answer.message = error.message;
+                    }
+
+                    res.send(JSON.stringify(answer), answer.code);
+                });
             }
-
-            if (!error) {
-                answer.success = true;
-                page.tweets = timeline.tweets;
-                answer.data = JSON.stringify(page);
-            } else {
-                answer.success = false;
-                answer.code = error.code;
-                answer.message = error.message;
-            }
-
-            res.send(JSON.stringify(answer), answer.code);
-        });
+        );
     });
 };
