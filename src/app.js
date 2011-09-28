@@ -36,6 +36,7 @@ config = _.extend(config, {
     directories: {
         app: __dirname + '/app',
         controllers: __dirname + '/app/controllers',
+        middleware: __dirname + '/app/middleware',
         i18n: __dirname + '/i18n'
     }
 });
@@ -97,9 +98,21 @@ app.configure('production', function(){
 });
 
 //
+// Init the middleware
+//
+var middleware = require(config.directories.middleware)(logger);
+
+//
 // Init the controllers
 //
-require(config.directories.controllers)(app, logger);
+require(config.directories.controllers)(app, middleware, logger);
+
+//
+// Init the start route
+//
+app.get('/', function(res, req) {
+    req.redirect('/hello');
+});
 
 //
 // Starting listening mechanism.

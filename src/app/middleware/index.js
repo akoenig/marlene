@@ -10,9 +10,11 @@
  * Judith Ngo (jud.ngo -[at]- gmail [*dot*] com)
  *
  */
- module.exports = function(app, middleware, logger) {
 
- 	require('./hello').HelloController(app, middleware, logger);
- 	require('./twitter').TwitterController(app, middleware, logger);
+module.exports = function(logger) {
+	var middleware = {};
 
- };
+    middleware.auth = require('./auth')();
+
+	return middleware;
+};

@@ -10,18 +10,9 @@
  * Judith Ngo (jud.ngo -[at]- gmail [*dot*] com)
  *
  */
-exports.HelloController = function(app, mw, logger) {
- 	
- 	//
- 	// summary:
- 	//     DOCME
- 	//
- 	// description:
- 	//     DOCME
- 	//
- 	app.get('/hello', function(req, res) {
- 		logger.log('Called the index route ...');
+exports.TwitterController = function(app, mw, logger) {
 
- 		res.render('index');
+    app.get('/twitter/timeline', mw.auth.signedup, function(req, res) {
+
     });
 };
