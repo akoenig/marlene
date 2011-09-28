@@ -13,9 +13,10 @@
 var _ = require('underscore');
 
 var TimelineCache = function(lifetime, logger) {
-    logger.log('TimelineCache: Creating cache (lifetime='+lifetime+'ms).');
-
 	var context = this;
+    this.logger = logger;
+
+    context.logger.log('TimelineCache: Creating cache (lifetime='+lifetime+'ms).');
 
  	this.timelines = [];
 
@@ -27,7 +28,7 @@ var TimelineCache = function(lifetime, logger) {
     //     DOCME
     //
     var punisher = setInterval(function() {
-        logger.log('TimelineCache: Clearing the cache ...');
+        context.logger.log('TimelineCache: ## CLEARING THE CACHE ##');
 
     	context.timelines = [];
     }, lifetime);
@@ -61,8 +62,6 @@ var TimelineCache = function(lifetime, logger) {
     //     DOCME
     //
     this.lookupPage = function(user, pagenumber) {
-        console.log('TimelineCache: Lookup page ...');
-
         var page = undefined;
 
         var timeline = _.filter(this.timelines, function(timeline) {
@@ -87,14 +86,13 @@ var TimelineCache = function(lifetime, logger) {
 //     DOCME
 //
 TimelineCache.prototype.add = function(user, page) {
-    console.log("TimelineCache: add()");
+    var context = this;
 
 	var timeline = _.filter(this.timelines, function(timeline) {
     	return (timeline.user.id === user.id);
     })[0];
 
     if (!timeline) {
-        console.log('TimelineCache: Creating new entry.');
         timeline = {
             user: user,
             pages: []
@@ -103,12 +101,12 @@ TimelineCache.prototype.add = function(user, page) {
         this.timelines.push(timeline)
     }
 
-    if (page) {
+    if (page && page.tweets.length) {
         timeline.pages.push(page);
     }
 
-    console.log("TimelineCache: -> Content:");
-    console.log(this.timelines);
+    context.logger.log("TimelineCache: Cached timelines " + context.timelines.length);
+    context.logger.log("TimelineCache: Current inspected timeline from '@" + timeline.user.nick + "' has " + timeline.pages.length + " cached page(s).");
 };
 
 //
@@ -117,19 +115,6 @@ TimelineCache.prototype.add = function(user, page) {
 //
 // description:
 //     DOCME
-/*
-
- entry = {
-    user: user,
-    pages: [
-        {
-            no: null,
-            tweets: []
-        }
-    ]
- }
-
-*/
 //
 TimelineCache.prototype.lookup = function(user, pagenumber) {
     var context = this;

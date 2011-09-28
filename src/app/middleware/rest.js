@@ -40,6 +40,22 @@ module.exports = function() {
         call : function(req, res, next) {
         	res.answer = _createAnswer();
 
+            var auth = req.session.auth;
+
+            if (auth) {
+                var credentials = auth.twitter;
+
+                if (credentials) {
+                    var user = {
+                        id: credentials.user.id,
+                        accessToken: credentials.accessToken,
+                        accessTokenSecret: credentials.accessTokenSecret
+                    };
+
+                    req.user = user;
+                }
+            }
+
         	next();
         },
 

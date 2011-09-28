@@ -12,13 +12,6 @@
  */
 exports.TwitterController = function(app, mw, logger) {
 
-// TODO: Fix the problem with req.user
-var user = {
-    id: 14131939,
-    accessToken: '14131939-8UCoV8LfaysFwLpqscWIYZ0znSsa0dUMK5CgIRUxb',
-    accessTokenSecret: 'lfzKo0zBGvgluSzvX5nYNag6hrAmyvHPsTNy6gJYXE'
-};
-
     //
     // DOCME
     //
@@ -36,8 +29,8 @@ var user = {
     // description:
     //     DOCME
     //
-    app.get('/twitter/meta', mw.rest.call, mw.rest.loginrequired, function(rew, res) {
-        var twitter = new Twitter(user);
+    app.get('/twitter/meta', mw.rest.call, mw.rest.loginrequired, function(req, res) {
+        var twitter = new Twitter(req.user);
 
         twitter.getMeta(function(meta) {
             var answer = res.answer;
@@ -55,7 +48,7 @@ var user = {
     //     DOCME
     //
     app.get('/twitter/timeline', mw.rest.call, mw.rest.loginrequired, function(req, res) {
-        res.redirect('/twitter/timeline/1');
+        res.redirect('/twitter/timeline/page/1');
     });
 
     //
@@ -65,19 +58,24 @@ var user = {
     // description:
     //     DOCME
     //
-    app.get('/twitter/timeline/:pagenumber', mw.rest.call, mw.rest.loginrequired, function(req, res) {
-        var twitter = new Twitter(user);
+    app.get('/twitter/timeline/page/:pagenumber', mw.rest.call, mw.rest.loginrequired, function(req, res) {
+        var twitter = new Twitter(req.user);
 
         var pagenumber = req.params.pagenumber;
 
-        twitter.getTimeline(pagenumber, function(error, page) {
+        twitter.getTimeline(pagenumber, function(error, timeline) {
             var answer = res.answer;
+
+            var page = {
+                no: pagenumber,
+                tweets: null
+            }
 
             if (!error) {
                 answer.success = true;
-                answer.data = JSON.stringify(page.tweets);
+                page.tweets = timeline.tweets;
+                answer.data = JSON.stringify(page);
             } else {
-                console.log(error);
                 answer.success = false;
                 answer.code = error.code;
                 answer.message = error.message;

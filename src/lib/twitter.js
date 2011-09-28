@@ -44,8 +44,6 @@ module.exports = function(config, logger) {
 	    //     DOCME
 	    //
 	    this._createFetcher = function() {
-           console.log("Twitter -> _createFetcher. Config: ");
-console.log(context.user);
 		    return new TwitterAPI({
                 consumer_key: config.oauth.key,
                 consumer_secret: config.oauth.secret,
@@ -82,7 +80,10 @@ console.log(context.user);
                     name: data.name,
                     nick: data.screen_name,
                     statuscount: data.statuses_count,
-                    pages: Math.round(data.statuses_count / config.fetchcount)
+                    pages: function() {
+                        var rounded = Math.round(data.statuses_count / config.fetchcount);
+                        return (rounded === 0) ? 1 : rounded;
+                    }()
                 };
 
                 context.user = _.extend(context.user, userdata);
@@ -140,7 +141,6 @@ console.log(context.user);
                         }();
 
                         tweets.push(tweet);
-                        console.log("PUSH");
                     });
 
                     var page = {
