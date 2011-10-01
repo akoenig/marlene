@@ -75,27 +75,37 @@ exports.TwitterController = function(app, mw, logger) {
             function meta() {
                 twitter.getMeta(this) // Here we cache the twitter user information if the were removed.
             },
-            function timeline() {
-                twitter.getTimeline(pagenumber, function(error, timeline) {
-                    var answer = res.answer;
+            function timeline(user) {
+                var page = {
+                    no: pagenumber,
+                    tweets: []
+                };
 
-                    var page = {
-                        no: pagenumber,
-                        tweets: null
-                    }
+                var answer = res.answer;
 
-                    if (!error) {
-                        answer.success = true;
-                        page.tweets = timeline.tweets;
-                        answer.data = JSON.stringify(page);
-                    } else {
-                        answer.success = false;
-                        answer.code = error.code;
-                        answer.message = error.message;
-                    }
+                // Check if the user owns the requested page. If not we
+                // have to avoid a useless API request (Issue #1).
+                if (pagenumber <= user.pages) {
+                    twitter.getTimeline(pagenumber, function(error, timeline) {                    
+
+                        if (!error) {
+                            answer.success = true;
+                            page.tweets = timeline.tweets;
+                            answer.data = JSON.stringify(page);
+                        } else {
+                            answer.success = false;
+                            answer.code = error.code;
+                            answer.message = error.message;
+                        }
+
+                        res.send(JSON.stringify(answer), answer.code);
+                    });
+                } else {
+                    answer.success = true;
+                    answer.data = JSON.stringify(page);
 
                     res.send(JSON.stringify(answer), answer.code);
-                });
+                }
             }
         );
     });

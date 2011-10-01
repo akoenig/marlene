@@ -126,6 +126,9 @@ module.exports = function(config, logger) {
             // some fresh data has arrived.
             cache.lock();
 
+            // TODO: AVOIDING LOADING BY CHECKING THE GIVEN PAGENUMBER AGAINS
+            //      THE PAGES COUNT IN THE USER META DATA.
+
             fetcher.getUserTimeline({
                 count: config.timeline.fetchcount,
                 exclude_replies: (config.timeline.exclude.replies) ? true : false,
