@@ -20,12 +20,12 @@ module.exports = function() {
     //     DOCME
     //
     var _createAnswer = function() {
-    	return {
+        return {
             success: true,
             code: 200,
             message: null,
             data: null
-        }
+        };
     };
 
     return {
@@ -38,7 +38,7 @@ module.exports = function() {
         //     DOCME
         //
         call : function(req, res, next) {
-        	res.answer = _createAnswer();
+            res.answer = _createAnswer();
 
             var auth = req.session.auth;
 
@@ -56,7 +56,7 @@ module.exports = function() {
                 }
             }
 
-        	next();
+            next();
         },
 
         //
@@ -67,22 +67,22 @@ module.exports = function() {
         //     DOCME
         //
         loginrequired : function(req, res, next) {
-        	if (!res.answer) {
-        		res.answer = _createAnswer();
-        	}
+            if (!res.answer) {
+                res.answer = _createAnswer();
+            }
 
-        	var loggedin = req.loggedIn;
+            var loggedin = req.loggedIn;
 
             if (!loggedin) {
                 res.answer.success = false;
                 res.answer.code = 401;
                 res.answer.message = res.lingua.content.rest.errors.loginrequired;
 
-            	res.send(JSON.stringify(res.answer), res.answer.code);
+                res.send(JSON.stringify(res.answer), res.answer.code);
             } else {
-            	next();
+                next();
             }
         }
 
-    }
+    };
 };

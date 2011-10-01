@@ -10,8 +10,7 @@
  * Judith Ngo (jud.ngo -[at]- gmail [*dot*] com)
  *
  */
-var cradle = require('cradle'),
-    util   = require('util');
+var cradle = require('cradle');
 
 exports.users = function(config, logger) {
     var connection = new (cradle.Connection)(config.database.host, config.database.port, {
@@ -34,9 +33,8 @@ exports.users = function(config, logger) {
         //
         findById : function(id, callback) {
             c.view('docs/twitterId', function(err, docs) {
-              console.log("findById");
                 docs.forEach(function(doc) {
-                    if (doc.twitterId+'' === id) {
+                    if (doc.twitterId.toString() === id) {
                         callback(null, doc);
                     }
                 });
@@ -60,7 +58,7 @@ exports.users = function(config, logger) {
                 var exists = false;
 
                 docs.forEach(function(doc) {
-                    if (doc.twitterId+'' === twitterUserData.id_str) {
+                    if (doc.twitterId.toString() === twitterUserData.id_str) {
                         exists = true;
                     }
                 });
@@ -96,5 +94,5 @@ exports.users = function(config, logger) {
                 }
               });
           }
-    }
+    };
 };

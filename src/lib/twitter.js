@@ -36,30 +36,30 @@ module.exports = function(config, logger) {
 
         this.user = user;
 
-	    //
-	    // summary:
-	    //     DOCME
-	    //
-	    // description:
-	    //     DOCME
-	    //
-	    this._createFetcher = function() {
-		    return new TwitterAPI({
+        //
+        // summary:
+        //     DOCME
+        //
+        // description:
+        //     DOCME
+        //
+        this._createFetcher = function() {
+            return new TwitterAPI({
                 consumer_key: config.oauth.key,
                 consumer_secret: config.oauth.secret,
                 access_token_key: context.user.accessToken,
                 access_token_secret: context.user.accessTokenSecret
             });
-	    }
+        };
     };
 
-	//
-	// summary:
-	//     DOCME
-	//
-	// description:
-	//     DOCME
-	//
+    //
+    // summary:
+    //     DOCME
+    //
+    // description:
+    //     DOCME
+    //
     Twitter.prototype.getMeta = function(callback) {
         var context = this;
 
@@ -85,16 +85,16 @@ module.exports = function(config, logger) {
                     name: data.name,
                     nick: data.screen_name,
                     statuscount: data.statuses_count,
-                    pages: function() {
+                    pages: (function() {
                         var rounded = Math.round(data.statuses_count / config.fetchcount);
                         return (rounded === 0) ? 1 : rounded;
-                    }()
+                    }())
                 };
 
                 context.user = _.extend(context.user, userdata);
                 cache.add(context.user);
 
-                callback(context.user)
+                callback(context.user);
 
                 cache.unlock();
             });
@@ -105,17 +105,17 @@ module.exports = function(config, logger) {
         }
     };
 
-	//
-	// summary:
-	//     DOCME
-	//
-	// description:
-	//     DOCME
-	//
+    //
+    // summary:
+    //     DOCME
+    //
+    // description:
+    //     DOCME
+    //
     Twitter.prototype.getTimeline = function(pagenumber, callback) {
         var context = this;
 
-    	var page = cache.lookup(this.user, pagenumber);
+        var page = cache.lookup(this.user, pagenumber);
 
         if (!page) {
             logger.log("Twitter: Page was NOT in the cache ... Fetching it from the API.");
@@ -125,9 +125,6 @@ module.exports = function(config, logger) {
             // so that the 'punisher process' won't clear it until
             // some fresh data has arrived.
             cache.lock();
-
-            // TODO: AVOIDING LOADING BY CHECKING THE GIVEN PAGENUMBER AGAINS
-            //      THE PAGES COUNT IN THE USER META DATA.
 
             fetcher.getUserTimeline({
                 count: config.timeline.fetchcount,
@@ -147,13 +144,13 @@ module.exports = function(config, logger) {
                     });
                 } else {
                     rawTweets.forEach(function(rawTweet) {
-                        var tweet = function() {
+                        var tweet = (function() {
                             return {
                                 id: rawTweet.id_str,
                                 text: rawTweet.text,
                                 created: rawTweet.created_at
                             };
-                        }();
+                        }());
 
                         tweets.push(tweet);
                     });

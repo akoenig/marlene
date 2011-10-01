@@ -14,21 +14,21 @@ module.exports = function() {
 
     return {
 
-    	//
-    	// summary:
-    	//     DOCME
-    	//
-    	// description:
-    	//     DOCME
+        //
+        // summary:
+        //     DOCME
+        //
+        // description:
+        //     DOCME
         //
         loginrequired : function(req, res, next) {
-        	var loggedin = req.loggedIn;
+            var loggedin = req.loggedIn;
 
             if (!loggedin) {
-            	res.redirect('/auth/twitter');
+                res.redirect('/auth/twitter');
             } else {
-            	next();
+                next();
             }
-    	}
-    }	
+        }
+    };
 };

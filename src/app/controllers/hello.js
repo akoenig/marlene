@@ -11,17 +11,17 @@
  *
  */
 exports.HelloController = function(app, mw, logger) {
- 	
- 	//
- 	// summary:
- 	//     DOCME
- 	//
- 	// description:
- 	//     DOCME
- 	//
- 	app.get('/hello', function(req, res) {
- 		logger.log('Called the index route ...');
+     
+    //
+    // summary:
+    //     DOCME
+    //
+    // description:
+    //     DOCME
+    //
+    app.get('/hello', function(req, res) {
+        logger.log('Called the index route ...');
 
- 		res.render('index');
+        res.render('index');
     });
 };

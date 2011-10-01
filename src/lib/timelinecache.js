@@ -13,13 +13,13 @@
 var _ = require('underscore');
 
 var TimelineCache = function(lifetime, logger) {
-	var context = this;
+    var context = this;
 
     this.logger = logger;
 
     context.logger.log('TimelineCache: Creating cache (lifetime='+lifetime+'ms).');
 
- 	this.timelines = [];
+    this.timelines = [];
 
     this.locked = false;
 
@@ -33,7 +33,7 @@ var TimelineCache = function(lifetime, logger) {
     var punisher = setInterval(function() {
         if (!context.locked) {
             context.logger.log('TimelineCache: ## CLEARING THE CACHE ##');
-    	    context.timelines = [];
+            context.timelines = [];
         } else {
             context.logger.log('TimelineCache: ## CACHE IS LOCKED - WILL NOT CLEAR THE CACHE ##');
         }
@@ -47,7 +47,7 @@ var TimelineCache = function(lifetime, logger) {
     //     DOCME
     //
     this.lookupUser = function(id) {
-        var user = undefined;
+        var user;
 
         var timeline = _.filter(this.timelines, function(timeline) {
             return (timeline.user.id === id);
@@ -68,7 +68,7 @@ var TimelineCache = function(lifetime, logger) {
     //     DOCME
     //
     this.lookupPage = function(user, pagenumber) {
-        var page = undefined;
+        var page;
 
         var timeline = _.filter(this.timelines, function(timeline) {
             return (timeline.user.id === user.id);
@@ -94,8 +94,8 @@ var TimelineCache = function(lifetime, logger) {
 TimelineCache.prototype.add = function(user, page) {
     var context = this;
 
-	var timeline = _.filter(this.timelines, function(timeline) {
-    	return (timeline.user.id === user.id);
+    var timeline = _.filter(this.timelines, function(timeline) {
+        return (timeline.user.id === user.id);
     })[0];
 
     if (!timeline) {
@@ -104,7 +104,7 @@ TimelineCache.prototype.add = function(user, page) {
             pages: []
         };
 
-        this.timelines.push(timeline)
+        this.timelines.push(timeline);
     }
 
     if (page && page.tweets.length) {
@@ -127,7 +127,7 @@ TimelineCache.prototype.add = function(user, page) {
 //
 TimelineCache.prototype.lookup = function(user, pagenumber) {
     var context = this;
-    var result = undefined;
+    var result;
 
     if (typeof user === 'number') {
         result = context.lookupUser(user);

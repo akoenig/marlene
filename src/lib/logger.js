@@ -24,5 +24,5 @@ exports.logger = function(config, enableJson) {
                 console.log(message);
             }
         }
-    }
+    };
 };

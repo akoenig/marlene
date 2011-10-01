@@ -18,9 +18,9 @@ function gulp() {
     try {
         var path = fs.realpathSync(filename);
     } catch (e) {
-    	if (e.message.indexOf('No such file') !== -1) {
-    		throw new Error('[ERROR] Configuration file is not available. Please create the file an restart the app again.');
-    	}
+        if (e.message.indexOf('No such file') !== -1) {
+            throw new Error('[ERROR] Configuration file is not available. Please create the file an restart the app again.');
+        }
     }
 
     var content = fs.readFileSync(filename);
@@ -30,6 +30,6 @@ function gulp() {
     }
   
     return JSON.parse(content);
-};
+}
 
 exports.gulp = gulp();

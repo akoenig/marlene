@@ -12,7 +12,7 @@
  */
  module.exports = function(app, middleware, logger) {
 
- 	require('./hello').HelloController(app, middleware, logger);
- 	require('./twitter').TwitterController(app, middleware, logger);
+    require('./hello').HelloController(app, middleware, logger);
+    require('./twitter').TwitterController(app, middleware, logger);
 
  };

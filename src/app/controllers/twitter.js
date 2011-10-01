@@ -73,7 +73,7 @@ exports.TwitterController = function(app, mw, logger) {
         //
         Step(
             function meta() {
-                twitter.getMeta(this) // Here we cache the twitter user information if the were removed.
+                twitter.getMeta(this); // Here we cache the twitter user information if the were removed.
             },
             function timeline(user) {
                 var page = {
