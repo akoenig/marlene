@@ -11,11 +11,23 @@
  *
  */
 require([
-	'app/models/user',
+    'app/models/user',
+    'app/helpers/firefighter',
+    'app/helpers/logger',
+    'app/config',
     'lib/framework',
-], function(User) {
+],
+function(User, firefighter, logger, configuration) {
 
-	var user = new User();
+    var name = 'App';
 
-	console.log(user);
+    logger.log(name, configuration);
+
+    // TODO: Init the exceptionhelper
+    firefighter.alarm()
+
+    var user = new User();
+    user.grab();
+     // TODO: Render the application view
+
 });

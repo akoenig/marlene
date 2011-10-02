@@ -17,7 +17,14 @@ define([
     var User = Backbone.Model.extend({
     	url: '/twitter/meta',
 
-    	initialize : function() {
+        //
+        // summary:
+        //     DOCME
+        //
+        // description:
+        //     DOCME
+        //
+        grab : function() {
     		var context = this;
 
     		context.fetch({
@@ -27,7 +34,7 @@ define([
     				context.clear().set(data);
     			}
     		});
-    	}
+        }
     });
 
     return User;
