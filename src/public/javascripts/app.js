@@ -10,6 +10,12 @@
  * Judith Ngo (jud.ngo -[at]- gmail [*dot*] com)
  *
  */
-require(['lib/jquery'], function() {
-	console.log("Frontend loaded ...");
+require([
+	'app/models/user',
+    'lib/framework',
+], function(User) {
+
+	var user = new User();
+
+	console.log(user);
 });

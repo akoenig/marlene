@@ -31,7 +31,7 @@ var app = module.exports = express.createServer();
 config = _.extend(config, {
     meta: {
         name: 'marlene',
-        version: '0.2-20111001'
+        version: '0.0.2-20111001'
     },
     i18n: {
         defaultLocale: 'de-de'
