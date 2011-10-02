@@ -24,7 +24,16 @@ define([
 function() {
 
     var config = {
-        logging: true
+        logging: true,
+        polling: {
+        	active: true,
+        	interval: 120000
+        },
+        nodes: {
+        	root: null,
+        	loading: $('#loading'),
+        	error: $('#error')
+        }
     };
 
     return config;

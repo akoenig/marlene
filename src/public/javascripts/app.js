@@ -12,22 +12,34 @@
  */
 require([
     'app/models/user',
+    'app/views/workspace',
     'app/helpers/firefighter',
-    'app/helpers/logger',
     'app/config',
     'lib/framework',
 ],
-function(User, firefighter, logger, configuration) {
+function(User, WorkspaceView, firefighter, configuration) {
 
-    var name = 'App';
+    var _name = 'App';
 
-    logger.log(name, configuration);
-
-    // TODO: Init the exceptionhelper
+    //
+    // Init the firefighter which handles all exceptions.
+    //
     firefighter.alarm()
 
+    //
+    // Grab the current logged in user from the backend.
+    //
     var user = new User();
-    user.grab();
-     // TODO: Render the application view
 
+    //
+    // Booting the application.
+    //
+    Step(
+        function grabUser() {
+        	user.grab(this);
+        },
+        function renderWorkspace() {
+        	var workspace = new WorkspaceView({user: user});
+        }
+    );
 });

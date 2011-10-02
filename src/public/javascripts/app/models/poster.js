@@ -12,7 +12,10 @@
  */
 define([
     'lib/framework'
-], function() {
+],
+function() {
+
+    var _name = 'PosterModel';
 
     var Poster = Backbone.Model.extend({
 

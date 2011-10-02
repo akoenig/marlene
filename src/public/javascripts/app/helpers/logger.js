@@ -24,6 +24,8 @@ define([
 ],
 function(config) {
 
+    var _name = 'Logger';
+
     var logger = {
 
     	//

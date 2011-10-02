@@ -11,11 +11,20 @@
  *
  */
 define([
+    'app/config',
+    'app/helpers/logger',
     'lib/framework'
-], function() {
+],
+function(config, logger) {
+
+    var _name = 'UserModel';
 
     var User = Backbone.Model.extend({
+
     	url: '/twitter/meta',
+
+        // DOCME
+        requestor: null,
 
         //
         // summary:
@@ -24,7 +33,7 @@ define([
         // description:
         //     DOCME
         //
-        grab : function() {
+        grab : function(callback) {
     		var context = this;
 
     		context.fetch({
@@ -32,8 +41,24 @@ define([
     				var data = JSON.parse(answer.data);
 
     				context.clear().set(data);
+
+                    logger.log(_name, 'Fetched data from logged in user: ' + JSON.stringify(data));
+
+                    if (callback) {
+                        callback();
+                    }
     			}
     		});
+
+            if (config.polling.active && !this.requestor) {
+                var context = this;
+
+                this.requestor = window.setInterval(function() {
+                    logger.log(_name, 'Polling - Grabbing new user object from the server.');
+
+                    context.grab();
+                }, config.polling.interval);
+            }
         }
     });
 

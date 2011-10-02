@@ -19,12 +19,13 @@
 //     The firefighter handles exceptions from the application.
 //
 define([
+	'app/config',
 	'app/helpers/logger',
     'lib/framework'
 ],
-function(logger) {
+function(config, logger) {
 
-    var name = 'Firefighter';
+    var _name = 'Firefighter';
 
     return {
     	
@@ -36,7 +37,27 @@ function(logger) {
     	//     DOCME
     	//
     	alarm : function() {
-    		logger.log(name, 'boot ...')
+    		logger.log(_name, 'boot ...');
+            
+            $.ajaxSetup({
+                error: function(jqXHR, textStatus, errorThrown) {
+                	config.nodes.error.html(textStatus);
+                }
+	        });
+
+            config.nodes.loading
+                .ajaxStart(function() {
+                    var node = $(this);
+                    node.fadeIn();
+                })
+                .ajaxError(function() {
+                    var node = $(this);
+                    node.fadeOut();
+                })
+                .ajaxSuccess(function() {
+                    var node = $(this);
+                    node.fadeOut();
+                });
     	}
     };
 });
