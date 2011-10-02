@@ -48,6 +48,7 @@ module.exports = function() {
                 if (credentials) {
                     var user = {
                         id: credentials.user.id,
+                        nick: credentials.user.screen_name,
                         accessToken: credentials.accessToken,
                         accessTokenSecret: credentials.accessTokenSecret
                     };

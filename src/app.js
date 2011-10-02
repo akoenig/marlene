@@ -20,7 +20,7 @@ var _          = require('underscore'),
     config     = require('./lib/config').gulp,
     lingua     = require('lingua'),
     logger     = require('./lib/logger').logger(config.loggly, true),
-    users      = require('./lib/users').users(config, logger);
+    oauth      = require('./lib/oauth')(config, logger);
 
 // DOCME
 var app = module.exports = express.createServer();
@@ -31,7 +31,10 @@ var app = module.exports = express.createServer();
 config = _.extend(config, {
     meta: {
         name: 'marlene',
-        version: '0.1-20110924'
+        version: '0.2-20111001'
+    },
+    i18n: {
+        defaultLocale: 'de-de'
     },
     directories: {
         app: __dirname + '/app',
@@ -43,34 +46,16 @@ config = _.extend(config, {
 });
 
 //
-// Twitter OAuth configuration
+// Init the Twitter OAuth layer and pass the url which
+// will be called after the user signed in via Twitter.
 //
-everyauth
-    .everymodule
-        .findUserById( function (id, callback) {
-            console.log("alhfslkhflskdjhflksjdhflk");
-            callback(null, usersById[id]);
-        });
-
-everyauth
-    .twitter
-        .consumerKey(config.twitter.oauth.key)
-        .consumerSecret(config.twitter.oauth.secret)
-        .findOrCreateUser(function(session, accessToken, accessTokenSecret, twitterUserData) {
-            var promise = this.Promise();
-
-            users.findOrCreateByTwitterData(twitterUserData, accessToken, accessTokenSecret, promise);
-
-            return promise;
-        })
-        .redirectPath('/twitter/meta');
+oauth.init('/app');
 
 //
 // Configuration
 //
 app.configure(function() {
     app.set('config', config);
-
     app.register(".html", require("jqtpl").express);
     app.set('views', config.directories.app + '/views');
     app.set("view engine", "html");
@@ -78,22 +63,16 @@ app.configure(function() {
     app.use(express.bodyParser());
     app.use(express.methodOverride());
     app.use(express.cookieParser());
-
     app.use(lingua(app, {
-        defaultLocale: 'de-de',
+        defaultLocale: config.i18n.defaultLocale,
         path: config.directories.i18n
     }));
-
     app.use(express.session({
         secret: 'secret'
     }));
-
     app.use(express.static(__dirname + '/public'));
-
     app.use(everyauth.middleware());
     app.use(app.router);
-
-    everyauth.helpExpress(app);
 });
 
 app.configure('development', function(){
@@ -113,13 +92,6 @@ var middleware = require(config.directories.middleware)(logger);
 // Init the controllers
 //
 require(config.directories.controllers)(app, middleware, logger);
-
-//
-// Init the start route
-//
-app.get('/', function(res, req) {
-    req.redirect('/hello');
-});
 
 //
 // Starting listening mechanism.

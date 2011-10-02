@@ -1,6 +1,15 @@
 {
-	"app": {
-		"title": "marlene",
-		"description": "Generates posters from a tweet."
+	"pages": {
+		"hello": {
+			"title": "marlene - Hello ..."
+		},
+		"app": {
+			"title": "marlene - The app ..."
+		}
+	},
+	"rest": {
+		"errors": {
+			"loginrequired": "Not logged in."
+		}
 	}
 }

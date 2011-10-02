@@ -1,6 +1,11 @@
 {
-	"app": {
-		"title": "Hallo"
+	"pages": {
+		"hello": {
+			"title": "marlene - Hallo ..."
+		},
+		"app": {
+			"title": "marlene - Die App ..."
+		}
 	},
 	"rest": {
 		"errors": {
