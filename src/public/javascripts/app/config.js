@@ -27,7 +27,7 @@ function() {
         logging: true,
         polling: {
         	active: true,
-        	interval: 120000
+        	interval: 10000
         },
         nodes: {
         	root: null,

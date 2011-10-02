@@ -38,21 +38,17 @@ function(config, logger) {
     	//
     	alarm : function() {
     		logger.log(_name, 'boot ...');
-            
-            $.ajaxSetup({
-                error: function(jqXHR, textStatus, errorThrown) {
-                	config.nodes.error.html(textStatus);
-                }
-	        });
 
             config.nodes.loading
                 .ajaxStart(function() {
                     var node = $(this);
                     node.fadeIn();
                 })
-                .ajaxError(function() {
+                .ajaxError(function(e, jqxhr, settings, exception) {
                     var node = $(this);
                     node.fadeOut();
+
+                    config.nodes.error.html(exception).fadeIn();
                 })
                 .ajaxSuccess(function() {
                     var node = $(this);
