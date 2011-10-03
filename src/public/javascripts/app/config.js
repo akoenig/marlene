@@ -26,13 +26,13 @@ function() {
     var config = {
         logging: true,
         polling: {
-        	active: true,
-        	interval: 10000
+            active: true,
+            interval: 10000
         },
         nodes: {
-        	root: null,
-        	loading: $('#loading'),
-        	error: $('#error')
+            root: $('#marlene'),
+            loading: $('#loading'),
+            error: $('#error')
         }
     };
 

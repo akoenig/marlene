@@ -1,8 +1,56 @@
+* {
+	margin:0;
+	padding:0
+}
+
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 a {
-  color: #00B7FF;
+    color:#000
+}
+
+#header {
+	left:0;
+	position:fixed;
+	top:0;
+	width:100%
+}
+
+#header h1 {
+	float:left
+}
+
+#header section#toolbar {
+	float:left;
+	margin:10px 50px
+}
+
+#header section#toolbar nav ul {
+	list-style-type:none
+}
+
+#header section#toolbar nav ul li {
+	display:inline-block;
+	margin-right:10px
+}
+
+#header section#user {
+	cursor:pointer;
+	position:absolute;
+	right:0;
+	top:0
+}
+
+#header section#user img.avatar {
+	width:30px
+}
+
+#header section#user nav {
+	display:none
+}
+
+#header section#user nav ul {
+	list-style-type:none
 }

@@ -22,4 +22,4 @@ function() {
     });
 
     return Poster;
-};
+});

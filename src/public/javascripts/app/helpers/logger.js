@@ -19,7 +19,7 @@
 //     DOCME
 //
 define([
-	'app/config',
+    'app/config',
     'lib/framework'
 ],
 function(config) {
@@ -28,27 +28,27 @@ function(config) {
 
     var logger = {
 
-    	//
-    	// summary:
-    	//     DOCME
-    	//
-    	// description:
-    	//     DOCME
-    	//
-    	log: function(module, message) {
-    		if (config.logging) {
-    			var timestamp = (function() {
-    				var date = new Date();
-    				return ((((date.getFullYear()*100 + date.getMonth()+1)*100 + date.getDate())*100 + date.getHours())*100 + date.getMinutes())*100 + date.getSeconds() + date.getMilliseconds();
-    			}());
+        //
+        // summary:
+        //     DOCME
+        //
+        // description:
+        //     DOCME
+        //
+        log: function(module, message) {
+            if (config.logging) {
+                var timestamp = (function() {
+                    var date = new Date();
+                    return ((((date.getFullYear()*100 + date.getMonth()+1)*100 + date.getDate())*100 + date.getHours())*100 + date.getMinutes())*100 + date.getSeconds() + date.getMilliseconds();
+                }());
 
                 if (typeof message === 'object') {
-                	message = JSON.stringify(message);
+                    message = JSON.stringify(message);
                 }
 
-    			console.log('[' + timestamp + '] ' + module + ': ' + message);
-    		}
-    	}
+                console.log('[' + timestamp + '] ' + module + ': ' + message);
+            }
+        }
     };
 
     return logger;

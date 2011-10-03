@@ -24,7 +24,7 @@ function(User, WorkspaceView, firefighter, configuration) {
     //
     // Init the firefighter which handles all exceptions.
     //
-    firefighter.alarm()
+    firefighter.alarm();
 
     //
     // Grab the current logged in user from the backend.
@@ -36,10 +36,13 @@ function(User, WorkspaceView, firefighter, configuration) {
     //
     Step(
         function grabUser() {
-        	user.grab(this);
+            user.grab(this);
         },
         function renderWorkspace() {
-        	var workspace = new WorkspaceView({user: user});
+            var workspace = new WorkspaceView({
+                el: configuration.nodes.root,
+                user: user
+            });
         }
     );
 });

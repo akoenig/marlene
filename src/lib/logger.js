@@ -13,7 +13,7 @@
  var loggly = require('loggly');
 
 exports.logger = function(config, enableJson) {
-	config.json = enableJson;
+    config.json = enableJson;
     var client = loggly.createClient(config);
 
     return {

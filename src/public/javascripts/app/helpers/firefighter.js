@@ -19,8 +19,8 @@
 //     The firefighter handles exceptions from the application.
 //
 define([
-	'app/config',
-	'app/helpers/logger',
+    'app/config',
+    'app/helpers/logger',
     'lib/framework'
 ],
 function(config, logger) {
@@ -28,16 +28,16 @@ function(config, logger) {
     var _name = 'Firefighter';
 
     return {
-    	
-    	//
-    	// summary:
-    	//     DOCME
-    	//
-    	// description:
-    	//     DOCME
-    	//
-    	alarm : function() {
-    		logger.log(_name, 'boot ...');
+        
+        //
+        // summary:
+        //     DOCME
+        //
+        // description:
+        //     DOCME
+        //
+        alarm : function() {
+            logger.log(_name, 'boot ...');
 
             config.nodes.loading
                 .ajaxStart(function() {
@@ -54,6 +54,6 @@ function(config, logger) {
                     var node = $(this);
                     node.fadeOut();
                 });
-    	}
+        }
     };
 });
