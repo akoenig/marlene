@@ -11,6 +11,13 @@ a {
     color:#000
 }
 
+.dialog {
+left:20%;
+top:20%;
+	position:absolute;
+	z-index:0
+}
+
 #header {
 	left:0;
 	position:fixed;
@@ -53,4 +60,22 @@ a {
 
 #header section#user nav ul {
 	list-style-type:none
+}
+
+#hogwarts {
+width:500px
+}
+
+#hogwarts .controls {
+	position:relative
+}
+
+#hogwarts .controls ul {
+	right:0;
+	list-style-type:none;
+	position:absolute
+}
+
+#hogwarts .controls ul li {
+	display:inline-block
 }

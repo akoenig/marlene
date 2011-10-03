@@ -12,12 +12,13 @@
  */
 define([
     'app/models/user',
+    'app/views/hogwarts',
     'lib/tpl!app/views/workspace.tpl',
     'lib/i18n!app/nls/workspace',
     'app/helpers/logger',
     'lib/framework'
 ],
-function(User, template, i18n, logger) {
+function(User, HogwartsView, template, i18n, logger) {
     
     var _name = 'WorkspaceView';
 
@@ -89,8 +90,17 @@ function(User, template, i18n, logger) {
         // description:
         //     DOCME
         //
-        create : function() {
+        create : function(e) {
             logger.log(_name, 'Starting the wizard ...');
+            if (e) {
+                e.preventDefault();
+            }
+
+            var context = this;
+
+            var hogwarts = new HogwartsView({
+                el: context.el
+            });
         },
 
         //
