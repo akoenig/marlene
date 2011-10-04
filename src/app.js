@@ -96,7 +96,9 @@ require(config.directories.controllers)(app, middleware, logger);
 //
 // Starting listening mechanism.
 //
+var port = process.env.C9_PORT || app.set('config').port;
+
 if (!module.parent) {
-    app.listen(app.set('config').server.port);
+    app.listen(port);
     console.log("'" + config.meta.name + "' listening on port %d", app.address().port);
 }
