@@ -79,3 +79,13 @@ width:500px
 #hogwarts .controls ul li {
 	display:inline-block
 }
+
+#hogwarts #ron .tweets {
+	max-height:200px;
+	overflow:auto
+}
+
+#hogwarts #ron .tweets ul li {
+	border-bottom:1px solid #efefef;
+	padding:10px 0;
+}

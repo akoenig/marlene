@@ -159,7 +159,8 @@ function(Lucius, Hermione, Ron, Draco, Harry, template, i18n, logger) {
 
                         current.view = new Candidate({
                             el: $(node),
-                            model: context.model
+                            model: context.model,
+                            user: context.user
                         });
                     }
                 );

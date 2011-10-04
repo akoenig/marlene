@@ -11,12 +11,13 @@
  *
  */
 define([
+    'app/models/tweetlist',
     'lib/tpl!app/views/ron.tpl',
     'lib/i18n!app/nls/ron',
     'app/helpers/logger',
     'lib/framework'
 ],
-function(template, i18n, logger) {
+function(TweetList, template, i18n, logger) {
     
     var _name = 'RonView';
 
@@ -38,8 +39,39 @@ function(template, i18n, logger) {
         // description:
         //     DOCME
         //
+        events: {
+            'click .tweets .more': 'more'
+        },
+
+        //
+        // summary:
+        //     DOCME
+        //
+        // description:
+        //     DOCME
+        //
+        user: null,
+
+        //
+        // summary:
+        //     DOCME
+        //
+        // description:
+        //     DOCME
+        //
+        page: 0,
+
+        //
+        // summary:
+        //     DOCME
+        //
+        // description:
+        //     DOCME
+        //
         initialize : function() {
             logger.log(_name, 'initialize ...');
+
+            this.user = this.options.user;
 
             this.render();
         },
@@ -52,10 +84,12 @@ function(template, i18n, logger) {
         //     DOCME
         //
         destroy : function() {
+            var context = this;
+
             var deferred = $.Deferred();
 
-            node.fadeOut('slow', function() {
-                node.remove();
+            context.node.fadeOut('slow', function() {
+                context.node.remove();
 
                 deferred.resolve();
             });
@@ -71,9 +105,42 @@ function(template, i18n, logger) {
         //     DOCME
         //
         render : function() {
-            node = $(template());
+            this.node = $(template());
 
-            this.el.empty().append(node);
+            this.el.empty().append(this.node);
+        },
+
+        //
+        // summary:
+        //     DOCME
+        //
+        // description:
+        //     DOCME
+        //
+        more : function(e) {
+            if (e) {
+                e.preventDefault();
+            }
+
+            var context = this;
+
+            this.page++;
+
+            if (this.page <= this.user.get('pages')) {
+                var tweets = new TweetList();
+
+                Step(
+                    function load() {
+                        tweets.grab(context.page).then(this);
+                    },
+                    function render(tweets) {
+                        console.log(tweets.toJSON());
+                        var list = "<% _.each(tweets, function(tweet) { %> <li><%= tweet.text %></li> <% }); %>";
+                        var templates = $(_.template(list, {tweets : tweets.toJSON()}));
+                        context.$('ul').append(templates);
+                    }
+                );
+            }
         }
     });
 

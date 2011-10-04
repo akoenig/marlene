@@ -15,11 +15,11 @@ define([
 ],
 function() {
 
-    var _name = 'Poster';
+    var _name = 'Tweet';
 
-    var Poster = Backbone.Model.extend({
+    var Tweet = Backbone.Model.extend({
 
     });
 
-    return Poster;
+    return Tweet;
 });
