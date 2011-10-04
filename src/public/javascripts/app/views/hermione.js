@@ -38,6 +38,18 @@ function(template, i18n, logger) {
         // description:
         //     DOCME
         //
+        events: {
+            'click .mode .random' : 'random',
+            'click .mode .selection' : 'selection'
+        },
+
+        //
+        // summary:
+        //     DOCME
+        //
+        // description:
+        //     DOCME
+        //
         initialize : function() {
             logger.log(_name, 'initialize ...');
 
@@ -52,10 +64,12 @@ function(template, i18n, logger) {
         //     DOCME
         //
         destroy : function() {
+            var context = this;
+
             var deferred = $.Deferred();
 
-            node.fadeOut('slow', function() {
-                node.remove();
+            this.node.fadeOut('slow', function() {
+                context.node.remove();
 
                 deferred.resolve();
             });
@@ -71,9 +85,43 @@ function(template, i18n, logger) {
         //     DOCME
         //
         render : function() {
-            node = $(template());
+            this.node = $(template());
 
-            this.el.empty().append(node);
+            this.el.empty().append(this.node);
+        },
+
+        //
+        // summary:
+        //     DOCME
+        //
+        // description:
+        //     DOCME
+        //
+        random : function(e) {
+            if (e) {
+                e.preventDefault();
+            }
+
+            this.model.set({
+                random: true
+            });
+        },
+
+        //
+        // summary:
+        //     DOCME
+        //
+        // description:
+        //     DOCME
+        //
+        selection : function(e) {
+            if (e) {
+                e.preventDefault();
+            }
+
+            this.model.set({
+                random: false
+            });
         }
     });
 

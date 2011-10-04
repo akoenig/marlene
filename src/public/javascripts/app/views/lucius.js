@@ -38,6 +38,18 @@ function(template, i18n, logger) {
         // description:
         //     DOCME
         //
+        events: {
+            'click .format .landscape' : 'landscape',
+            'click .format .portrait' : 'portrait'
+        },
+
+        //
+        // summary:
+        //     DOCME
+        //
+        // description:
+        //     DOCME
+        //
         initialize : function() {
             logger.log(_name, 'initialize ...');
 
@@ -74,6 +86,40 @@ function(template, i18n, logger) {
             node = $(template());
 
             this.el.empty().append(node);
+        },
+
+        //
+        // summary:
+        //     DOCME
+        //
+        // description:
+        //     DOCME
+        //
+        landscape : function(e) {
+            if (e) {
+                e.preventDefault();
+            }
+
+            this.model.set({
+                landscape: true
+            });
+        },
+
+        //
+        // summary:
+        //     DOCME
+        //
+        // description:
+        //     DOCME
+        //
+        portrait : function(e) {
+            if (e) {
+                e.preventDefault();
+            }
+
+            this.model.set({
+                landscape: false
+            });
         }
     });
 
