@@ -28,7 +28,7 @@ function(config, logger) {
     var _name = 'Firefighter';
 
     return {
-        
+
         //
         // summary:
         //     DOCME

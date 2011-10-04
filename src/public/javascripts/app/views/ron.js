@@ -11,16 +11,16 @@
  *
  */
 define([
-    'lib/tpl!app/views/lucius.tpl',
-    'lib/i18n!app/nls/lucius',
+    'lib/tpl!app/views/ron.tpl',
+    'lib/i18n!app/nls/ron',
     'app/helpers/logger',
     'lib/framework'
 ],
 function(template, i18n, logger) {
     
-    var _name = 'LuciusView';
+    var _name = 'RonView';
 
-    var LuciusView = Backbone.View.extend({
+    var RonView = Backbone.View.extend({
 
         //
         // summary:
@@ -77,5 +77,5 @@ function(template, i18n, logger) {
         }
     });
 
-    return LuciusView;
+    return RonView;
 });

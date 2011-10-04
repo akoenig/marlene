@@ -12,13 +12,15 @@
  */
 define([
     'app/models/user',
+    'app/models/poster',
+    'app/models/posterlist',
     'app/views/hogwarts',
     'lib/tpl!app/views/workspace.tpl',
     'lib/i18n!app/nls/workspace',
     'app/helpers/logger',
     'lib/framework'
 ],
-function(User, HogwartsView, template, i18n, logger) {
+function(User, Poster, PosterList, HogwartsView, template, i18n, logger) {
     
     var _name = 'WorkspaceView';
 
@@ -45,7 +47,7 @@ function(User, HogwartsView, template, i18n, logger) {
             this.model = new Backbone.Model();
             this.model.set({
                 user: user,
-                posters: []
+                posters: new PosterList()
             });
 
             logger.log(_name, 'Created workspace ... ' + JSON.stringify(this.model));
@@ -98,8 +100,13 @@ function(User, HogwartsView, template, i18n, logger) {
 
             var context = this;
 
+            var poster = new Poster();
+            context.model.get('posters').add(poster);
+
             var hogwarts = new HogwartsView({
-                el: context.el
+                el: context.el,
+                model: poster,
+                user: context.model.get('user')
             });
         },
 
