@@ -34,7 +34,11 @@ function(Lucius, Hermione, Ron, Draco, Harry, template, i18n, logger) {
         // description:
         //     DOCME
         //
-        node: null,
+        nodes: {
+            root: null,
+            previousButton: '.controls .previous',
+            nextButton: '.controls .next'
+        },
 
         //
         // summary:
@@ -65,13 +69,42 @@ function(Lucius, Hermione, Ron, Draco, Harry, template, i18n, logger) {
         // description:
         //     DOCME
         //
+        handleFlowControl : function(options) {
+            console.log("handleFlowControl");
+            console.log(options);
+
+            // TODO: If it is the last button. Show the "Finish" button.
+            if (options.next) {
+                if (!this.$nextButton.is(':visible')) {
+                    this.$nextButton.fadeIn();
+                }
+            } else {
+                this.$nextButton.hide();
+            }
+
+            if (options.previous) {
+                if (!this.$previousButton.is(':visible')) {
+                    this.$previousButton.fadeIn();
+                }
+            } else {
+                this.$previousButton.hide();
+            }
+        },
+
+        //
+        // summary:
+        //     DOCME
+        //
+        // description:
+        //     DOCME
+        //
         examinationsroom: function() {
             var context = this;
             
             var node = '.examinationsroom';
 
             //
-            // DOCME
+            // DOCME!!!!!
             //
             var current = {
                 getNext : function() {
@@ -96,7 +129,8 @@ function(Lucius, Hermione, Ron, Draco, Harry, template, i18n, logger) {
                     getNext : function() {
                         return getWannabe(1);
                     },
-                    view: null
+                    view: null,
+                    isFirst: true
                 },
                 // 1. Hermione
                 {
@@ -137,7 +171,8 @@ function(Lucius, Hermione, Ron, Draco, Harry, template, i18n, logger) {
                     getPrevious : function() {
                         return getWannabe(context.model.get('random') ? 3 : 2);
                     },
-                    view: null
+                    view: null,
+                    isLast: true
                 }
             ];
 
@@ -160,7 +195,11 @@ function(Lucius, Hermione, Ron, Draco, Harry, template, i18n, logger) {
                         }
                     },
                     function comein() {
-                        current = (isNext) ? examinee.getNext() : examinee.getPrevious();
+                        if (isNext) {
+                            current = examinee.getNext();
+                        } else {
+                            current = examinee.getPrevious();
+                        }
 
                         var Candidate = current.Candidate;
 
@@ -168,6 +207,21 @@ function(Lucius, Hermione, Ron, Draco, Harry, template, i18n, logger) {
                             el: $(node),
                             model: context.model,
                             user: context.user
+                        });
+
+                        // The view is unlocked if the user interacted
+                        // with the controls. Each "student view" in hogwarts
+                        // decides by his own when it is unlocked.
+                        current.view.bind('unlocked', function() {
+                            context.handleFlowControl({
+                                previous: !(current.isFirst),
+                                next: true
+                            });
+                        });
+
+                        context.handleFlowControl({
+                            previous: !(current.isFirst),
+                            next: false
                         });
                     }
                 );
@@ -258,11 +312,13 @@ function(Lucius, Hermione, Ron, Draco, Harry, template, i18n, logger) {
         //     DOCME
         //
         render : function() {
-            this.node = $(template());
-            this.node.hide();
+            this.nodes.root = $(template());
+            this.nodes.root.hide();
 
-            this.el.append(this.node);
-            this.node.fadeIn();
+            this.el.append(this.nodes.root);
+            this.nodes.root.fadeIn();
+
+            this.addReferences(this.nodes);
         },
 
         //

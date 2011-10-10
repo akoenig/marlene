@@ -134,6 +134,8 @@ function(template, i18n, logger) {
             this.model.set({
                 random: true
             });
+
+            this.trigger('unlocked');
         },
 
         //
@@ -154,6 +156,8 @@ function(template, i18n, logger) {
             this.model.set({
                 random: false
             });
+
+            this.trigger('unlocked');
         }
     });
 

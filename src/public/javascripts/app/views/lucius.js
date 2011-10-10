@@ -125,6 +125,8 @@ function(template, i18n, logger) {
             this.model.set({
                 landscape: true
             });
+
+            this.trigger('unlocked');
         },
 
         //
@@ -145,6 +147,8 @@ function(template, i18n, logger) {
             this.model.set({
                 landscape: false
             });
+
+            this.trigger('unlocked');
         }
     });
 
