@@ -123,6 +123,32 @@ width:500px
     font-weight:bold
 }
 
+#hogwarts #hermione .mode {
+    padding:20px    
+}
+
+#hogwarts #hermione .mode li {
+    border:1px solid #000;
+    cursor:pointer;
+    display:inline-block;
+    height:70px;
+    position:relative;
+    text-align:center;
+    width:49%;
+}
+
+#hogwarts #hermione .mode li span {
+    bottom:10px;
+    display:block;
+    position:absolute;
+    text-align:center;
+    width:100%
+}
+
+#hogwarts #hermione .mode li.selected span {
+    font-weight:bold
+}
+
 #hogwarts #ron .tweets {
 	max-height:200px;
 	overflow:auto

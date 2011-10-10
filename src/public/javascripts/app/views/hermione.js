@@ -29,7 +29,31 @@ function(template, i18n, logger) {
         // description:
         //     DOCME
         //
-        node: null,
+        //
+        // summary:
+        //     DOCME
+        //
+        // description:
+        //     DOCME
+        //
+        nodes: {
+            root: null,
+            randomButton: '.mode .random',
+            selectionButton: '.mode .selection'
+        },
+
+        //
+        // summary:
+        //     DOCME
+        //
+        // description:
+        //     DOCME
+        //
+        css: {
+            classes: {
+                selected: 'selected'
+            }
+        },
 
         //
         // summary:
@@ -85,9 +109,11 @@ function(template, i18n, logger) {
         //     DOCME
         //
         render : function() {
-            this.node = $(template());
+            this.nodes.root = $(template());
 
-            this.el.empty().append(this.node);
+            this.el.empty().append(this.nodes.root);
+
+            this.addReferences(this.nodes);
         },
 
         //
@@ -101,6 +127,9 @@ function(template, i18n, logger) {
             if (e) {
                 e.preventDefault();
             }
+
+            this.$selectionButton.removeClass(this.css.classes.selected);
+            this.$randomButton.addClass(this.css.classes.selected);
 
             this.model.set({
                 random: true
@@ -118,6 +147,9 @@ function(template, i18n, logger) {
             if (e) {
                 e.preventDefault();
             }
+
+            this.$randomButton.removeClass(this.css.classes.selected);
+            this.$selectionButton.addClass(this.css.classes.selected);
 
             this.model.set({
                 random: false

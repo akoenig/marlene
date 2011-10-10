@@ -1,8 +1,10 @@
-<h2>Sollen wir den Tweet bestimmen oder willst du das machen?</h2>
+<section id="hermione">
+	<h2>Sollen wir den Tweet bestimmen oder willst du das machen?</h2>
 
-<div class="mode">
-    <ul>
-        <li><a class="random" href="#">Macht ihr das mal!</a></li>
-        <li><a class="selection" href="#">ICH will das machen!</a></li>
-    </ul>
-</div>
+	<div class="mode">
+	    <ul>
+	        <li class="random"><span>Macht ihr das mal!</span></li>
+	        <li class="selection"><span>ICH will das machen!</span></li>
+	    </ul>
+	</div>
+</section>
