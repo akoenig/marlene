@@ -63,21 +63,64 @@ top:20%;
 }
 
 #hogwarts {
+    border:1px solid rgba(0,0,0,.3);
+    padding:20px;
 width:500px
+}
+
+#hogwarts .examinationsroom {
+    margin:10px 0 30px
+}
+
+#hogwarts .examinationsroom ul {
+    list-style-type:none
 }
 
 #hogwarts .controls {
 	position:relative
 }
 
-#hogwarts .controls ul {
+#hogwarts .controls ul.flow {
 	right:0;
 	list-style-type:none;
-	position:absolute
+	position:absolute;
+    right:0;
+    top:0
 }
 
-#hogwarts .controls ul li {
+#hogwarts .controls ul.flow li {
 	display:inline-block
+}
+
+#hogwarts #lucius .format {
+    padding:20px    
+}
+
+#hogwarts #lucius .format li {
+    border:1px solid #000;
+    cursor:pointer;
+    display:inline-block;
+    height:70px;
+    position:relative;
+    text-align:center;
+    width:49%;
+}
+
+#hogwarts #lucius .format li span {
+    bottom:10px;
+    display:block;
+    position:absolute;
+    text-align:center;
+    width:100%
+}
+
+#hogwarts #lucius .format li:hover,
+#hogwarts #lucius .format li.selected {
+    background:rgba(0,0,0,.1)
+}
+
+#hogwarts #lucius .format li.selected span {
+    font-weight:bold
 }
 
 #hogwarts #ron .tweets {

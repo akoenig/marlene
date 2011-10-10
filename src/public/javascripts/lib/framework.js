@@ -3,6 +3,7 @@ define([
     'lib/order!lib/jquery',
     'lib/order!lib/backbone',
     'lib/order!lib/backbone.modelbinding',
+    'lib/order!lib/backbone.viewhelper',
     'lib/order!lib/json2',
     'lib/order!lib/step'
 ]); 

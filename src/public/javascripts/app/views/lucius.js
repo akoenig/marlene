@@ -86,6 +86,8 @@ function(template, i18n, logger) {
             node = $(template());
 
             this.el.empty().append(node);
+            
+            this.addReferences(null);
         },
 
         //

@@ -141,6 +141,13 @@ function(Lucius, Hermione, Ron, Draco, Harry, template, i18n, logger) {
                 }
             ];
 
+            //
+            // summary:
+            //     DOCME
+            //
+            // description:
+            //     DOCME
+            //
             var toggle = function(isNext) {
                 var examinee = current;
 
