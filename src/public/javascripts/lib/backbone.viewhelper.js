@@ -20,7 +20,6 @@ _.extend(Backbone.View.prototype, {
     //     DOCME
     //
     addReferences : function(nodes) {
-        console.log("ADDREFERENCES");
         for (var item in nodes) {
             this['$' + item] = $(nodes[item], this.el);
         }

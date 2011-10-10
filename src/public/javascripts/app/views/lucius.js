@@ -29,7 +29,24 @@ function(template, i18n, logger) {
         // description:
         //     DOCME
         //
-        node: null,
+        nodes: {
+            root: null,
+            landscapeButton: '.format .landscape',
+            portraitButton: '.format .portrait'
+        },
+
+        //
+        // summary:
+        //     DOCME
+        //
+        // description:
+        //     DOCME
+        //
+        css: {
+            classes: {
+                selected: 'selected'
+            }
+        },
 
         //
         // summary:
@@ -83,11 +100,11 @@ function(template, i18n, logger) {
         //     DOCME
         //
         render : function() {
-            node = $(template());
+            this.nodes.root = $(template());
 
-            this.el.empty().append(node);
+            this.el.empty().append(this.nodes.root);
             
-            this.addReferences(null);
+            this.addReferences(this.nodes);
         },
 
         //
@@ -101,6 +118,9 @@ function(template, i18n, logger) {
             if (e) {
                 e.preventDefault();
             }
+
+            this.$portraitButton.removeClass(this.css.classes.selected);
+            this.$landscapeButton.addClass(this.css.classes.selected);
 
             this.model.set({
                 landscape: true
@@ -118,6 +138,9 @@ function(template, i18n, logger) {
             if (e) {
                 e.preventDefault();
             }
+
+            this.$landscapeButton.removeClass(this.css.classes.selected);
+            this.$portraitButton.addClass(this.css.classes.selected);
 
             this.model.set({
                 landscape: false
