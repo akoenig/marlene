@@ -21,8 +21,6 @@ exports.TwitterController = function(app, mw, logger) {
     var appconfig = app.set('config');
     var config = appconfig.twitter;
 
-    config.timeline.fetchcount = 200; // Twitter-API max.
-
     var Twitter = require(appconfig.directories.lib + '/twitter')(config, logger);
 
     //

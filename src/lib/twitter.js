@@ -26,11 +26,6 @@ module.exports = function(config, logger) {
     //
     // DOCME
     //
-    config.fetchcount = 200;
-
-    //
-    // DOCME
-    //
     var Twitter = function(user) {
         var context = this;
 
@@ -75,7 +70,7 @@ module.exports = function(config, logger) {
             // some fresh data has arrived.
             cache.lock();
 
-            fetcher.lookupUser(this.user.id, function(data) {   
+            fetcher.lookupUser(this.user.id, function(data) {
                 var userdata = {
                     avatar: data.profile_image_url,
                     description: data.description,
@@ -86,7 +81,7 @@ module.exports = function(config, logger) {
                     nick: data.screen_name,
                     statuscount: data.statuses_count,
                     pages: (function() {
-                        var rounded = Math.round(data.statuses_count / config.fetchcount);
+                        var rounded = Math.round(data.statuses_count / config.timeline.fetchcount);
                         return (rounded === 0) ? 1 : rounded;
                     }())
                 };
@@ -136,6 +131,7 @@ module.exports = function(config, logger) {
                 var tweets = [];
 
                 if (rawTweets.statusCode) {
+
                     var error = rawTweets;
 
                     callback({

@@ -103,11 +103,6 @@ function(User, Poster, PosterList, HogwartsView, template, i18n, logger) {
             var poster = new Poster();
             context.model.get('posters').add(poster);
 
-window.setInterval(function() {
-    console.log("CHECKING THE poster FROM THE WORKSPACE");
-    console.log(poster);
-}, 10000);
-
             var hogwarts = new HogwartsView({
                 el: context.el,
                 model: poster,
