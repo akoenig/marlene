@@ -103,11 +103,7 @@ function(Lucius, Hermione, Ron, Draco, Harry, template, i18n, logger) {
             //
             // DOCME!!!!!
             //
-            var current = {
-                getNext : function() {
-                    return getWannabe(0);
-                }
-            };
+            var current = null;
 
             //
             // DOCME
@@ -192,6 +188,9 @@ function(Lucius, Hermione, Ron, Draco, Harry, template, i18n, logger) {
                         }
                     },
                     function comein() {
+                        console.log("CURRENT STUDENT: ");
+                        console.log(examinee);
+
                         if (isNext) {
                             current = examinee.getNext();
                         } else {
@@ -225,7 +224,28 @@ function(Lucius, Hermione, Ron, Draco, Harry, template, i18n, logger) {
             };
 
             return {
+                //
+                // summary:
+                //     DOCME
+                //
+                // description:
+                //     DOCME
+                //
+                reset : function() {
+                    current = {
+                        getNext : function() {
+                            return getWannabe(0);
+                        }
+                    };
+                },
 
+                //
+                // summary:
+                //     DOCME
+                //
+                // description:
+                //     DOCME
+                //
                 students: (function() {
                     return {
 
@@ -270,6 +290,7 @@ function(Lucius, Hermione, Ron, Draco, Harry, template, i18n, logger) {
             // DOCME
             //
             this.examinationsroom = this.examinationsroom();
+            this.examinationsroom.reset();
 
             //
             // DOCME
@@ -293,10 +314,10 @@ function(Lucius, Hermione, Ron, Draco, Harry, template, i18n, logger) {
 
             Step(
                 function hide() {
-                    context.node.fadeOut('slow', this);
+                    context.nodes.root.fadeOut('slow', this);
                 },
                 function destroy() {
-                    context.node.remove();
+                    context.nodes.root.remove();
                 }
             );
         },
@@ -333,6 +354,8 @@ function(Lucius, Hermione, Ron, Draco, Harry, template, i18n, logger) {
             }
 
             this.destroy();
+
+            this.examinationsroom.reset();
         },
 
         //

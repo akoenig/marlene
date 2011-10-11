@@ -55,6 +55,18 @@ function(TweetList, template, i18n, logger) {
         // description:
         //     DOCME
         //
+        // TODO: Move this into a separate file (maybe).
+        templates: {
+            tweetListEntry: '<% _.each(tweets, function(tweet) { %> <li id="t<%= tweet.id %>"><%= tweet.text %></li> <% }); %>'
+        },
+
+        //
+        // summary:
+        //     DOCME
+        //
+        // description:
+        //     DOCME
+        //
         events: {
             'click .tweets .more': 'more',
             'click .tweets li': 'select'
@@ -173,8 +185,7 @@ function(TweetList, template, i18n, logger) {
                         // TODO: Exception handling
                         // TODO: Add tweets to the general list!!
 
-                        var list = '<% _.each(tweets, function(tweet) { %> <li id="t<%= tweet.id %>"><%= tweet.text %></li> <% }); %>';
-                        var templates = $(_.template(list, {tweets : tweets.toJSON()}));
+                        var templates = $(_.template(context.templates.tweetListEntry, {tweets : tweets.toJSON()}));
                         context.$tweetList.append(templates);
 
                         context.page++;
