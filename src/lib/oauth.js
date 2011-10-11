@@ -31,6 +31,7 @@ module.exports = function(config, logger) {
                 .twitter
                 .consumerKey(config.twitter.oauth.key)
                 .consumerSecret(config.twitter.oauth.secret)
+                .authorizeParams({force_login: true})
                 .findOrCreateUser(function(session, accessToken, accessTokenSecret, twitterUserData) {
                     var promise = this.Promise();
 
