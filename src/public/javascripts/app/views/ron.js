@@ -30,7 +30,23 @@ function(TweetList, template, i18n, logger) {
         // description:
         //     DOCME
         //
-        node: null,
+        nodes: {
+            root: null,
+            tweetList: '.tweets ul'
+        },
+
+        //
+        // summary:
+        //     DOCME
+        //
+        // description:
+        //     DOCME
+        //
+        css: {
+            classes: {
+                selected: 'selected'
+            }
+        },
 
         //
         // summary:
@@ -40,7 +56,8 @@ function(TweetList, template, i18n, logger) {
         //     DOCME
         //
         events: {
-            'click .tweets .more': 'more'
+            'click .tweets .more': 'more',
+            'click .tweets li': 'select'
         },
 
         //
@@ -51,6 +68,15 @@ function(TweetList, template, i18n, logger) {
         //     DOCME
         //
         user: null,
+
+        //
+        // summary:
+        //     DOCME
+        //
+        // description:
+        //     DOCME
+        //
+        tweets: null,
 
         //
         // summary:
@@ -105,9 +131,20 @@ function(TweetList, template, i18n, logger) {
         //     DOCME
         //
         render : function() {
-            this.node = $(template());
+            var context = this;
 
-            this.el.empty().append(this.node);
+            this.nodes.root = $(template());
+
+            this.tweets = new TweetList();
+
+            this.el.empty().append(this.nodes.root);
+
+            this.addReferences(this.nodes);
+
+            //
+            // Load the first page.
+            //
+            this.more();
         },
 
         //
@@ -118,29 +155,67 @@ function(TweetList, template, i18n, logger) {
         //     DOCME
         //
         more : function(e) {
+            var context = this;
+
             if (e) {
                 e.preventDefault();
             }
 
-            var context = this;
+            var deferred = $.Deferred();
 
-            this.page++;
-
-            if (this.page <= this.user.get('pages')) {
-                var tweets = new TweetList();
-
+            if (context.page < this.user.get('pages')) {
                 Step(
                     function load() {
-                        tweets.grab(context.page).then(this);
+                        context.tweets.next().then(this);
                     },
                     function render(tweets) {
-                        console.log(tweets.toJSON());
-                        var list = "<% _.each(tweets, function(tweet) { %> <li><%= tweet.text %></li> <% }); %>";
+                        tweets = new TweetList(tweets);
+                        // TODO: Exception handling
+                        // TODO: Add tweets to the general list!!
+
+                        var list = '<% _.each(tweets, function(tweet) { %> <li id="t<%= tweet.id %>"><%= tweet.text %></li> <% }); %>';
                         var templates = $(_.template(list, {tweets : tweets.toJSON()}));
-                        context.$('ul').append(templates);
+                        context.$tweetList.append(templates);
+
+                        context.page++;
+
+                        deferred.resolve();
                     }
                 );
+            } else {
+                deferred.resolve();
             }
+
+            return deferred.promise();
+        },
+
+        //
+        // summary:
+        //     DOCME
+        //
+        // description:
+        //     DOCME
+        //
+        select : function(e) {
+            var context = this;
+
+            var tweetListEntry = $(e.currentTarget);
+            this.$tweetList.children().removeClass(this.css.classes.selected);
+            tweetListEntry.addClass(this.css.classes.selected);
+
+            // Determine the tweet id.
+            var id = $(e.currentTarget).attr('id');
+            id = id.replace(id.charAt(0), '');
+
+            var tweet = _.select(context.tweets.models, function(candidate) {
+                return (candidate.get('id') === id );
+            })[0];
+
+            context.model.set({
+                tweet: tweet
+            });
+
+            this.trigger('unlocked');
         }
     });
 

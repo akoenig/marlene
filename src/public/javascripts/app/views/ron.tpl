@@ -3,7 +3,6 @@
 
 	<div class="tweets">
 	    <ul>
-
 	    </ul>
 
 	    <a class="more" href="#">Mehr Tweets</a>

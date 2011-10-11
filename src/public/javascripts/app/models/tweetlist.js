@@ -20,15 +20,20 @@ function(Tweet) {
 
     var TweetList = Backbone.Collection.extend({
 
-    	//
-    	// DOCME
-    	//
+        //
+        // DOCME
+        //
         model: Tweet,
 
-    	//
-    	// DOCME
-    	//
+        //
+        // DOCME
+        //
         url: '/twitter/timeline/page/',
+
+        //
+        // DOCME
+        //
+        page: 1,
 
         //
         // summary:
@@ -37,26 +42,31 @@ function(Tweet) {
         // description:
         //     DOCME
         //
-        grab : function(page) {
-        	var context = this;
+        next : function() {
+            var context = this;
 
-        	var deferred = $.Deferred();
+            var deferred = $.Deferred();
 
             var tweets = [];
 
             context.fetch({
-            	url: context.url + page,
+                url: context.url + context.page,
                 success : function(me, answer) {
                     var data = JSON.parse(answer.data);
-					
-					// TODO: Handle Exception!!
+                    
+                    // TODO: Handle exceptions!!
                     _.each(data.tweets, function(tweetData) {
-                    	var tweet = new Tweet(tweetData);
-                    	tweets.push(tweet);
+                        var tweet = new Tweet(tweetData);
+                        tweets.push(tweet);
                     });
 
-                    deferred.resolve(new TweetList(tweets));
-                }
+                    context.page++;
+
+                    context.add(tweets);
+
+                    deferred.resolve(tweets);
+                },
+                add: true
             });
 
             return deferred.promise();

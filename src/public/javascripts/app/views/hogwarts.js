@@ -70,9 +70,6 @@ function(Lucius, Hermione, Ron, Draco, Harry, template, i18n, logger) {
         //     DOCME
         //
         handleFlowControl : function(options) {
-            console.log("handleFlowControl");
-            console.log(options);
-
             // TODO: If it is the last button. Show the "Finish" button.
             if (options.next) {
                 if (!this.$nextButton.is(':visible')) {

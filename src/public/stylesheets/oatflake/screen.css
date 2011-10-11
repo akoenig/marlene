@@ -156,5 +156,10 @@ width:500px
 
 #hogwarts #ron .tweets ul li {
 	border-bottom:1px solid #efefef;
+    cursor:pointer;
 	padding:10px 0;
+}
+
+#hogwarts #ron .tweets ul li.selected {
+    background:#efefef
 }
