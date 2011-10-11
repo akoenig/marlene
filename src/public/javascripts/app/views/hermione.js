@@ -29,13 +29,6 @@ function(template, i18n, logger) {
         // description:
         //     DOCME
         //
-        //
-        // summary:
-        //     DOCME
-        //
-        // description:
-        //     DOCME
-        //
         nodes: {
             root: null,
             randomButton: '.mode .random',
