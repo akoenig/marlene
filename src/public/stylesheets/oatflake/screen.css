@@ -149,6 +149,16 @@ width:500px
     font-weight:bold
 }
 
+#hogwarts #draco .tweet {
+    margin-top:20px;
+    min-height:100px
+}
+
+#hogwarts #draco .retry {
+    display:block;
+    text-align:center
+}
+
 #hogwarts #ron .tweets {
 	max-height:200px;
 	overflow:auto
@@ -162,4 +172,10 @@ width:500px
 
 #hogwarts #ron .tweets ul li.selected {
     background:#efefef
+}
+
+#hogwarts #ron .tweets .more {
+    display:block;
+    margin-top:20px;
+    text-align:center
 }
