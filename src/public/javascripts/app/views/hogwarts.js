@@ -188,9 +188,6 @@ function(Lucius, Hermione, Ron, Draco, Harry, template, i18n, logger) {
                         }
                     },
                     function comein() {
-                        console.log("CURRENT STUDENT: ");
-                        console.log(examinee);
-
                         if (isNext) {
                             current = examinee.getNext();
                         } else {
