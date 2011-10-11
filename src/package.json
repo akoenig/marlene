@@ -3,7 +3,14 @@
   , "version": "0.0.2"
   , "private": true
   , "dependencies": {
-      "express": "2.4.6"
+  	  "underscore": ">= 1.2.0"
+    , "express": "2.4.6"
+    , "lingua": ">= 0.1.0"
+    , "loggly": ">= 0.3.9"
+    , "cradle": ">= 0.5.7"
+    , "step": ">= 0.0.4"
+    , "twitter": ">= 0.1.17"
     , "jqtpl": ">= 1.0.6"
+    , "everyauth": "https://github.com/akoenig/everyauth/tarball/master"
   }
 }
