@@ -32,7 +32,8 @@ function(TweetList, template, i18n, logger) {
         //
         nodes: {
             root: null,
-            tweetList: '.tweets ul'
+            spinnerTarget: '#ron .spinner',
+            tweetList: '#ron .tweets ul'
         },
 
         //
@@ -47,6 +48,24 @@ function(TweetList, template, i18n, logger) {
                 selected: 'selected'
             }
         },
+
+        //
+        // summary:
+        //     DOCME
+        //
+        // description:
+        //     DOCME
+        //
+        spinner: new Spinner({
+            lines: 6, // The number of lines to draw
+            length: 2, // The length of each line
+            width: 2, // The line thickness
+            radius: 5, // The radius of the inner circle
+            color: '#000', // #rgb or #rrggbb
+            speed: 1.1, // Rounds per second
+            trail: 50, // Afterglow percentage
+            shadow: false // Whether to render a shadow
+        }).spin(),
 
         //
         // summary:
@@ -112,6 +131,15 @@ function(TweetList, template, i18n, logger) {
             this.user = this.options.user;
 
             this.render();
+
+            // Init the loading spinner
+            console.log(this.$spinnerTarget);
+            this.$spinnerTarget.append(this.spinner.el);
+
+            //
+            // Load the first page.
+            //
+            this.more();
         },
 
         //
@@ -154,11 +182,6 @@ function(TweetList, template, i18n, logger) {
             this.el.empty().append(this.nodes.root);
 
             this.addReferences(this.nodes);
-
-            //
-            // Load the first page.
-            //
-            this.more();
         },
 
         //
@@ -180,12 +203,12 @@ function(TweetList, template, i18n, logger) {
             if (context.page < this.user.get('pages')) {
                 Step(
                     function load() {
+                        context.$spinnerTarget.fadeIn();
                         context.tweets.next().then(this);
                     },
                     function render(tweets) {
+                        context.$spinnerTarget.hide();
                         tweets = new TweetList(tweets);
-                        // TODO: Exception handling
-                        // TODO: Add tweets to the general list!!
 
                         var templates = $(_.template(context.templates.tweetListEntry, {tweets : tweets.toJSON()}));
                         context.$tweetList.append(templates);

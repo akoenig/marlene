@@ -5,5 +5,6 @@ define([
     'lib/order!lib/backbone.modelbinding',
     'lib/order!lib/backbone.viewhelper',
     'lib/order!lib/json2',
-    'lib/order!lib/step'
+    'lib/order!lib/step',
+    'lib/order!lib/spin'
 ]); 
