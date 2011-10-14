@@ -12,6 +12,10 @@
  */
 define({
     'root': {
-
+        'headline': 'Sollen wir den Tweet bestimmen oder willst DU das machen?',
+        'mode': {
+            'random': 'Macht ihr das mal!',
+            'selection': 'ICH will das machen!'
+        }
     }
 });
