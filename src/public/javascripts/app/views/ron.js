@@ -145,7 +145,9 @@ function(TweetList, template, i18n, logger) {
         render : function() {
             var context = this;
 
-            this.nodes.root = $(template());
+            this.nodes.root = $(template({
+                i18n: i18n    
+            }));
 
             this.tweets = new TweetList();
 
