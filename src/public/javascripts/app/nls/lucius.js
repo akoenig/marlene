@@ -12,6 +12,10 @@
  */
 define({
     'root': {
-
+        'headline': 'In welchem Format soll das Poster generiert werden?',
+        'formats': {
+            'landscape': 'Landscape',
+            'portrait': 'Portrait'
+        }
     }
 });

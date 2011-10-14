@@ -1,10 +1,10 @@
 <section id="lucius">
-    <h2>Bitte wähle das Format aus.</h2>
+    <h2><%= i18n.headline %></h2>
     
     <div class="format">
         <ul>
-            <li class="landscape"><span>Landscape</span></li>
-            <li class="portrait"><span>Portrait</span></li>
+            <li class="landscape"><span><%= i18n.formats.landscape %></span></li>
+            <li class="portrait"><span><%= i18n.formats.portrait %></span></li>
         </ul>
     </div>
 </section>
