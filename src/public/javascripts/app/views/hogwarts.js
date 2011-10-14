@@ -328,7 +328,7 @@ function(Lucius, Hermione, Ron, Draco, Harry, template, i18n, logger) {
         //
         render : function() {
             this.nodes.root = $(template({
-                i1n: i18n    
+                i18n: i18n    
             }));
 
             this.nodes.root.hide();
