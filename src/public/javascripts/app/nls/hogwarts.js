@@ -12,6 +12,11 @@
  */
 define({
     'root': {
-
+        'headline': 'marlene',
+        'buttons': {
+            'cancel': 'Abbrechen',
+            'previous': 'Vorher',
+            'next': 'Weiter'
+        }
     }
 });
