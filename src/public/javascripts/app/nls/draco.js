@@ -12,6 +12,10 @@
  */
 define({
     'root': {
-
+        'headline': 'Okay, wir haben einen Tweet für dich herausgesucht.',
+        'loading': 'Suche nach einem Tweet ...',
+        'buttons': {
+            'retry': 'Nee, jefaellt mit net. Nochmal ...'    
+        }
     }
 });

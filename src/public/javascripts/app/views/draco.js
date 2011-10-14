@@ -133,7 +133,9 @@ function(TweetList, template, i18n, logger) {
         //     DOCME
         //
         render : function() {
-            this.nodes.root = $(template());
+            this.nodes.root = $(template({
+                i18n: i18n
+            }));
 
             this.el.empty().append(this.nodes.root);
 

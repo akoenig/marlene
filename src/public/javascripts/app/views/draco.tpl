@@ -1,7 +1,7 @@
 <section id="draco">
-	<h2>Okay, wir haben einen Tweet für dich herausgesucht.</h2>
+	<h2><%= i18n.headline %></h2>
 
-	<div class="tweet">Suche nach einem Tweet ...</div>
+	<div class="tweet"><%= i18n.loading %></div>
 
-	<a class="retry" href="#">Nee, gefällt mir nicht. Nochmal ...</a>
+	<a class="retry" href="#"><%= i18n.buttons.retry %></a>
 </section>
