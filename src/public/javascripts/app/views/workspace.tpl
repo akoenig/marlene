@@ -5,8 +5,8 @@
         <nav>
             <ul>
                 <li class="create"><a class="btn primary" href="#"><%= i18n.header.toolbar.create %></a></li>
-                <li class="download"><a class="btn" href="#"><%= i18n.header.toolbar.download %></a></li>
-                <li class="fullscreen"><a class="btn" href="#"><%= i18n.header.toolbar.fullscreen %></a></li>
+                <li class="download"><a class="btn disabled" href="#"><%= i18n.header.toolbar.download %></a></li>
+                <li class="fullscreen"><a class="btn disabled" href="#"><%= i18n.header.toolbar.fullscreen %></a></li>
             </ul>
         </nav>
     </section>
