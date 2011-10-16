@@ -16,12 +16,13 @@ define([
     'app/views/ron',
     'app/views/draco',
     'app/views/harry',
+    'lib/magicwand',
     'vendor/tpl!app/views/hogwarts.tpl',
     'vendor/i18n!app/nls/hogwarts',
     'app/helpers/logger',
     'vendor/framework'
 ],
-function(Lucius, Hermione, Ron, Draco, Harry, template, i18n, logger) {
+function(Lucius, Hermione, Ron, Draco, Harry, MagicWand, template, i18n, logger) {
     
     var _name = 'HogwartsView';
 
@@ -451,9 +452,7 @@ function(Lucius, Hermione, Ron, Draco, Harry, template, i18n, logger) {
                 e.preventDefault();
             }
 
-            this.model.set({
-                produced: true
-            });
+            new MagicWand(this.model).waggle();
         }
     });
 
