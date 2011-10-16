@@ -1,5 +1,5 @@
 <section id="lucius">
-    <h2><%= i18n.headline %></h2>
+    <h3><%= i18n.headline %></h3>
     
     <div class="format">
         <ul>

@@ -3,8 +3,14 @@
     padding:0
 }
 
+html, body {
+    min-height:100%;
+    height:100%;
+    width:100%
+}
+
 body {
-    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif
 }
 
 a {
@@ -31,11 +37,25 @@ a {
 
 /* # Static Pages */
 
+.overlay {
+    background:#000;
+    opacity:.5;
+    z-index:10
+}
+
 .dialog {
 left:20%;
 top:20%;
     position:absolute;
     z-index:0
+}
+
+#loading {
+    bottom:5px;
+    position:absolute;
+    left:0;
+    text-align:center;
+    width:100%;
 }
 
 #header {
@@ -84,11 +104,13 @@ top:20%;
 }
 
 #hogwarts {
+    background:#fff;
     border:1px solid rgba(0,0,0,.3);
     padding:20px;
     position:absolute;
     top:100px;
-width:500px
+width:500px;
+    z-index:11;
 }
 
 #hogwarts .examinationsroom {
@@ -113,11 +135,12 @@ width:500px
 
 #hogwarts .controls ul.flow li {
     cursor:pointer;
-    display:inline-block
+    float:left;
+    margin-right:10px
 }
 
-#hogwarts .controls ul.flow li .finish {
-    display:none
+#hogwarts .controls ul.flow li:last-child {
+    margin:0
 }
 
 #hogwarts #lucius .format {
@@ -173,7 +196,6 @@ width:500px
     width:100%
 }
 
-#hogwarts #hermione .mode li:hover,
 #hogwarts #hermione .mode li.selected {
     background:rgba(0,0,0,.1)
 }

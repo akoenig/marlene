@@ -36,9 +36,23 @@ function(Lucius, Hermione, Ron, Draco, Harry, template, i18n, logger) {
         //
         nodes: {
             root: null,
+            examinationsroom: '.examinationsroom',
             previousButton: '.controls .previous',
             nextButton: '.controls .next',
             finishButton: '.controls .finish'
+        },
+
+        //
+        // summary:
+        //     DOCME
+        //
+        // description:
+        //     DOCME
+        //
+        css: {
+            classes: {
+                overlay: 'overlay'
+            }
         },
 
         //
@@ -106,8 +120,6 @@ function(Lucius, Hermione, Ron, Draco, Harry, template, i18n, logger) {
         //
         examinationsroom: function() {
             var context = this;
-            
-            var node = '.examinationsroom';
 
             //
             // DOCME!!!!!
@@ -206,27 +218,27 @@ function(Lucius, Hermione, Ron, Draco, Harry, template, i18n, logger) {
                         var Candidate = current.Candidate;
 
                         current.view = new Candidate({
-                            el: $(node),
+                            el: context.$examinationsroom,
                             model: context.model,
                             user: context.user
                         });
+
+                        var _handleFlowControl = function(unlocked) {
+                            context.handleFlowControl({
+                                previous: !(current.isFirst),
+                                next: unlocked,
+                                finish: (current.isLast)
+                            });                            
+                        };
 
                         // The view is unlocked if the user interacted
                         // with the controls. Each "student view" in hogwarts
                         // decides by his own when it is unlocked.
                         current.view.bind('unlocked', function() {
-                            context.handleFlowControl({
-                                previous: !(current.isFirst),
-                                next: true,
-                                finish: (current.isLast)
-                            });
+                            _handleFlowControl(true);
                         });
 
-                        context.handleFlowControl({
-                            previous: !(current.isFirst),
-                            next: false,
-                            finish: (current.isLast)
-                        });
+                        _handleFlowControl(false);
                     }
                 );
             };
@@ -342,16 +354,32 @@ function(Lucius, Hermione, Ron, Draco, Harry, template, i18n, logger) {
         //     DOCME
         //
         render : function() {
-            this.nodes.root = $(template({
+            var context = this;
+
+            context.nodes.root = $(template({
                 i18n: i18n    
             }));
 
-            this.nodes.root.hide();
+            context.nodes.root.hide();
 
-            this.el.html(this.nodes.root);
-            this.nodes.root.fadeIn();
+            context.el.html(context.nodes.root);
 
-            this.addReferences(this.nodes);
+            var overlay = $('<div />');
+            overlay.hide();
+
+            context.el.append(overlay);
+
+            overlay
+                .addClass(this.css.classes.overlay)
+                .css({
+                    height: $(document).height() + 'px',
+                    wdith:  $(document).width() + 'px'
+                })
+                .fadeIn(400, function() {
+                    context.nodes.root.fadeIn(800);
+                });
+
+            context.addReferences(this.nodes);
 
             return this;
         },

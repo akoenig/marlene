@@ -1,5 +1,5 @@
 <section id="hermione">
-	<h2><%= i18n.headline %></h2>
+	<h3><%= i18n.headline %></h3>
 
 	<div class="mode">
 	    <ul>

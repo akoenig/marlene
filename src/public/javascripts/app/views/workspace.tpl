@@ -4,9 +4,9 @@
     <section id="toolbar">
         <nav>
             <ul>
-                <li class="create"><a href="#"><%= i18n.header.toolbar.create %></a></li>
-                <li class="download"><a href="#"><%= i18n.header.toolbar.download %></a></li>
-                <li class="fullscreen"><a href="#"><%= i18n.header.toolbar.fullscreen %></a></li>
+                <li class="create"><a class="btn primary" href="#"><%= i18n.header.toolbar.create %></a></li>
+                <li class="download"><a class="btn" href="#"><%= i18n.header.toolbar.download %></a></li>
+                <li class="fullscreen"><a class="btn" href="#"><%= i18n.header.toolbar.fullscreen %></a></li>
             </ul>
         </nav>
     </section>
@@ -16,7 +16,7 @@
 
         <nav>
             <ul>
-                <li><a href="/logout"><%= i18n.header.user.logout %></a></li>
+                <li><a class="btn small" href="/logout"><%= i18n.header.user.logout %></a></li>
             </ul>
         </nav>
     </section>

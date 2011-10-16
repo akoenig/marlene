@@ -1,5 +1,5 @@
 <section id="ron">
-	<h2><%= i18n.headline %></h2>
+	<h3><%= i18n.headline %></h3>
 	
 	<p class="spinner"></p>
 	
@@ -8,6 +8,6 @@
 	    <ul>
 	    </ul>
 
-	    <a class="more" href="#"><%= i18n.buttons.moretweets %></a>
+	    <a class="more btn info small" href="#"><%= i18n.buttons.moretweets %></a>
 	</div>
 </section>

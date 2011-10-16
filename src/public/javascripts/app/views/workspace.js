@@ -117,12 +117,11 @@ function(User, Poster, PosterList, HogwartsView, template, i18n, logger) {
             context.model.get('posters').add(poster);
 
             //
-            // Init Hogwarts
             // The following dom node is only for temporary purposes.
             // It is the Hogwarts el-element, which will be destroyed on
-            // "hogwarts destroy":
+            // "hogwarts destroy".
             //
-            var hogwartsArea = $('<section />');
+            var hogwartsArea = $('<div />');
             $(this.el).append(hogwartsArea);
 
             var hogwarts = new HogwartsView({
