@@ -7,8 +7,9 @@
 	    <a class="cancel" href=""><%= i18n.buttons.cancel %></a>
 
 	    <ul class="flow">
-	        <li><a class="previous" href=""><%= i18n.buttons.previous %></a></li>
-	        <li><a class="next" href=""><%= i18n.buttons.next %></a></li>
+	        <li class="previous"><%= i18n.buttons.previous %></li>
+	        <li class="next"><%= i18n.buttons.next %></li>
+	        <li class="finish"><%= i18n.buttons.finish %></li>
 	    </ul>
     </div>
 </div>

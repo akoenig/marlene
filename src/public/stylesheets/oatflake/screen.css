@@ -112,7 +112,12 @@ width:500px
 }
 
 #hogwarts .controls ul.flow li {
+    cursor:pointer;
     display:inline-block
+}
+
+#hogwarts .controls ul.flow li .finish {
+    display:none
 }
 
 #hogwarts #lucius .format {

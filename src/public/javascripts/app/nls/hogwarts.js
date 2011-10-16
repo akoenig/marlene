@@ -16,7 +16,8 @@ define({
         'buttons': {
             'cancel': 'Abbrechen',
             'previous': 'Vorher',
-            'next': 'Weiter'
+            'next': 'Weiter',
+            'finish': 'Erstellen'
         }
     }
 });

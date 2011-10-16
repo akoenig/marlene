@@ -37,7 +37,8 @@ function(Lucius, Hermione, Ron, Draco, Harry, template, i18n, logger) {
         nodes: {
             root: null,
             previousButton: '.controls .previous',
-            nextButton: '.controls .next'
+            nextButton: '.controls .next',
+            finishButton: '.controls .finish'
         },
 
         //
@@ -85,6 +86,13 @@ function(Lucius, Hermione, Ron, Draco, Harry, template, i18n, logger) {
                 }
             } else {
                 this.$previousButton.hide();
+            }
+
+            if (options.finish) {
+
+                this.$finishButton.fadeIn();
+            } else {
+                this.$finishButton.hide();
             }
         },
 
@@ -208,13 +216,15 @@ function(Lucius, Hermione, Ron, Draco, Harry, template, i18n, logger) {
                         current.view.bind('unlocked', function() {
                             context.handleFlowControl({
                                 previous: !(current.isFirst),
-                                next: true
+                                next: true,
+                                finish: (current.isLast)
                             });
                         });
 
                         context.handleFlowControl({
                             previous: !(current.isFirst),
-                            next: false
+                            next: false,
+                            finish: (current.isLast)
                         });
                     }
                 );
