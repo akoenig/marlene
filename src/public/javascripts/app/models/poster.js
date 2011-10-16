@@ -18,9 +18,9 @@ function() {
     var _name = 'Poster';
 
     var Poster = Backbone.Model.extend({
-    	defaults: {
-    		produced: false
-    	}
+        defaults: {
+            produced: false
+        }
     });
 
     return Poster;

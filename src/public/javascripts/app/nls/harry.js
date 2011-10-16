@@ -14,14 +14,14 @@ define({
     'root': {
         'headline': "Wir sind bereit ...",
         'labels': {
-        	'user': 'Benutzer',
-        	'tweet': 'Tweet',
-        	'format': 'Format',
-        	'statuscount': 'Tweets',
-        	'followers': 'Followers'
+            'user': 'Benutzer',
+            'tweet': 'Tweet',
+            'format': 'Format',
+            'statuscount': 'Tweets',
+            'followers': 'Followers'
         },
         'formats': {
-        	'landscape': 'Landscape',
+            'landscape': 'Landscape',
             'portrait': 'Portrait'
         }
     }

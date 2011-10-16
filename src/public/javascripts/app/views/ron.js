@@ -133,7 +133,6 @@ function(TweetList, template, i18n, logger) {
             this.render();
 
             // Init the loading spinner
-            console.log(this.$spinnerTarget);
             this.$spinnerTarget.append(this.spinner.el);
 
             //

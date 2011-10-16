@@ -325,7 +325,9 @@ function(Lucius, Hermione, Ron, Draco, Harry, template, i18n, logger) {
                     context.nodes.root.fadeOut('slow', this);
                 },
                 function destroy() {
-                    context.nodes.root.remove();
+                    console.log(context.el);
+                    $(context.el).remove();
+                    //context.remove();
                 }
             );
 
@@ -346,11 +348,12 @@ function(Lucius, Hermione, Ron, Draco, Harry, template, i18n, logger) {
 
             this.nodes.root.hide();
 
-            this.el.append(this.nodes.root);
-            this.el = this.nodes.root;
+            this.el.html(this.nodes.root);
             this.nodes.root.fadeIn();
 
             this.addReferences(this.nodes);
+
+            return this;
         },
 
         //
@@ -417,7 +420,7 @@ function(Lucius, Hermione, Ron, Draco, Harry, template, i18n, logger) {
             logger.log(_name, 'The poster generation will start. Now.');
 
             if (e) {
-                e.preventDefault()
+                e.preventDefault();
             }
 
             this.model.set({
