@@ -26,6 +26,11 @@ function(config) {
 
     var _name = 'Logger';
 
+    var _generateTimestamp = function() {
+        var date = new Date();
+        return ((((date.getFullYear()*100 + date.getMonth()+1)*100 + date.getDate())*100 + date.getHours())*100 + date.getMinutes())*100 + date.getSeconds() + date.getMilliseconds();
+    };
+
     var logger = {
 
         //
@@ -35,12 +40,9 @@ function(config) {
         // description:
         //     DOCME
         //
-        log: function(module, message) {
+        log : function(module, message) {
             if (config.logging) {
-                var timestamp = (function() {
-                    var date = new Date();
-                    return ((((date.getFullYear()*100 + date.getMonth()+1)*100 + date.getDate())*100 + date.getHours())*100 + date.getMinutes())*100 + date.getSeconds() + date.getMilliseconds();
-                }());
+                var timestamp = _generateTimestamp();
 
                 if (typeof message === 'object') {
                     message = JSON.stringify(message);
@@ -48,6 +50,19 @@ function(config) {
 
                 console.log('[' + timestamp + '] ' + module + ': ' + message);
             }
+        },
+
+        //
+        // summary:
+        //     DOCME
+        //
+        // description:
+        //     DOCME
+        //
+        error : function(module, message) {
+            var timestamp = _generateTimestamp();
+
+            throw '[' + timestamp + '] ' + module + ': ' + message;
         }
     };
 

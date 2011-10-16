@@ -338,13 +338,9 @@ function(Lucius, Hermione, Ron, Draco, Harry, MagicWand, template, i18n, logger)
                     context.nodes.root.fadeOut('slow', this);
                 },
                 function destroy() {
-                    console.log(context.el);
-                    $(context.el).remove();
-                    //context.remove();
+                    context.remove();
                 }
             );
-
-            context.model.destroy();
         },
 
         //
@@ -446,13 +442,24 @@ function(Lucius, Hermione, Ron, Draco, Harry, MagicWand, template, i18n, logger)
         //     DOCME
         //
         finish : function(e) {
+            var context = this;
+
             logger.log(_name, 'The poster generation will start. Now.');
 
             if (e) {
                 e.preventDefault();
             }
 
-            new MagicWand(this.model).waggle();
+            //
+            // Let the magic begin ...
+            // We pass the raw poster data from the wizard process
+            // to the magic wand, which will generate a poster out
+            // of it.
+            //
+            new MagicWand({
+                poster: context.model,
+                user: context.user
+            }).waggle();
         }
     });
 

@@ -100,18 +100,25 @@ function(User, Poster, PosterList, HogwartsView, template, i18n, logger) {
         //     DOCME
         //
         create : function(e) {
+            var context = this;
             logger.log(_name, 'Starting "Hogwarts" ...');
+
             if (e) {
                 e.preventDefault();
             }
 
-            var context = this;
+            var hogwarts = null;
 
             var poster = new Poster();
             poster.bind('change:produced', function() {
                 logger.log(_name, 'The poster was generated.');
 
                 poster.unbind();
+
+                hogwarts.destroy();
+
+                // TODO: Display the poster on a canvas.
+                // poster.get('data');
             });
 
             context.model.get('posters').add(poster);
@@ -124,7 +131,7 @@ function(User, Poster, PosterList, HogwartsView, template, i18n, logger) {
             var hogwartsArea = $('<div />');
             $(this.el).append(hogwartsArea);
 
-            var hogwarts = new HogwartsView({
+            hogwarts = new HogwartsView({
                 el: hogwartsArea,
                 model: poster,
                 user: context.model.get('user')
