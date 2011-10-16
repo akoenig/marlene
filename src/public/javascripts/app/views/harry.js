@@ -29,7 +29,18 @@ function(template, i18n, logger) {
         // description:
         //     DOCME
         //
-        node: null,
+        nodes: {
+            root: null
+        },
+
+        //
+        // summary:
+        //     DOCME
+        //
+        // description:
+        //     DOCME
+        //
+        user: null,
 
         //
         // summary:
@@ -40,6 +51,8 @@ function(template, i18n, logger) {
         //
         initialize : function() {
             logger.log(_name, 'initialize ...');
+
+            this.user = this.options.user;
 
             this.render();
         },
@@ -71,9 +84,16 @@ function(template, i18n, logger) {
         //     DOCME
         //
         render : function() {
-            node = $(template());
+            var context = this;
 
-            this.el.empty().append(node);
+            this.nodes.root = $(template({
+                i18n: i18n,
+                landscape: context.model.get('landscape'),
+                tweet: context.model.get('tweet').toJSON(),
+                user: context.user.toJSON()
+            }));
+
+            this.el.empty().append(this.nodes.root);
         }
     });
 
