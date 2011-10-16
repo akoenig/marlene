@@ -12,7 +12,7 @@
  */
 define([
     'app/models/tweet',
-    'lib/framework'
+    'vendor/framework'
 ],
 function(Tweet) {
 

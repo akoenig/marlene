@@ -19,7 +19,7 @@
 //     DOCME
 //
 define([
-    'lib/framework'
+    'vendor/framework'
 ],
 function() {
 

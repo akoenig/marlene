@@ -16,10 +16,10 @@ define([
     'app/views/ron',
     'app/views/draco',
     'app/views/harry',
-    'lib/tpl!app/views/hogwarts.tpl',
-    'lib/i18n!app/nls/hogwarts',
+    'vendor/tpl!app/views/hogwarts.tpl',
+    'vendor/i18n!app/nls/hogwarts',
     'app/helpers/logger',
-    'lib/framework'
+    'vendor/framework'
 ],
 function(Lucius, Hermione, Ron, Draco, Harry, template, i18n, logger) {
     

@@ -12,10 +12,10 @@
  */
 define([
     'app/models/tweetlist',
-    'lib/tpl!app/views/ron.tpl',
-    'lib/i18n!app/nls/ron',
+    'vendor/tpl!app/views/ron.tpl',
+    'vendor/i18n!app/nls/ron',
     'app/helpers/logger',
-    'lib/framework'
+    'vendor/framework'
 ],
 function(TweetList, template, i18n, logger) {
     

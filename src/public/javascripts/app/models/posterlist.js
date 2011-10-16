@@ -12,7 +12,7 @@
  */
 define([
     'app/models/poster',
-    'lib/framework'
+    'vendor/framework'
 ],
 function(Poster) {
 

@@ -15,10 +15,10 @@ define([
     'app/models/poster',
     'app/models/posterlist',
     'app/views/hogwarts',
-    'lib/tpl!app/views/workspace.tpl',
-    'lib/i18n!app/nls/workspace',
+    'vendor/tpl!app/views/workspace.tpl',
+    'vendor/i18n!app/nls/workspace',
     'app/helpers/logger',
-    'lib/framework'
+    'vendor/framework'
 ],
 function(User, Poster, PosterList, HogwartsView, template, i18n, logger) {
     

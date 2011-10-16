@@ -12,10 +12,10 @@
  */
 define([
     'app/models/tweetlist',
-    'lib/tpl!app/views/draco.tpl',
-    'lib/i18n!app/nls/draco',
+    'vendor/tpl!app/views/draco.tpl',
+    'vendor/i18n!app/nls/draco',
     'app/helpers/logger',
-    'lib/framework'
+    'vendor/framework'
 ],
 function(TweetList, template, i18n, logger) {
     

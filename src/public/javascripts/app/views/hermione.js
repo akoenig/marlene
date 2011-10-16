@@ -11,10 +11,10 @@
  *
  */
 define([
-    'lib/tpl!app/views/hermione.tpl',
-    'lib/i18n!app/nls/hermione',
+    'vendor/tpl!app/views/hermione.tpl',
+    'vendor/i18n!app/nls/hermione',
     'app/helpers/logger',
-    'lib/framework'
+    'vendor/framework'
 ],
 function(template, i18n, logger) {
     

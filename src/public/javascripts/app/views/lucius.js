@@ -11,10 +11,10 @@
  *
  */
 define([
-    'lib/tpl!app/views/lucius.tpl',
-    'lib/i18n!app/nls/lucius',
+    'vendor/tpl!app/views/lucius.tpl',
+    'vendor/i18n!app/nls/lucius',
     'app/helpers/logger',
-    'lib/framework'
+    'vendor/framework'
 ],
 function(template, i18n, logger) {
     

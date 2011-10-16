@@ -11,10 +11,10 @@
  *
  */
 define([
-    'lib/tpl!app/views/harry.tpl',
-    'lib/i18n!app/nls/harry',
+    'vendor/tpl!app/views/harry.tpl',
+    'vendor/i18n!app/nls/harry',
     'app/helpers/logger',
-    'lib/framework'
+    'vendor/framework'
 ],
 function(template, i18n, logger) {
     

@@ -15,7 +15,7 @@ require([
     'app/views/workspace',
     'app/helpers/firefighter',
     'app/config',
-    'lib/framework',
+    'vendor/framework',
 ],
 function(User, WorkspaceView, firefighter, configuration) {
 

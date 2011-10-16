@@ -20,7 +20,7 @@
 //
 define([
     'app/config',
-    'lib/framework'
+    'vendor/framework'
 ],
 function(config) {
 

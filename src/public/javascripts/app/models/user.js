@@ -13,7 +13,7 @@
 define([
     'app/config',
     'app/helpers/logger',
-    'lib/framework'
+    'vendor/framework'
 ],
 function(config, logger) {
 
