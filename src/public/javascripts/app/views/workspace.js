@@ -25,7 +25,14 @@ function(User, Poster, PosterList, HogwartsView, template, i18n, logger) {
     var _name = 'WorkspaceView';
 
     var WorkspaceView = Backbone.View.extend({
-        
+
+        //
+        // summary:
+        //     DOCME
+        //
+        // description:
+        //     DOCME
+        //
         events:{
             'click section#toolbar .create': 'create',
             'click section#toolbar .download': 'download',
@@ -93,7 +100,7 @@ function(User, Poster, PosterList, HogwartsView, template, i18n, logger) {
         //     DOCME
         //
         create : function(e) {
-            logger.log(_name, 'Starting the wizard ...');
+            logger.log(_name, 'Starting "Hogwarts" ...');
             if (e) {
                 e.preventDefault();
             }
@@ -101,6 +108,12 @@ function(User, Poster, PosterList, HogwartsView, template, i18n, logger) {
             var context = this;
 
             var poster = new Poster();
+            poster.bind('change:produced', function() {
+                logger.log(_name, 'The poster was generated.');
+
+                poster.unbind();
+            });
+
             context.model.get('posters').add(poster);
 
             var hogwarts = new HogwartsView({

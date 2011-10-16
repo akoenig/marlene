@@ -60,7 +60,8 @@ function(Lucius, Hermione, Ron, Draco, Harry, template, i18n, logger) {
         events: {
             'click .controls .cancel': 'cancel',
             'click .controls .previous': 'previous',
-            'click .controls .next': 'next'
+            'click .controls .next': 'next',
+            'click .controls .finish': 'finish',
         },
 
         //
@@ -327,6 +328,8 @@ function(Lucius, Hermione, Ron, Draco, Harry, template, i18n, logger) {
                     context.nodes.root.remove();
                 }
             );
+
+            context.model.destroy();
         },
 
         //
@@ -344,6 +347,7 @@ function(Lucius, Hermione, Ron, Draco, Harry, template, i18n, logger) {
             this.nodes.root.hide();
 
             this.el.append(this.nodes.root);
+            this.el = this.nodes.root;
             this.nodes.root.fadeIn();
 
             this.addReferences(this.nodes);
@@ -400,6 +404,25 @@ function(Lucius, Hermione, Ron, Draco, Harry, template, i18n, logger) {
             }
 
             this.examinationsroom.students.next();
+        },
+
+        //
+        // summary:
+        //     DOCME
+        //
+        // description:
+        //     DOCME
+        //
+        finish : function(e) {
+            logger.log(_name, 'The poster generation will start. Now.');
+
+            if (e) {
+                e.preventDefault()
+            }
+
+            this.model.set({
+                produced: true
+            });
         }
     });
 
