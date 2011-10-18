@@ -78,10 +78,10 @@ function(MagicWand, logger) {
             function finalize(canvas) {
                 logger.log(_name, 'finished performing ...');
 
-                /*context.poster.set({
-                    data: container,
+                context.poster.set({
+                    canvas: canvas,
                     produced: true
-                });*/
+                });
             }
         );
     };

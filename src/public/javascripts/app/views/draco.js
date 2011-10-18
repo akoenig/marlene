@@ -12,12 +12,13 @@
  */
 define([
     'app/models/tweetlist',
+    'app/helpers/randomizer',
     'vendor/tpl!app/views/draco.tpl',
     'vendor/i18n!app/nls/draco',
     'app/helpers/logger',
     'vendor/framework'
 ],
-function(TweetList, template, i18n, logger) {
+function(TweetList, randomizer, template, i18n, logger) {
     
     var _name = 'DracoView';
 
@@ -64,9 +65,11 @@ function(TweetList, template, i18n, logger) {
         //     DOCME
         //
         _lottery : function() {
-            var min = 0;
-            var max = this.tweets.length - 1;
-            var x = Math.round((Math.random() * (max - min)) + min);
+            var context = this;
+
+            var x = randomizer.digit({
+                max: (context.tweets.length - 1)
+            });
 
             var tweet = this.tweets.at(x);
 

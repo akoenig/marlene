@@ -49,7 +49,7 @@ function(User, Poster, PosterList, HogwartsView, template, i18n, logger) {
         //     DOCME
         //
         nodes: {
-            canvas: '#poster'
+            posterNode: '#poster'
         },
 
         //
@@ -132,8 +132,8 @@ function(User, Poster, PosterList, HogwartsView, template, i18n, logger) {
 
                 // TODO: Display the poster on a canvas.
                 // poster.get('data');
-
-                context.$canvas.html(poster.get('data'));
+                var canvas = poster.get('canvas');
+                context.$posterNode.html(canvas);
 
             });
 
