@@ -21,10 +21,11 @@
 define([
     'app/helpers/logger',
     'app/helpers/randomizer',
+    'lib/assets',
     'vendor/raphael',
     'vendor/framework'
 ],
-function(logger, randomizer) {
+function(logger, randomizer, assets) {
 
     var _name = 'MagicWand';
 
@@ -35,7 +36,9 @@ function(logger, randomizer) {
     // description:
     //     DOCME
     //
-    function MagicWand() {
+    function MagicWand(poster, user) {
+        this.poster = poster;
+        this.user = user;
     }
 
     //
@@ -48,9 +51,14 @@ function(logger, randomizer) {
     MagicWand.prototype.createPaper = function() {
         logger.log(_name, 'createPaper()');
 
-        this.paper = Raphael($('<section />'), 500, 500);
+        //
+        // Grabbing the format ...
+        //
+        var isLandscape = (this.poster.get('landscape') === true);
+        var format = (isLandscape) ? assets.formats.landscape : assets.formats.portrait;
 
-        // TODO: Set sizes, logo, etc.
+        // TODO: Fix the dimension bug here ...
+        this.paper = Raphael($('<section />'), format.width, format.height);
 
         this.canvas = this.paper.canvas;
 

@@ -66,7 +66,7 @@ function(MagicWand, logger) {
         
         Step(
             function generate() {
-                new MagicWand(context.model)
+                new MagicWand(context.poster, context.user)
                     .createPaper()
                     .createBackground()
                     .createPhotoDrops()
