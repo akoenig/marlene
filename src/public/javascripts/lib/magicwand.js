@@ -27,30 +27,16 @@ function(logger) {
 
     var _name = 'MagicWand';
 
-    //
-    // summary:
-    //     DOCME
-    //
-    // description:
-    //     DOCME
-    //
-    function MagicWand(options) {
-        logger.log(_name, 'Creating a new MagicWand ...');
+/*
 
-        options = options || {};
+                new MagicWand(context.model)
+                    .createSemanticDrops();
+                    .finish(this);
+*/
 
-        this.poster = options.poster;
-        this.user = options.user;
 
-        // Check if the data for the poster is available
-        // which should be created.
-        if (!this.poster) {
-            logger.error(_name, 'Please define the poster data in order to use the MagicWand ...');
-        }
 
-        if (!this.user) {
-            logger.error(_name, 'Please define a user in order to use the MagicWand ...');
-        }
+    function MagicWand() {
     }
 
     //
@@ -60,19 +46,88 @@ function(logger) {
     // description:
     //     DOCME
     //
-    MagicWand.prototype.waggle = function() {
-        logger.log(_name, 'Waggling the MagicWand ...');
-        logger.log(_name, this.user.toJSON());
-        logger.log(_name, this.poster.toJSON());
+    MagicWand.prototype.createPaper = function() {
+        logger.log(_name, 'createPaper()');
 
-        logger.log(_name, "10 seconds left ...");
-        var context = this;
+        return this;
+    };
 
-        window.setTimeout(function() {
-            context.poster.set({
-                produced: true
-            });
-        }, 10000);
+    //
+    // summary:
+    //     DOCME
+    //
+    // description:
+    //     DOCME
+    //
+    MagicWand.prototype.createBackground = function() {
+        logger.log(_name, 'createBackground()');
+
+        return this;
+    };
+
+    //
+    // summary:
+    //     DOCME
+    //
+    // description:
+    //     DOCME
+    //
+    MagicWand.prototype.createPhotoDrops = function() {
+        logger.log(_name, 'createPhotoDrops()');
+
+        return this;
+    };
+
+    //
+    // summary:
+    //     DOCME
+    //
+    // description:
+    //     DOCME
+    //
+    MagicWand.prototype.createProfileDrop = function() {
+        logger.log(_name, 'createProfileDrop()');
+
+        return this;
+    };
+
+    //
+    // summary:
+    //     DOCME
+    //
+    // description:
+    //     DOCME
+    //
+    MagicWand.prototype.createTweetDrop = function() {
+        logger.log(_name, 'createTweetDrop()');
+
+        return this;
+    };
+
+    //
+    // summary:
+    //     DOCME
+    //
+    // description:
+    //     DOCME
+    //
+    MagicWand.prototype.createSemanticDrops = function() {
+        logger.log(_name, 'createSemanticDrops()');
+
+        return this;
+    };
+
+    //
+    // summary:
+    //     DOCME
+    //
+    // description:
+    //     DOCME
+    //
+    MagicWand.prototype.finish = function(callback) {
+        logger.log(_name, 'finish()');
+
+        callback();
     };
 
     return MagicWand;

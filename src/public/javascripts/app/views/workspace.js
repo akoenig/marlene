@@ -33,12 +33,23 @@ function(User, Poster, PosterList, HogwartsView, template, i18n, logger) {
         // description:
         //     DOCME
         //
-        events:{
+        events: {
             'click section#toolbar .create': 'create',
             'click section#toolbar .download': 'download',
             'click section#toolbar .fullscreen': 'fullscreen',
 
             'click section#user': 'toggleUserControl'
+        },
+
+        //
+        // summary:
+        //     DOCME
+        //
+        // description:
+        //     DOCME
+        //
+        nodes: {
+            canvas: '#poster'
         },
 
         //
@@ -89,6 +100,8 @@ function(User, Poster, PosterList, HogwartsView, template, i18n, logger) {
                 return bindable;
             }()));
 
+            this.addReferences(this.nodes);
+
             return this;
         },
 
@@ -119,6 +132,9 @@ function(User, Poster, PosterList, HogwartsView, template, i18n, logger) {
 
                 // TODO: Display the poster on a canvas.
                 // poster.get('data');
+
+                context.$canvas.html(poster.get('data'));
+
             });
 
             context.model.get('posters').add(poster);

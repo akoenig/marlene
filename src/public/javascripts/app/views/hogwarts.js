@@ -16,13 +16,13 @@ define([
     'app/views/ron',
     'app/views/draco',
     'app/views/harry',
-    'lib/magicwand',
+    'lib/illusionist',
     'vendor/tpl!app/views/hogwarts.tpl',
     'vendor/i18n!app/nls/hogwarts',
     'app/helpers/logger',
     'vendor/framework'
 ],
-function(Lucius, Hermione, Ron, Draco, Harry, MagicWand, template, i18n, logger) {
+function(Lucius, Hermione, Ron, Draco, Harry, Illusionist, template, i18n, logger) {
     
     var _name = 'HogwartsView';
 
@@ -456,10 +456,10 @@ function(Lucius, Hermione, Ron, Draco, Harry, MagicWand, template, i18n, logger)
             // to the magic wand, which will generate a poster out
             // of it.
             //
-            new MagicWand({
+            new Illusionist({
                 poster: context.model,
                 user: context.user
-            }).waggle();
+            }).perform();
         }
     });
 

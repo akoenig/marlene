@@ -21,3 +21,5 @@
         </nav>
     </section>
 </div>
+
+<div id="poster"></div>
