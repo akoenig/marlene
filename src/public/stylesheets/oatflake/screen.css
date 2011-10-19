@@ -107,6 +107,15 @@ top:20%;
     list-style-type:none
 }
 
+#poster {
+    position:absolute;
+    top:100px
+}
+
+#poster svg {
+    border:1px solid red
+}
+
 #hogwarts {
     background:#fff;
     border:1px solid rgba(0,0,0,.3);

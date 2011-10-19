@@ -41,8 +41,8 @@ function() {
         //
         formats: {
             landscape: {
-                height:768,
-                width:1024
+                height:200,
+                width:600
             },
             portrait: {
                 height:1024,

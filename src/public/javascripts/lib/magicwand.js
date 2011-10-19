@@ -60,7 +60,11 @@ function(logger, randomizer, assets) {
         // TODO: Fix the dimension bug here ...
         this.paper = Raphael($('<section />'), format.width, format.height);
 
-        this.canvas = this.paper.canvas;
+        this.canvas = $(this.paper.canvas);
+        this.canvas.attr({
+            height: format.height,
+            width: format.width
+        });
 
         return this;
     };
