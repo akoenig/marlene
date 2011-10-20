@@ -22,7 +22,6 @@ define([
     'app/helpers/logger',
     'app/helpers/randomizer',
     'lib/assets',
-    'vendor/raphael',
     'vendor/framework'
 ],
 function(logger, randomizer, assets) {
@@ -57,14 +56,31 @@ function(logger, randomizer, assets) {
         var isLandscape = (this.poster.get('landscape') === true);
         var format = (isLandscape) ? assets.formats.landscape : assets.formats.portrait;
 
-        // TODO: Fix the dimension bug here ...
-        this.paper = Raphael($('<section />'), format.width, format.height);
+        //
+        // We have to create a "incubator canvas" in which
+        // the complete poster rendering will take place.
+        // After the poster creation, we will clone this node
+        // remove it from the body and move it into the poster model.
+        //
+        var incubatorId = ('poster-' + new Date().getTime());
+        this.incubator = $('<canvas />');
+        this.incubator
+            .attr({
+                id: incubatorId,
+                height: format.height,
+                width: format.width
+            })
+            .hide();
 
-        this.canvas = $(this.paper.canvas);
-        this.canvas.attr({
-            height: format.height,
-            width: format.width
-        });
+        $('body').append(this.incubator);
+
+        this.paper = (this.incubator.get()[0]).getContext('2d');
+
+        //
+        // Draw the marlene logo
+        //
+        // TODO: Draw the logo.
+
 
         return this;
     };
@@ -84,15 +100,9 @@ function(logger, randomizer, assets) {
                 max: (colors.length - 1)
             });
 
-            var color = colors[x];
-
-var circle = this.paper.circle(50, 40, 10);
-// Sets the fill attribute of the circle to red (#f00)
-circle.attr("fill", color);
-
-// Sets the stroke attribute of the circle to white
-circle.attr("stroke", "#fff");
-
+            this.paper.beginPath();  
+            this.paper.arc(75,75,20,0,Math.PI*2,true);
+            this.paper.fill();
 
         // TODO: Add background
 
@@ -161,7 +171,23 @@ circle.attr("stroke", "#fff");
     MagicWand.prototype.finish = function(callback) {
         logger.log(_name, 'finish()');
 
-        callback(this.canvas);
+        //
+        // Cloning the incubator canvas.
+        //
+        var result = this.incubator.clone();
+
+        var format = {
+            height: this.incubator.attr('height'),
+            width: this.incubator.attr('width')
+        };
+        var data = this.paper.getImageData(0, 0, format.width, format.height);
+
+        (result.get()[0]).getContext('2d').putImageData(data, 0, 0);
+
+        this.incubator.remove();
+        result.show();
+
+        callback(result);
     };
 
     return MagicWand;
