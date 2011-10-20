@@ -47,7 +47,7 @@ function(logger, randomizer, assets) {
     // description:
     //     DOCME
     //
-    MagicWand.prototype.createPaper = function() {
+    MagicWand.prototype.createPaper = function(callback) {
         logger.log(_name, 'createPaper()');
 
         //
@@ -82,7 +82,7 @@ function(logger, randomizer, assets) {
         // TODO: Draw the logo.
 
 
-        return this;
+        callback();
     };
 
     //
@@ -92,21 +92,23 @@ function(logger, randomizer, assets) {
     // description:
     //     DOCME
     //
-    MagicWand.prototype.createBackground = function() {
+    MagicWand.prototype.createBackground = function(callback) {
         logger.log(_name, 'createBackground()');
-            var colors = ['red', 'blue', 'green', 'yellow', 'pink', 'black', 'white'];
+        var that = this;
 
-            var x = randomizer.digit({
-                max: (colors.length - 1)
-            });
+        var index = randomizer.digit({
+            max: (assets.backgrounds.length - 1)
+        });
 
-            this.paper.beginPath();  
-            this.paper.arc(75,75,20,0,Math.PI*2,true);
-            this.paper.fill();
+        var background = new Image();
 
-        // TODO: Add background
+        background.onload = function() {
+            that.paper.drawImage(background, 0, 0);
 
-        return this;
+            callback();
+        };
+
+        background.src = assets.backgrounds[index].src;
     };
 
     //
@@ -116,10 +118,10 @@ function(logger, randomizer, assets) {
     // description:
     //     DOCME
     //
-    MagicWand.prototype.createPhotoDrops = function() {
+    MagicWand.prototype.createPhotoDrops = function(callback) {
         logger.log(_name, 'createPhotoDrops()');
 
-        return this;
+        callback();
     };
 
     //
@@ -129,10 +131,10 @@ function(logger, randomizer, assets) {
     // description:
     //     DOCME
     //
-    MagicWand.prototype.createProfileDrop = function() {
+    MagicWand.prototype.createProfileDrop = function(callback) {
         logger.log(_name, 'createProfileDrop()');
 
-        return this;
+        callback();
     };
 
     //
@@ -142,10 +144,10 @@ function(logger, randomizer, assets) {
     // description:
     //     DOCME
     //
-    MagicWand.prototype.createTweetDrop = function() {
+    MagicWand.prototype.createTweetDrop = function(callback) {
         logger.log(_name, 'createTweetDrop()');
 
-        return this;
+        callback();
     };
 
     //
@@ -155,10 +157,10 @@ function(logger, randomizer, assets) {
     // description:
     //     DOCME
     //
-    MagicWand.prototype.createSemanticDrops = function() {
+    MagicWand.prototype.createSemanticDrops = function(callback) {
         logger.log(_name, 'createSemanticDrops()');
 
-        return this;
+        callback();
     };
 
     //

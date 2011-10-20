@@ -64,20 +64,31 @@ function(MagicWand, logger) {
         logger.log(_name, 'performing ...');
         var context = this;
         
-        Step(
-            function generate() {
-                new MagicWand(context.poster, context.user)
-                    .createPaper()
-                    .createBackground()
-                    .createPhotoDrops()
-                    .createProfileDrop()
-                    .createTweetDrop()
-                    .createSemanticDrops()
-                    .finish(this);
-            },
-            function finalize(canvas) {
-                logger.log(_name, 'finished performing ...');
+        var magicwand = new MagicWand(context.poster, context.user);
 
+        Step(
+            function paper() {
+                magicwand.createPaper(this);
+            },
+            function background() {
+                magicwand.createBackground(this);
+            },
+            function photodrops() {
+                magicwand.createPhotoDrops(this);
+            },
+            function profiledrop() {
+                magicwand.createProfileDrop(this);
+            },
+            function tweetdrop() {
+                magicwand.createTweetDrop(this);
+            },
+            function semanticdrops() {
+                magicwand.createSemanticDrops(this);
+            },
+            function finish() {
+                magicwand.finish(this);
+            },
+            function end(canvas) {
                 context.poster.set({
                     canvas: canvas,
                     produced: true

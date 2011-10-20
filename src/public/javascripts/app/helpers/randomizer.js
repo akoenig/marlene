@@ -28,24 +28,26 @@ function(logger) {
 
     return {
 
-     	//
-        // summary:
-     	//     DOCME
-     	//
-     	// description:
-     	//     DOCME
-     	//
-     	digit : function(range) {
-     		range = range || {};
+         //
+         // summary:
+         //     DOCME
+         //
+         // description:
+         //     DOCME
+         //
+        digit : function(range) {
+            range = range || {};
 
-     		var min = range.min || 0;
-     		var max = range.max || 0;
+            var min = range.min || 0;
+            var max = range.max || -1;
 
-     		if (max === 0) {
-     			logger.error(_name, 'You have to specifiy at least the max value.');
-     		}
+            if (max === -1) {
+                logger.error(_name, 'You have to specifiy at least the max value.');
+            } else if (max === 0) {
+               max = 1;  
+            }
 
             return Math.round((Math.random() * (max - min)) + min);
-     	}
-     }
+        }
+     };
 });
