@@ -100,10 +100,21 @@ function(logger, randomizer, assets) {
             max: (assets.backgrounds.length - 1)
         });
 
-        var background = new Image();
 
+        var isLandscape = (this.poster.get('landscape') === true);
+
+        var background = new Image();
         background.onload = function() {
-            that.paper.drawImage(background, 0, 0);
+
+            if (!isLandscape) {
+                that.paper.translate(background.height, 0);
+                that.paper.rotate((90 * Math.PI) / 180);
+                that.paper.drawImage(background, 0, 0);
+                that.paper.rotate((-90 * Math.PI) / 180);
+                that.paper.translate(-background.height, 0);
+            } else {
+                that.paper.drawImage(background, 0, 0);
+            }
 
             callback();
         };
@@ -120,6 +131,8 @@ function(logger, randomizer, assets) {
     //
     MagicWand.prototype.createPhotoDrops = function(callback) {
         logger.log(_name, 'createPhotoDrops()');
+
+        this.paper.fillRect(25,25,150,100);
 
         callback();
     };
