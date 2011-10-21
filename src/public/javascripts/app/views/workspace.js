@@ -130,11 +130,25 @@ function(User, Poster, PosterList, HogwartsView, template, i18n, logger) {
 
                 hogwarts.destroy();
 
-                // TODO: Display the poster on a canvas.
-                // poster.get('data');
                 var canvas = poster.get('canvas');
-                context.$posterNode.html(canvas);
+                context.$posterNode.hide().html(canvas);
 
+                //
+                // Fix the poster position.
+                //
+                var sizes = {
+                    canvas: {
+                        width: context.$posterNode.width()
+                    },
+                    viewport: {
+                        width: $(document).width()
+                    }
+                };
+
+                var left = ((sizes.viewport.width - sizes.canvas.width) / 2) + 'px';
+                context.$posterNode
+                    .css('left', left)
+                    .fadeIn();
             });
 
             context.model.get('posters').add(poster);
