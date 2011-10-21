@@ -38,6 +38,92 @@ function(logger, randomizer, assets) {
     function MagicWand(poster, user) {
         this.poster = poster;
         this.user = user;
+
+        //
+        // DOCME
+        //
+        this.shapes = {
+            photodrops: [],
+            profiledrop: null,
+            tweetdrop: null,
+            semanticdrops: []
+        };
+
+        //
+        // summary:
+        //     DOCME
+        //
+        // description:
+        //     DOCME
+        //
+        this._createPhotodrop = function() {
+            logger.log(_name, '_createPhotodrop');
+
+            var rand = randomizer.digit({
+                min: 0,
+                max: 1
+            });
+
+            var circle = (rand === 1);
+
+            rand = randomizer.digit({
+                min: 200,
+                max: 400
+            });
+
+            var canvas = $('<canvas />');
+            canvas.hide();
+            $('body').append(canvas);
+
+            var format = {
+                height: rand,
+                width: rand
+            };
+            canvas.attr(format);
+
+            var border = 10;
+
+            // Removing the border width from
+            // the format ...
+            format.height -= border;
+            format.width -= border;
+
+            // The start position for the drawing stuff.
+            var start = {};
+
+            var paper = canvas.get()[0].getContext('2d');
+            paper.beginPath();
+
+            if (circle) {
+                start.x = (format.width / 2);
+                start.y = (format.height / 2);
+
+                paper.moveTo(start.x, start.y);
+                console.log('Radius: ' + format.width);
+                console.log(start);
+                paper.arc(start.x, start.y, format.width, 0, Math.PI*2, true);
+            } else {
+                start.x = (format.width / 2);
+                start.y = border;
+
+                paper.moveTo(start.x, start.y);
+                paper.quadraticCurveTo(0, 0, 0, (format.height / 2));
+                paper.quadraticCurveTo(0, format.height, (format.width / 2), format.height);
+                paper.quadraticCurveTo(format.width, format.height, format.width, (format.height / 2));
+                paper.lineTo(format.width, start.y);
+                paper.lineTo((format.width / 2), start.y);
+            }
+
+            paper.closePath();
+            paper.lineWidth = border;
+            paper.stroke();
+
+            paper.clip();
+
+            // TODO: Load photo
+
+            return canvas;
+        };
     }
 
     //
@@ -76,12 +162,6 @@ function(logger, randomizer, assets) {
 
         this.paper = (this.incubator.get()[0]).getContext('2d');
 
-        //
-        // Draw the marlene logo
-        //
-        // TODO: Draw the logo.
-
-
         callback();
     };
 
@@ -96,16 +176,15 @@ function(logger, randomizer, assets) {
         logger.log(_name, 'createBackground()');
         var that = this;
 
-        var index = randomizer.digit({
-            max: (assets.backgrounds.length - 1)
-        });
-
-
         var isLandscape = (this.poster.get('landscape') === true);
 
         var background = new Image();
-        background.onload = function() {
 
+        var randomIndex = randomizer.digit({
+            max: (assets.backgrounds.length - 1)
+        });
+
+        background.onload = function() {
             if (!isLandscape) {
                 that.paper.translate(background.height, 0);
                 that.paper.rotate((90 * Math.PI) / 180);
@@ -119,7 +198,7 @@ function(logger, randomizer, assets) {
             callback();
         };
 
-        background.src = assets.backgrounds[index].src;
+        background.src = assets.backgrounds[randomIndex].src;
     };
 
     //
@@ -132,7 +211,9 @@ function(logger, randomizer, assets) {
     MagicWand.prototype.createPhotoDrops = function(callback) {
         logger.log(_name, 'createPhotoDrops()');
 
-        this.paper.fillRect(25,25,150,100);
+        var photodrop = this._createPhotodrop();
+        console.log(photodrop);
+        $('body').appendChild(photodrop);
 
         callback();
     };
