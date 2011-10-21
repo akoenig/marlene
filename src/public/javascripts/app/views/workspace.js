@@ -49,7 +49,22 @@ function(User, Poster, PosterList, HogwartsView, template, i18n, logger) {
         //     DOCME
         //
         nodes: {
-            posterNode: '#poster'
+            posterNode: '#poster',
+            downloadButton: 'section#toolbar .download a',
+            fullscreenButton: 'section#toolbar .fullscreen a'
+        },
+
+        //
+        // summary:
+        //     DOCME
+        //
+        // description:
+        //     DOCME
+        //
+        css: {
+            button: {
+                disabled: 'disabled'
+            }
         },
 
         //
@@ -113,7 +128,7 @@ function(User, Poster, PosterList, HogwartsView, template, i18n, logger) {
         //     DOCME
         //
         create : function(e) {
-            var context = this;
+            var that = this;
             logger.log(_name, 'Starting "Hogwarts" ...');
 
             if (e) {
@@ -130,15 +145,21 @@ function(User, Poster, PosterList, HogwartsView, template, i18n, logger) {
 
                 hogwarts.destroy();
 
+                //
+                // Activate the download and fullscreen button
+                //
+                that.$downloadButton.removeClass(that.css.button.disabled);
+                that.$fullscreenButton.removeClass(that.css.button.disabled);
+
                 var canvas = poster.get('canvas');
-                context.$posterNode.hide().html(canvas);
+                that.$posterNode.hide().html(canvas);
 
                 //
                 // Fix the poster position.
                 //
                 var sizes = {
                     canvas: {
-                        width: context.$posterNode.width()
+                        width: that.$posterNode.width()
                     },
                     viewport: {
                         width: $(document).width()
@@ -146,12 +167,12 @@ function(User, Poster, PosterList, HogwartsView, template, i18n, logger) {
                 };
 
                 var left = ((sizes.viewport.width - sizes.canvas.width) / 2) + 'px';
-                context.$posterNode
+                that.$posterNode
                     .css('left', left)
                     .fadeIn();
             });
 
-            context.model.get('posters').add(poster);
+            that.model.get('posters').add(poster);
 
             //
             // The following dom node is only for temporary purposes.
@@ -164,7 +185,7 @@ function(User, Poster, PosterList, HogwartsView, template, i18n, logger) {
             hogwarts = new HogwartsView({
                 el: hogwartsArea,
                 model: poster,
-                user: context.model.get('user')
+                user: that.model.get('user')
             });
         },
 
@@ -177,6 +198,14 @@ function(User, Poster, PosterList, HogwartsView, template, i18n, logger) {
         //
         download : function() {
             logger.log(_name, 'Downloading the current poster ...');
+
+            var imageMIME = 'image/jpeg';
+            var octetMIME = 'image/octet-stream';
+
+            var canvas = this.$posterNode.children('canvas')[0];
+            var data = canvas.toDataURL(imageMIME);
+
+            document.location.href = data.replace(imageMIME, octetMIME);
         },
 
         //
