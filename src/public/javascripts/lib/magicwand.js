@@ -21,6 +21,7 @@
 define([
     'lib/pencil',
     'app/helpers/logger',
+    'app/helpers/randomizer',
     'lib/assets',
     'vendor/framework'
 ],
@@ -140,11 +141,18 @@ function(Pencil, logger, randomizer, assets) {
     MagicWand.prototype.createPhotoDrops = function(callback) {
         logger.log(_name, 'createPhotoDrops()');
 
-        var photodrop = this.pencil.createPhotodrop();
-        console.log(photodrop);
-        $('body').appendChild(photodrop);
+        var count = randomizer.digit({
+            min: 1,
+            max: 3  
+        });
 
-        callback();
+        this.pencil.createPhotoDrops(count).then(function(drops) {
+            logger.log(_name, 'Created all drops ...');
+
+            console.log(drops);
+
+            callback();
+        });
     };
 
     //
