@@ -45,7 +45,7 @@ function(logger, assets, randomizer) {
             min: 0,
             max: 1
         });
-rand = 0;
+
         var circle = (rand === 1);
 
         var canvas = $('<canvas />');
@@ -83,14 +83,13 @@ rand = 0;
 
             canvas.attr(format);
 
-            format.height = format.height - border;
-            format.width = format.width - border;
+            format.height = format.height - (border*2);
+            format.width = format.width - (border*2);
 
             start.x = (format.width / 2);
             start.y = (format.height / 2);
 
-            paper.moveTo(start.x, start.y);
-            paper.arc(start.x, start.y, format.width, 0, Math.PI*2, true);
+            paper.arc(start.x, start.y, (format.width / 2), 0, Math.PI*2, true);
         } else {
 
             // Random radius (could be different height and width).
