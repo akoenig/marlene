@@ -43,16 +43,6 @@ function(Pencil, logger, randomizer, assets) {
         //
         // DOCME
         //
-        this.shapes = {
-            photodrops: [],
-            profiledrop: null,
-            tweetdrop: null,
-            semanticdrops: []
-        };
-
-        //
-        // DOCME
-        //
         this.pencil = new Pencil();
     }
 
@@ -165,7 +155,21 @@ function(Pencil, logger, randomizer, assets) {
     MagicWand.prototype.createProfileDrop = function(callback) {
         logger.log(_name, 'createProfileDrop()');
 
-        callback();
+        var user = this.user.toJSON();
+
+        var profile = {
+            avatar: user.avatar,
+            nick: user.nick,
+            name: user.name,
+            description: user.description,
+            followers: user.followers,
+            statuscount: user.statuscount
+        };
+
+        this.pencil.createProfileDrop(profile).then(function(profileDrop) {
+
+            callback();
+        });
     };
 
     //

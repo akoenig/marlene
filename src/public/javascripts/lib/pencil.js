@@ -65,7 +65,9 @@ function(logger, assets, randomizer) {
             var circle = (rand === 1);
 
             var canvas = $('<canvas />');
-         //            canvas.hide();
+            canvas.hide();
+
+            // Verify that the element will be removed later on!
             $('body').append(canvas);
 
             //
@@ -182,6 +184,25 @@ function(logger, assets, randomizer) {
 
         return deferred.promise();
     };
+
+    //
+    // summary:
+    //     DOCME
+    //
+    // description:
+    //     DOCME
+    //
+    Pencil.prototype.createProfileDrop = function(profile) {
+        var deferred = $.Deferred();
+        logger.log(_name, 'The profile: ');
+        console.log(profile);
+
+        window.setTimeout(function() {
+            deferred.resolve();
+        }, 5000);
+
+        return deferred.promise();
+	};
 
     return Pencil;
 });
