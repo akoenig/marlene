@@ -59,6 +59,7 @@ top:20%;
 }
 
 #header {
+opacity:.2;
     background:#fff;
     left:0;
     position:fixed;
@@ -106,6 +107,7 @@ top:20%;
 }
 
 #poster {
+display:none;
     border:1px solid red;
     position:absolute;
     top:100px;
@@ -113,6 +115,7 @@ top:20%;
 }
 
 #poster canvas {
+display:none;
     width:500px
 }
 

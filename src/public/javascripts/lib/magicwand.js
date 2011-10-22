@@ -19,12 +19,12 @@
 //     DOCME
 //
 define([
+    'lib/pencil',
     'app/helpers/logger',
-    'app/helpers/randomizer',
     'lib/assets',
     'vendor/framework'
 ],
-function(logger, randomizer, assets) {
+function(Pencil, logger, randomizer, assets) {
 
     var _name = 'MagicWand';
 
@@ -50,80 +50,9 @@ function(logger, randomizer, assets) {
         };
 
         //
-        // summary:
-        //     DOCME
+        // DOCME
         //
-        // description:
-        //     DOCME
-        //
-        this._createPhotodrop = function() {
-            logger.log(_name, '_createPhotodrop');
-
-            var rand = randomizer.digit({
-                min: 0,
-                max: 1
-            });
-
-            var circle = (rand === 1);
-
-            rand = randomizer.digit({
-                min: 200,
-                max: 400
-            });
-
-            var canvas = $('<canvas />');
-            canvas.hide();
-            $('body').append(canvas);
-
-            var format = {
-                height: rand,
-                width: rand
-            };
-            canvas.attr(format);
-
-            var border = 10;
-
-            // Removing the border width from
-            // the format ...
-            format.height -= border;
-            format.width -= border;
-
-            // The start position for the drawing stuff.
-            var start = {};
-
-            var paper = canvas.get()[0].getContext('2d');
-            paper.beginPath();
-
-            if (circle) {
-                start.x = (format.width / 2);
-                start.y = (format.height / 2);
-
-                paper.moveTo(start.x, start.y);
-                console.log('Radius: ' + format.width);
-                console.log(start);
-                paper.arc(start.x, start.y, format.width, 0, Math.PI*2, true);
-            } else {
-                start.x = (format.width / 2);
-                start.y = border;
-
-                paper.moveTo(start.x, start.y);
-                paper.quadraticCurveTo(0, 0, 0, (format.height / 2));
-                paper.quadraticCurveTo(0, format.height, (format.width / 2), format.height);
-                paper.quadraticCurveTo(format.width, format.height, format.width, (format.height / 2));
-                paper.lineTo(format.width, start.y);
-                paper.lineTo((format.width / 2), start.y);
-            }
-
-            paper.closePath();
-            paper.lineWidth = border;
-            paper.stroke();
-
-            paper.clip();
-
-            // TODO: Load photo
-
-            return canvas;
-        };
+        this.pencil = new Pencil();
     }
 
     //
@@ -211,7 +140,7 @@ function(logger, randomizer, assets) {
     MagicWand.prototype.createPhotoDrops = function(callback) {
         logger.log(_name, 'createPhotoDrops()');
 
-        var photodrop = this._createPhotodrop();
+        var photodrop = this.pencil.createPhotodrop();
         console.log(photodrop);
         $('body').appendChild(photodrop);
 

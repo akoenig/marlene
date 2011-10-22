@@ -35,19 +35,63 @@ function(logger) {
          // description:
          //     DOCME
          //
-        digit : function(range) {
-            range = range || {};
+         // TODO: Integrate check if the count is smaller than the range
+         // between min/max and the unique flag is set. This will cause an endless loop.
+         //
+        digit : function(options) {
+            var artefact;
 
-            var min = range.min || 0;
-            var max = range.max || -1;
+            options = options || {};
+
+            var min = options.min || 0;
+            var max = options.max || -1;
+
+            //
+            // DOCME
+            //
+            var _generate = function() {
+                return Math.round((Math.random() * (max - min)) + min);
+            };
 
             if (max === -1) {
                 logger.error(_name, 'You have to specifiy at least the max value.');
             } else if (max === 0) {
-               max = 1;  
+               max = 1;
             }
 
-            return Math.round((Math.random() * (max - min)) + min);
+            if (options.count) {
+                artefact = [];
+
+                var i = 1;
+                for (i; i <= options.count; i++) {
+
+                    if (options.unique) {
+                        var added = false;
+
+                        while (!added) {
+                            var exists = false;
+                            var digit = _generate();
+
+                            artefact.forEach(function(value, index) {
+                                if (digit === value) {
+                                    exists = true;
+                                }
+                            });
+
+                            if (!exists) {
+                                added = true;
+                                artefact.push(digit);
+                            }
+                        }
+                    } else {
+                        artefact.push(_generate());
+                    }
+                }
+            } else {
+                artefact = _generate();
+            }
+
+            return artefact;
         }
      };
 });
