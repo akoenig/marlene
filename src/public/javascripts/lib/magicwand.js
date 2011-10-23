@@ -101,24 +101,26 @@ function(Pencil, logger, randomizer, assets) {
         var background = new Image();
 
         var randomIndex = randomizer.digit({
-            max: (assets.backgrounds.length - 1)
+            max: (assets.backgrounds.files.length - 1)
         });
 
         background.onload = function() {
-            if (!isLandscape) {
-                that.paper.translate(background.height, 0);
-                that.paper.rotate((90 * Math.PI) / 180);
-                that.paper.drawImage(background, 0, 0);
-                that.paper.rotate((-90 * Math.PI) / 180);
-                that.paper.translate(-background.height, 0);
-            } else {
-                that.paper.drawImage(background, 0, 0);
-            }
+            that.paper.drawImage(background, 0, 0);
 
             callback();
         };
 
-        background.src = assets.backgrounds[randomIndex].src;
+        var source = null;
+
+        if (isLandscape) {
+            source = assets.backgrounds.landscapePath();
+        } else {
+            source = assets.backgrounds.portraitPath();
+        }
+
+        source = source + assets.backgrounds.files[randomIndex];
+console.log(source);
+        background.src = source;
     };
 
     //
