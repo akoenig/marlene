@@ -119,7 +119,7 @@ function(Pencil, logger, randomizer, assets) {
         }
 
         source = source + assets.backgrounds.files[randomIndex];
-console.log(source);
+
         background.src = source;
     };
 
