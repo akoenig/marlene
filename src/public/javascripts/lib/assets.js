@@ -72,11 +72,11 @@ function() {
             path: 'images/backgrounds/',
 
             landscapePath : function() {
-                return this.path + 'landscape/'
+                return this.path + 'landscape/';
             },
 
             portraitPath : function() {
-                return this.path + 'portrait/'
+                return this.path + 'portrait/';
             },            
 
             files: ['0.jpg', '1.jpg']
@@ -89,7 +89,10 @@ function() {
         // description:
         //     DOCME
         //
-        photos: []
+        photos: {
+            path: 'images/photos/',
+            files: ['bla.jpg', 'bla2.jpg']
+        }
     };
 
     return assets;

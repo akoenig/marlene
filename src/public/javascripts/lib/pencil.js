@@ -149,13 +149,13 @@ function(logger, assets, randomizer) {
             paper.stroke();
 
             paper.clip();
-
+console.log(assets.photos.files.length);
             //
             // Rendering the photo.
             //
             rand = randomizer.digit({
                 min: 0,
-                max: assets.backgrounds.length - 1
+                max: assets.photos.files.length - 1
             });
 
             var photo = new Image();
@@ -170,7 +170,7 @@ function(logger, assets, randomizer) {
                 }
             };
 
-            photo.src = assets.backgrounds[rand].src;
+            photo.src = assets.photos.path + assets.photos.files[rand];
         };
 
         //
