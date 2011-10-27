@@ -88,7 +88,7 @@ function(logger, assets, randomizer) {
             //
             // Getting the drawing context ...
             //
-            var paper = canvas.get()[0].getContext('2d');
+            var paper = canvas[0].getContext('2d');
             paper.beginPath();
 
             if (circle) {
@@ -149,7 +149,7 @@ function(logger, assets, randomizer) {
             paper.stroke();
 
             paper.clip();
-console.log(assets.photos.files.length);
+
             //
             // Rendering the photo.
             //

@@ -91,7 +91,7 @@ function() {
         //
         photos: {
             path: 'images/photos/',
-            files: ['bla.jpg', 'bla2.jpg']
+            files: ['0.jpg', '1.jpg']
         }
     };
 

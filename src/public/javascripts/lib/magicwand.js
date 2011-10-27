@@ -133,6 +133,8 @@ function(Pencil, logger, randomizer, assets) {
     MagicWand.prototype.createPhotoDrops = function(callback) {
         logger.log(_name, 'createPhotoDrops()');
 
+        var that = this;
+
         var count = randomizer.digit({
             min: 1,
             max: 3  
@@ -141,7 +143,12 @@ function(Pencil, logger, randomizer, assets) {
         this.pencil.createPhotoDrops(count).then(function(drops) {
             logger.log(_name, 'Created all drops ...');
 
-            console.log(drops);
+            drops.forEach(function(drop, index) {
+                drop = drop[0];
+
+console.log(drop);
+                that.paper.drawImage(drop, 0, 0); 
+            });
 
             callback();
         });
