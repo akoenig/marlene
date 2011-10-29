@@ -44,7 +44,7 @@ function(logger) {
             options = options || {};
 
             var min = options.min || 0;
-            var max = options.max || -1;
+            var max = ((options.max === 0) ? 1 : options.max) || -1;
 
             //
             // DOCME
@@ -55,8 +55,6 @@ function(logger) {
 
             if (max === -1) {
                 logger.error(_name, 'You have to specifiy at least the max value.');
-            } else if (max === 0) {
-               max = 1;
             }
 
             if (options.count) {

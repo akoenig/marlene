@@ -88,16 +88,15 @@ function(logger, assets, randomizer) {
             // Random radius (could be different height and width).
             rand = randomizer.digit({ // [0] -> height; [1] -> width
                 min: 300,
-                max: 600,
-                count: 2
+                max: 400
             });
 
             var circle = (randomizer.digit({min: 0,max: 1}) === 1);
 
             if (circle) {
 
-                format.height = rand[0];
-                format.width = rand[0];
+                format.height = rand;
+                format.width = rand;
 
                 canvas.attr(format);
 
@@ -110,8 +109,8 @@ function(logger, assets, randomizer) {
                 paper.arc(start.x, start.y, (format.width / 2), 0, Math.PI*2, true);
             } else {
 
-                format.height = rand[0];
-                format.width = rand[1];
+                format.height = rand;
+                format.width = rand;
 
                 canvas.attr(format);
 
@@ -150,8 +149,9 @@ function(logger, assets, randomizer) {
                 paper.drawImage(photo, 0, 0);
                 paper.closePath();
 
-                paper.globalAlpha = 0.5;
-                paper.globalCompositeOperation = 'destination-in';
+                rand = randomizer.digit({max: assets.colors.length - 1});
+
+                paper.strokeStyle = assets.colors[rand];
 
                 paper.lineWidth = border;
                 paper.stroke();

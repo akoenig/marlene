@@ -58,7 +58,7 @@ function() {
         //     DOCME
         //
         colors: [
-            'black', 'red', 'green'
+            'rgba(86,92,84,0.2)', 'rgba(253,92,84,0.5)', 'rgba(0,92,84,0.2)', 'rgba(169,100,85,0.2)'
         ],
 
         //

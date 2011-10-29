@@ -175,8 +175,8 @@ function(Pencil, logger, randomizer, assets) {
         var that = this;
 
         var count = randomizer.digit({
-            min: 5,
-            max: 10
+            min: 2,
+            max: 4
         });
 
         that.pencil.createPhotoDrops(count).then(function(drops) {
@@ -186,10 +186,9 @@ function(Pencil, logger, randomizer, assets) {
             drops.forEach(function(drop) {
                 drop = drop[0];
 
-                var index = randomizer.digit({max: anchors.length - 1});
+                var index = randomizer.digit({min: 0, max: anchors.length - 1});
                 var anchor = anchors.splice(index, 1)[0];
-console.log("ANCHOR");
-console.log(anchor);
+
                 that.paper.drawImage(drop, anchor.x, anchor.y);
 
                 console.log("AVAILABLE ANCHORS = " + anchors.length);
