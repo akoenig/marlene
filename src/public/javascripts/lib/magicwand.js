@@ -44,6 +44,50 @@ function(Pencil, logger, randomizer, assets) {
         // DOCME
         //
         this.pencil = new Pencil();
+
+        //
+        // summary:
+        //     DOCME
+        //
+        // description:
+        //     DOCME
+        //
+        this.generateAnchors = function(forItemCount) {
+            var that = this;
+
+            var anchors = [];
+
+            var count = forItemCount + 1;
+
+            var format = {
+                height: that.incubator.height(),
+                width: that.incubator.width()
+            };
+
+            var cell = {
+                height: (that.incubator.height() / count),
+                width: (that.incubator.width() / count)
+            };
+
+            var col = 1;
+            for (col; col < count; col++) {
+                var x = Math.round(cell.width * col);
+
+                var row = 1;
+                for (row; row < count; row++) {
+                    var y = Math.round(cell.height * row);
+
+                    var anchor = {
+                        x: x,
+                        y: y
+                    };
+
+                    anchors.push(anchor);
+                }
+            }
+
+            return anchors;
+        }
     }
 
     //
@@ -94,33 +138,28 @@ function(Pencil, logger, randomizer, assets) {
     //
     MagicWand.prototype.createBackground = function(callback) {
         logger.log(_name, 'createBackground()');
+
         var that = this;
+        var type = (this.poster.get('landscape') === true) ? 'landscape' : 'portrait';
 
-        var isLandscape = (this.poster.get('landscape') === true);
-
-        var background = new Image();
-
-        var randomIndex = randomizer.digit({
-            max: (assets.backgrounds.files.length - 1)
+        var index = randomizer.digit({
+            max: (assets.backgrounds[type].files.length - 1)
         });
 
-        background.onload = function() {
-            that.paper.drawImage(background, 0, 0);
+        var background = assets.backgrounds[type].files[index];
+
+        var backgroundImage = new Image();
+
+        backgroundImage.onload = function() {
+            that.poster.set({
+                background: background
+            });
+            that.paper.drawImage(backgroundImage, 0, 0);
 
             callback();
         };
 
-        var source = null;
-
-        if (isLandscape) {
-            source = assets.backgrounds.landscapePath();
-        } else {
-            source = assets.backgrounds.portraitPath();
-        }
-
-        source = source + assets.backgrounds.files[randomIndex];
-
-        background.src = source;
+        backgroundImage.src = background.src;
     };
 
     //
@@ -136,22 +175,28 @@ function(Pencil, logger, randomizer, assets) {
         var that = this;
 
         var count = randomizer.digit({
-            min: 1,
-            max: 3  
+            min: 5,
+            max: 10
         });
 
-        this.pencil.createPhotoDrops(count).then(function(drops) {
-            logger.log(_name, 'Created all drops ...');
+        that.pencil.createPhotoDrops(count).then(function(drops) {
 
-            drops.forEach(function(drop, index) {
+            var anchors = that.generateAnchors(count);
+
+            drops.forEach(function(drop) {
                 drop = drop[0];
 
-console.log(drop);
-                that.paper.drawImage(drop, 0, 0); 
-            });
+                var index = randomizer.digit({max: anchors.length - 1});
+                var anchor = anchors.splice(index, 1)[0];
+console.log("ANCHOR");
+console.log(anchor);
+                that.paper.drawImage(drop, anchor.x, anchor.y);
 
-            callback();
+                console.log("AVAILABLE ANCHORS = " + anchors.length);
+            });
         });
+
+        callback();
     };
 
     //

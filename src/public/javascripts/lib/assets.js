@@ -69,17 +69,42 @@ function() {
         //     DOCME
         //
         backgrounds: {
-            path: 'images/backgrounds/',
-
-            landscapePath : function() {
-                return this.path + 'landscape/';
+            landscape: {
+                files: [
+                    {
+                        src: 'images/backgrounds/landscape/0.jpg',
+                        holes: [ // Places that should always be visible.
+                            {x:0, y:0 , w:0, h:0},
+                            {x:0, y:0 , w:0, h:0}
+                        ]
+                    },
+                    {
+                        src: 'images/backgrounds/landscape/1.jpg',
+                        holes: [ // Places that should always be visible.
+                            {x:0, y:0 , w:0, h:0},
+                            {x:0, y:0 , w:0, h:0}
+                        ]
+                    }
+                ]
             },
-
-            portraitPath : function() {
-                return this.path + 'portrait/';
-            },            
-
-            files: ['0.jpg', '1.jpg']
+            portrait: {
+                files: [
+                    {
+                        src: 'images/backgrounds/portrait/0.jpg',
+                        holes: [ // Places that should always be visible.
+                            {x:0, y:0 , w:0, h:0},
+                            {x:0, y:0 , w:0, h:0}
+                        ]
+                    },
+                    {
+                        src: 'images/backgrounds/portrait/1.jpg',
+                        holes: [ // Places that should always be visible.
+                            {x:0, y:0 , w:0, h:0},
+                            {x:0, y:0 , w:0, h:0}
+                        ]
+                    }
+                ]
+            }
         },
 
         //
@@ -91,7 +116,7 @@ function() {
         //
         photos: {
             path: 'images/photos/',
-            files: ['0.jpg', '1.jpg']
+            files: ['0.jpg', '1.jpg', '3.jpg', '4.jpg']
         }
     };
 

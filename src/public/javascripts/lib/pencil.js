@@ -57,12 +57,6 @@ function(logger, assets, randomizer) {
         // description:
         //     DOCME
         var _createPhotoDrop = function() {
-            var rand = randomizer.digit({
-                min: 0,
-                max: 1
-            });
-
-            var circle = (rand === 1);
 
             var canvas = $('<canvas />');
             canvas.hide();
@@ -73,7 +67,7 @@ function(logger, assets, randomizer) {
             //
             // Defining a random border width
             //
-            var border = randomizer.digit({min: 5, max: 30});
+            var border = randomizer.digit({min: 10, max: 30});
 
             //
             // The start position for the drawing stuff.
@@ -91,13 +85,19 @@ function(logger, assets, randomizer) {
             var paper = canvas[0].getContext('2d');
             paper.beginPath();
 
+            // Random radius (could be different height and width).
+            rand = randomizer.digit({ // [0] -> height; [1] -> width
+                min: 300,
+                max: 600,
+                count: 2
+            });
+
+            var circle = (randomizer.digit({min: 0,max: 1}) === 1);
+
             if (circle) {
 
-                // Random radius (between 250 and 400).
-                rand = randomizer.digit({min: 250,max: 400});
-
-                format.height = rand;
-                format.width = rand;
+                format.height = rand[0];
+                format.width = rand[0];
 
                 canvas.attr(format);
 
@@ -110,20 +110,13 @@ function(logger, assets, randomizer) {
                 paper.arc(start.x, start.y, (format.width / 2), 0, Math.PI*2, true);
             } else {
 
-                // Random radius (could be different height and width).
-                rand = randomizer.digit({ // [0] -> height; [1] -> width
-                    min: 250,
-                    max: 400,
-                    count: 2
-                });
-
                 format.height = rand[0];
                 format.width = rand[1];
 
                 canvas.attr(format);
 
-                format.height = format.height - border;
-                format.width = format.width - border;
+                format.height = format.height - (border*2);
+                format.width = format.width - (border*2);
 
                 start.x = (format.width / 2);
                 start.y = border;
@@ -136,17 +129,10 @@ function(logger, assets, randomizer) {
                 paper.lineTo((format.width / 2), start.y);
             }
 
-            paper.closePath();
-
             rand = randomizer.digit({
                 min: 0,
                 max: assets.colors.length - 1
             });
-
-            paper.strokeStyle = assets.colors[rand];
-
-            paper.lineWidth = border;
-            paper.stroke();
 
             paper.clip();
 
@@ -162,6 +148,13 @@ function(logger, assets, randomizer) {
 
             photo.onload = function() {
                 paper.drawImage(photo, 0, 0);
+                paper.closePath();
+
+                paper.globalAlpha = 0.5;
+                paper.globalCompositeOperation = 'destination-in';
+
+                paper.lineWidth = border;
+                paper.stroke();
 
                 drops.push(canvas);
 
@@ -194,8 +187,6 @@ function(logger, assets, randomizer) {
     //
     Pencil.prototype.createProfileDrop = function(profile) {
         var deferred = $.Deferred();
-        logger.log(_name, 'The profile: ');
-        console.log(profile);
 
         window.setTimeout(function() {
             deferred.resolve();
