@@ -29,7 +29,16 @@ function(logger, assets, randomizer) {
 
     var _name = 'Pencil';
 
-    var Pencil = function() {};
+    //
+    // summary:
+    //     DOCME
+    //
+    // description:
+    //     DOCME
+    //
+    var Pencil = function() {
+        this.bodyNode = $('body');
+    };
     
     //
     // summary:
@@ -40,6 +49,8 @@ function(logger, assets, randomizer) {
     //
     Pencil.prototype.createPhotoDrops = function(count) {
         logger.log(_name, 'createPhotoDrops -> ' + count);
+
+        var that = this;
 
         count = count || 1;
 
@@ -62,12 +73,12 @@ function(logger, assets, randomizer) {
             canvas.hide();
 
             // Verify that the element will be removed later on!
-            $('body').append(canvas);
+            that.bodyNode.append(canvas);
 
             //
             // Defining a random border width
             //
-            var border = randomizer.digit({min: 10, max: 30});
+            var border = randomizer.digit({min: 20, max: 30});
 
             //
             // The start position for the drawing stuff.
@@ -194,6 +205,58 @@ function(logger, assets, randomizer) {
 
         return deferred.promise();
 	};
+
+    //
+    // summary:
+    //     DOCME
+    //
+    // description:
+    //     DOCME
+    //
+    Pencil.prototype.createTweetDrop = function(content) {
+        var that = this;
+        
+        var deferred = $.Deferred();
+
+        var tweet = {
+            canvas: $('<div />'),
+            paper: null,
+            content: content
+        };
+
+        that.bodyNode.append(tweet.canvas);
+        //tweet.canvas.hide();
+
+        tweet.paper = Raphael(tweet.canvas[0], 200, 200);
+
+        var text = tweet.paper.text(100, 100).attr('text-anchor', 'middle');
+        text.attr({font: '16px Helvetica, Arial', opacity: 1, fill: "#efefef"});
+        var words = tweet.content.split(' ');
+
+        tweet.content = '';
+
+        words.forEach(function(word) {
+            text.attr('text', tweet.content + ' ' + word);
+
+            if (text.getBBox().width > 200) {
+                tweet.content += '\n' + word;
+            } else {
+                tweet.content += " " + word;
+            }
+        });
+
+        text.attr('text', tweet.content.substring(1));
+
+console.log(text.getBBox().height);
+        console.log(text.getBBox().width);
+
+        window.setTimeout(function() {
+            console.log(tweet.canvas.html());
+            deferred.resolve(tweet.canvas.html());
+        }, 2000);
+
+        return deferred.promise();
+    };
 
     return Pencil;
 });

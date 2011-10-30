@@ -87,7 +87,7 @@ function(Pencil, logger, randomizer, assets) {
             }
 
             return anchors;
-        }
+        };
     }
 
     //
@@ -184,14 +184,17 @@ function(Pencil, logger, randomizer, assets) {
             var anchors = that.generateAnchors(count);
 
             drops.forEach(function(drop) {
-                drop = drop[0];
+                var node = drop;
+
+                drop = drop[0]; // Because of the returned jQuery object.
 
                 var index = randomizer.digit({min: 0, max: anchors.length - 1});
                 var anchor = anchors.splice(index, 1)[0];
 
                 that.paper.drawImage(drop, anchor.x, anchor.y);
 
-                console.log("AVAILABLE ANCHORS = " + anchors.length);
+                // Delete the separate drop node from the dom.
+                node.remove();
             });
         });
 
@@ -235,7 +238,16 @@ function(Pencil, logger, randomizer, assets) {
     MagicWand.prototype.createTweetDrop = function(callback) {
         logger.log(_name, 'createTweetDrop()');
 
-        callback();
+        var that = this;
+
+        var tweet = that.poster.get('tweet').toJSON().text;
+
+        this.pencil.createTweetDrop(tweet).then(function(tweetDropSVG) {
+
+            that.paper.drawSvg(tweetDropSVG, 0, 0);
+
+            callback();
+        });
     };
 
     //

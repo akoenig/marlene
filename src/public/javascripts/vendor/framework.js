@@ -5,6 +5,9 @@ define([
     'vendor/order!vendor/backbone.modelbinding',
     'vendor/order!vendor/backbone.viewhelper',
     'vendor/order!vendor/json2',
+    'vendor/order!vendor/raphael',
+    'vendor/order!vendor/rgbcolor',
+    'vendor/order!vendor/canvg',
     'vendor/order!vendor/step',
     'vendor/order!vendor/spin'
 ]); 
