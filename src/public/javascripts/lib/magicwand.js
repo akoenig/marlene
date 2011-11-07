@@ -41,11 +41,6 @@ function(Pencil, logger, randomizer, assets) {
         this.user = user;
 
         //
-        // The physics engine ...
-        //
-        this.world = null;
-
-        //
         // DOCME
         //
         this.pencil = new Pencil();

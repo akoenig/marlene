@@ -5,8 +5,6 @@ define([
     'vendor/order!vendor/backbone.modelbinding',
     'vendor/order!vendor/backbone.viewhelper',
     'vendor/order!vendor/json2',
-    'vendor/order!vendor/protoclass',
-    'vendor/order!vendor/box2d',
     'vendor/order!vendor/step',
     'vendor/order!vendor/spin'
 ]); 
