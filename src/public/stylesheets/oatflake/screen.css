@@ -111,7 +111,7 @@ top:20%;
     width:500px
 }
 
-#poster canvas {
+#poster > canvas {
     width:500px
 }
 

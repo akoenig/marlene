@@ -128,8 +128,9 @@ function(User, Poster, PosterList, HogwartsView, template, i18n, logger) {
         //     DOCME
         //
         create : function(e) {
-            var that = this;
             logger.log(_name, 'Starting "Hogwarts" ...');
+
+            var that = this;
 
             if (e) {
                 e.preventDefault();
@@ -138,21 +139,25 @@ function(User, Poster, PosterList, HogwartsView, template, i18n, logger) {
             var hogwarts = null;
 
             var poster = new Poster();
+
+            //
+            // Creating the poster canvas ...
+            //
+            var canvas = $('<canvas />');
+            poster.set({
+                canvas: canvas
+            });
+
+            that.$posterNode.html(canvas);
+
             poster.bind('change:produced', function() {
-                logger.log(_name, 'The poster was generated.');
-
                 poster.unbind();
-
-                hogwarts.destroy();
 
                 //
                 // Activate the download and fullscreen button
                 //
                 that.$downloadButton.removeClass(that.css.button.disabled);
                 that.$fullscreenButton.removeClass(that.css.button.disabled);
-
-                var canvas = poster.get('canvas');
-                that.$posterNode.hide().html(canvas);
 
                 //
                 // Fix the poster position.

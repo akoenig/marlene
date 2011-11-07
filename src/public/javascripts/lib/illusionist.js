@@ -70,9 +70,6 @@ function(MagicWand, logger) {
             function paper() {
                 magicwand.createPaper(this);
             },
-            function background() {
-                magicwand.createBackground(this);
-            },
             function photodrops() {
                 magicwand.createPhotoDrops(this);
             },

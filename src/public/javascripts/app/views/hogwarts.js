@@ -460,6 +460,8 @@ function(Lucius, Hermione, Ron, Draco, Harry, Illusionist, template, i18n, logge
                 poster: context.model,
                 user: context.user
             }).perform();
+
+            context.destroy();
         }
     });
 

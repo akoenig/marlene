@@ -37,7 +37,7 @@ function(logger, assets, randomizer) {
     //     DOCME
     //
     var Pencil = function() {
-        this.bodyNode = $('body');
+        this.$bodyNode = $('body');
     };
     
     //
@@ -70,10 +70,7 @@ function(logger, assets, randomizer) {
         var _createPhotoDrop = function() {
 
             var canvas = $('<canvas />');
-            canvas.hide();
-
-            // Verify that the element will be removed later on!
-            that.bodyNode.append(canvas);
+            that.$bodyNode.append(canvas);
 
             //
             // Defining a random border width
@@ -94,6 +91,7 @@ function(logger, assets, randomizer) {
             // Getting the drawing context ...
             //
             var paper = canvas[0].getContext('2d');
+            console.log(paper);
             paper.beginPath();
 
             // Random radius (could be different height and width).
@@ -102,7 +100,7 @@ function(logger, assets, randomizer) {
                 max: 400
             });
 
-            var circle = (randomizer.digit({min: 0,max: 1}) === 1);
+            var circle = (randomizer.digit({min: 0, max: 1}) === 1);
 
             if (circle) {
 
