@@ -130,7 +130,7 @@ function(Pencil, logger, randomizer, assets) {
                         .draggable({containment: 'parent'})
                         .hide();
 
-                    that.helpers.shrink(drop);
+                    //that.helpers.shrink(drop);
 
                     container.append(drop);
 
@@ -178,7 +178,7 @@ function(Pencil, logger, randomizer, assets) {
                         .draggable({containment: 'parent'})
                         .hide();
 
-                    that.helpers.shrink(ball);
+                    //that.helpers.shrink(ball);
 
                     container.append(ball);
 
