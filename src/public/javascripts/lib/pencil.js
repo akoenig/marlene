@@ -70,6 +70,7 @@ function(logger, assets, randomizer) {
         var _createPhotoDrop = function() {
 
             var canvas = $('<canvas />');
+            canvas.hide();
             that.$bodyNode.append(canvas);
 
             //
@@ -91,14 +92,11 @@ function(logger, assets, randomizer) {
             // Getting the drawing context ...
             //
             var paper = canvas[0].getContext('2d');
-            console.log(paper);
+
             paper.beginPath();
 
             // Random radius (could be different height and width).
-            rand = randomizer.digit({ // [0] -> height; [1] -> width
-                min: 300,
-                max: 400
-            });
+            rand = randomizer.digit({min: 500, max: 1000});
 
             var circle = (randomizer.digit({min: 0, max: 1}) === 1);
 
@@ -137,11 +135,6 @@ function(logger, assets, randomizer) {
                 paper.lineTo((format.width / 2), start.y);
             }
 
-            rand = randomizer.digit({
-                min: 0,
-                max: assets.colors.length - 1
-            });
-
             paper.clip();
 
             //
@@ -158,9 +151,10 @@ function(logger, assets, randomizer) {
                 paper.drawImage(photo, 0, 0);
                 paper.closePath();
 
-                rand = randomizer.digit({max: assets.colors.length - 1});
+                var theme = randomizer.digit({min: 0, max: assets.balls.themes.length - 1});
+                var color = randomizer.digit({min: 0, max: assets.balls.themes[theme].length - 1});
 
-                paper.strokeStyle = assets.colors[rand];
+                paper.strokeStyle = assets.balls.themes[theme][color];
 
                 paper.lineWidth = border;
                 paper.stroke();
@@ -182,6 +176,58 @@ function(logger, assets, randomizer) {
 
         for (i; i <= count; i++) {
             _createPhotoDrop();
+        }
+
+        return deferred.promise();
+    };
+
+    //
+    // summary:
+    //     DOCME
+    //
+    // description:
+    //     DOCME
+    //
+    Pencil.prototype.createBalls = function(count) {
+        var deferred = $.Deferred();
+
+        var balls = [];
+
+        var i = 0;
+
+        for (i; i <= count; i++) {
+            var size = (Math.random() * 300 >> 0) + 20;
+
+            var canvas = $('<canvas />');
+            canvas
+                .attr({
+                    width: size,
+                    height: size
+                })
+                .css({
+                    position: 'absolute'
+                });
+
+            var graphics = canvas[0].getContext("2d");
+
+            var circles = Math.random() * 10 >> 0;
+
+            for (var j = size; j > 0; j-= (circles)) {
+                var theme = randomizer.digit({min: 0, max: assets.balls.themes.length - 1});
+                var color = randomizer.digit({min: 0, max: assets.balls.themes[theme].length - 1});
+
+                graphics.fillStyle = assets.balls.themes[theme][color];
+                graphics.beginPath();
+                graphics.arc(size * .5, size * .5, j * .5, 0, Math.PI*2, true); 
+                graphics.closePath();
+                graphics.fill();
+            }
+
+            balls.push(canvas);
+
+            if (balls.length === count) {
+                deferred.resolve(balls);
+            }
         }
 
         return deferred.promise();

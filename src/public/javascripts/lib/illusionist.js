@@ -73,6 +73,9 @@ function(MagicWand, logger) {
             function photodrops() {
                 magicwand.createPhotoDrops(this);
             },
+            function createBalls() {
+                magicwand.createBalls(this);
+            },
             function profiledrop() {
                 magicwand.createProfileDrop(this);
             },

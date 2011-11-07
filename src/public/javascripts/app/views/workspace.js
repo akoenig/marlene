@@ -141,14 +141,11 @@ function(User, Poster, PosterList, HogwartsView, template, i18n, logger) {
             var poster = new Poster();
 
             //
-            // Creating the poster canvas ...
+            // Creating the poster container ...
             //
-            var canvas = $('<canvas />');
-            poster.set({
-                canvas: canvas
-            });
+            poster.set({container: that.$posterNode});
 
-            that.$posterNode.html(canvas);
+            that.$posterNode.empty();
 
             poster.bind('change:produced', function() {
                 poster.unbind();
@@ -158,23 +155,6 @@ function(User, Poster, PosterList, HogwartsView, template, i18n, logger) {
                 //
                 that.$downloadButton.removeClass(that.css.button.disabled);
                 that.$fullscreenButton.removeClass(that.css.button.disabled);
-
-                //
-                // Fix the poster position.
-                //
-                var sizes = {
-                    canvas: {
-                        width: that.$posterNode.width()
-                    },
-                    viewport: {
-                        width: $(document).width()
-                    }
-                };
-
-                var left = ((sizes.viewport.width - sizes.canvas.width) / 2) + 'px';
-                that.$posterNode
-                    .css('left', left)
-                    .fadeIn();
             });
 
             that.model.get('posters').add(poster);

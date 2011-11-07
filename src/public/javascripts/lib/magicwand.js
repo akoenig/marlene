@@ -44,6 +44,17 @@ function(Pencil, logger, randomizer, assets) {
         // DOCME
         //
         this.pencil = new Pencil();
+
+        this.helpers = {
+            shrink : function(canvas) {
+                var size = canvas.attr('width');
+
+                canvas.css({
+                    height: size - ((size * 20) / 100) + 'px',
+                    width: size - ((size * 20) / 100) + 'px'
+                });
+            }
+        }
     }
 
     //
@@ -58,8 +69,7 @@ function(Pencil, logger, randomizer, assets) {
 
         var that = this;
 
-        var canvas = that.poster.get('canvas');
-        var paper = canvas[0].getContext('2d');
+        var container = that.poster.get('container');
 
         //
         // Grabbing the type (landscape or portrait) ...
@@ -67,39 +77,27 @@ function(Pencil, logger, randomizer, assets) {
         var format = (this.poster.get('landscape') === true) ? 'landscape' : 'portrait';
 
         //
-        // Canvas setup ...
-        //
-        canvas
-            .attr({
-                id: 'poster-' + new Date().getTime(),
-                height: assets.formats[format].height,
-                width: assets.formats[format].width
-            });
-
-        //
-        // Physics engine setup ...
-        //
-        var virtual = new b2AABB();
-        virtual.minVertex.Set(-200, -200);
-        virtual.maxVertex.Set(canvas.width() + 200, canvas.height() + 200 );
-
-        that.world = new b2World(virtual, new b2Vec2(0, 0), true);
-
-        //
         // Start the randomizer for selecting the background image ...
         //
-        var random = randomizer.digit({
-            max: (assets.backgrounds[format].files.length - 1)
-        });
+        var random = randomizer.digit({max: (assets.backgrounds[format].files.length - 1)});
 
         //
         // Paint the background image.
         //
         var background = new Image();
-        background.onload = function() {
-            paper.drawImage(background, 0, 0);
 
-            callback();
+        background.onload = function() {
+            var viewport = $(document);
+
+            background = $(background);
+            container
+                .append(background)
+                .css({
+                    position: 'absolute',
+                    top: ((viewport.height() - container.height()) / 2) + 'px',
+                    left: ((viewport.width() - container.width()) / 2) + 'px'
+                })
+                .fadeIn('slow', callback);
         };
 
         background.src = assets.backgrounds[format].files[random].src;
@@ -117,35 +115,89 @@ function(Pencil, logger, randomizer, assets) {
 
         var that = this;
 
-        var canvas = that.poster.get('canvas');
+        var container = that.poster.get('container');
 
-        var count = randomizer.digit({
-            min: 2,
-            max: 4
-        });
+        var count = randomizer.digit({min: 2, max: 10});
 
         that.pencil.createPhotoDrops(count).then(function(drops) {
             drops.forEach(function(drop) {
-                canvas.append(drop);
-console.log("1");
-                /*var b2body = new b2BodyDef();
+                window.setTimeout(function() {
+                    drop
+                        .css({
+                            left: randomizer.digit({min: 1, max: container.width()}),
+                            position: 'absolute'
+                        })
+                        .draggable({containment: 'parent'})
+                        .hide();
 
-                var circle = new b2CircleDef();
-                circle.radius = drop.width() >> 1;
-                circle.density = 1;
-                circle.friction = 0.3;
-                circle.restitution = 0.3;
+                    that.helpers.shrink(drop);
 
-                b2body.AddShape(circle);
-                b2body.userData = {element: drop[0]};
-console.log("2");
-                b2body.position.Set(0, 0);
-                b2body.linearVelocity.Set( Math.random() * 400 - 200, Math.random() * 400 - 200 );*/
+                    container.append(drop);
+
+                    var distance = container.height() - drop.height();
+
+                    //
+                    // Gravity animation
+                    //
+                    drop
+                        .fadeIn()
+                        .animate({
+                            top: distance + 'px'
+                        }, 1000, 'easeOutBounce');
+                }, randomizer.digit({min: 1, max: 3000}));
             });
 
             callback();
         });
     };
+
+    //
+    // summary:
+    //     DOCME
+    //
+    // description:
+    //     DOCME
+    //
+    MagicWand.prototype.createBalls = function(callback) {
+        logger.log(_name, 'createBalls()');
+
+        var that = this;
+
+        var container = that.poster.get('container');
+
+        var count = randomizer.digit({min: 2, max: 10});
+
+        that.pencil.createBalls(count).then(function(balls) {
+            balls.forEach(function(ball) {
+                window.setTimeout(function() {
+                    ball
+                        .css({
+                            left: randomizer.digit({min: 1, max: container.width()}),
+                            position: 'absolute'
+                        })
+                        .draggable({containment: 'parent'})
+                        .hide();
+
+                    that.helpers.shrink(ball);
+
+                    container.append(ball);
+
+                    var distance = container.height() - ball.height();
+
+                    //
+                    // Gravity animation
+                    //
+                    ball
+                        .fadeIn()
+                        .animate({
+                            top: distance + 'px'
+                        }, 1000, 'easeOutBounce');
+                }, randomizer.digit({min: 1, max: 3000}));
+            });
+
+            callback();
+        });
+    }
 
     //
     // summary:
