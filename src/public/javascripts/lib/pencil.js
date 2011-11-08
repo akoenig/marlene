@@ -76,7 +76,7 @@ function(logger, assets, randomizer) {
             //
             // Defining a random border width
             //
-            var border = randomizer.digit({min: 20, max: 30});
+            var border = randomizer.digit({min: 5, max: 10});
 
             //
             // The start position for the drawing stuff.
@@ -96,7 +96,7 @@ function(logger, assets, randomizer) {
             paper.beginPath();
 
             // Random radius (could be different height and width).
-            rand = randomizer.digit({min: 500, max: 1000});
+            rand = randomizer.digit({min: 30, max: 150});
 
             var circle = (randomizer.digit({min: 0, max: 1}) === 1);
 
@@ -151,10 +151,10 @@ function(logger, assets, randomizer) {
                 paper.drawImage(photo, 0, 0);
                 paper.closePath();
 
-                var theme = randomizer.digit({min: 0, max: assets.balls.themes.length - 1});
-                var color = randomizer.digit({min: 0, max: assets.balls.themes[theme].length - 1});
+                var theme = randomizer.digit({min: 0, max: assets.themes.length - 1});
+                var color = randomizer.digit({min: 0, max: assets.themes[theme].length - 1});
 
-                paper.strokeStyle = assets.balls.themes[theme][color];
+                paper.strokeStyle = assets.themes[theme][color];
 
                 paper.lineWidth = border;
                 paper.stroke();
@@ -196,7 +196,7 @@ function(logger, assets, randomizer) {
         var i = 0;
 
         for (i; i <= count; i++) {
-            var size = (Math.random() * 300 >> 0) + 20;
+            var size = (Math.random() * 50);
 
             var canvas = $('<canvas />');
             canvas
@@ -210,13 +210,13 @@ function(logger, assets, randomizer) {
 
             var graphics = canvas[0].getContext("2d");
 
-            var circles = Math.random() * 10 >> 0;
+            var circles = Math.random() * 5;
 
             for (var j = size; j > 0; j-= (circles)) {
-                var theme = randomizer.digit({min: 0, max: assets.balls.themes.length - 1});
-                var color = randomizer.digit({min: 0, max: assets.balls.themes[theme].length - 1});
+                var theme = randomizer.digit({min: 0, max: assets.themes.length - 1});
+                var color = randomizer.digit({min: 0, max: assets.themes[theme].length - 1});
 
-                graphics.fillStyle = assets.balls.themes[theme][color];
+                graphics.fillStyle = assets.themes[theme][color];
                 graphics.beginPath();
                 graphics.arc(size * .5, size * .5, j * .5, 0, Math.PI*2, true); 
                 graphics.closePath();
@@ -240,12 +240,102 @@ function(logger, assets, randomizer) {
     // description:
     //     DOCME
     //
+    Pencil.prototype.createWords = function(tweet) {
+        var elements = [];
+
+        var words = tweet.split(' ');
+
+        var hasBackground = false;
+
+        words.forEach(function(word) {
+            var bold = randomizer.digit({min:0, max: 1}) === 1;
+
+            word = $('<p />')
+                .html(word)
+                .css({
+                    fontWeight: (bold) ? 'bold' : 'normal',
+                    position:'absolute'
+                });
+
+            var background = randomizer.digit({min:0, max: 1}) === 1;
+
+            if (background && !hasBackground) {
+                hasBackground = true;
+                word
+                    .css({
+                        background: (background) ? '#d14836' : 'none',
+                        color: '#fff'
+                    });
+            }
+
+            elements.push(word);
+        });
+
+        return elements;
+    };
+
+    //
+    // summary:
+    //     DOCME
+    //
+    // description:
+    //     DOCME
+    //
     Pencil.prototype.createProfileDrop = function(profile) {
         var deferred = $.Deferred();
 
+        var size = 150;
+
+        var element = $('<div />')
+            .css({
+                width: size + 'px',
+                height: size + 'px',
+                position: 'absolute',
+                left: -200 + 'px',
+                top: -200 + 'px'
+
+            });
+       
+       var circle = $('<canvas />')
+           .attr({
+               width: size,
+               height: size
+           });
+
+        var graphics = circle[0].getContext('2d');
+
+        var theme = randomizer.digit({min: 0, max: assets.themes.length - 1});
+        var color = randomizer.digit({min: 0, max: assets.themes[theme].length - 1});
+
+        graphics.fillStyle = assets.themes[theme][color];
+        graphics.beginPath();
+        graphics.arc( size * .5, size * .5, size * .5, 0, Math.PI*2, true );
+        graphics.closePath();
+        graphics.fill();
+
+        element.append(circle);
+
+        var text = $('<div />')
+            .html('PROFILE')
+            .css({
+                color: '#000',
+                position: 'absolute',
+                fontFamily: 'Georgia',
+                textAlign: 'center'
+            });
+ 
+        element.append(text);
+
+        text
+            .css({
+                left: ((150 - text.width()) / 2) +'px',
+                top: ((150 - text.height()) / 2) +'px'
+            });
+
         window.setTimeout(function() {
-            deferred.resolve();
-        }, 5000);
+            console.log("HERE2");
+            deferred.resolve(element);
+        }, 2000);
 
         return deferred.promise();
 	};

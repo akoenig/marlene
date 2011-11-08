@@ -44,17 +44,6 @@ function(Pencil, logger, randomizer, assets) {
         // DOCME
         //
         this.pencil = new Pencil();
-
-        this.helpers = {
-            shrink : function(canvas) {
-                var size = canvas.attr('width');
-
-                canvas.css({
-                    height: size - ((size * 20) / 100) + 'px',
-                    width: size - ((size * 20) / 100) + 'px'
-                });
-            }
-        }
     }
 
     //
@@ -93,6 +82,7 @@ function(Pencil, logger, randomizer, assets) {
             container
                 .append(background)
                 .css({
+                    color: assets.backgrounds[format].files[random].textcolor,
                     position: 'absolute',
                     top: ((viewport.height() - container.height()) / 2) + 'px',
                     left: ((viewport.width() - container.width()) / 2) + 'px'
@@ -117,22 +107,24 @@ function(Pencil, logger, randomizer, assets) {
 
         var container = that.poster.get('container');
 
-        var count = randomizer.digit({min: 2, max: 10});
+        var count = randomizer.digit({min: 2, max: 5});
 
         that.pencil.createPhotoDrops(count).then(function(drops) {
             drops.forEach(function(drop) {
                 window.setTimeout(function() {
                     drop
                         .css({
-                            left: randomizer.digit({min: 1, max: container.width()}),
                             position: 'absolute'
                         })
                         .draggable({containment: 'parent'})
                         .hide();
 
-                    //that.helpers.shrink(drop);
-
                     container.append(drop);
+
+                    drop
+                        .css({
+                            left: randomizer.digit({min: 1, max: (container.width() - drop.width())}),
+                        });
 
                     var distance = container.height() - drop.height();
 
@@ -165,22 +157,24 @@ function(Pencil, logger, randomizer, assets) {
 
         var container = that.poster.get('container');
 
-        var count = randomizer.digit({min: 2, max: 10});
+        var count = randomizer.digit({min: 5, max: 10});
 
         that.pencil.createBalls(count).then(function(balls) {
             balls.forEach(function(ball) {
                 window.setTimeout(function() {
                     ball
                         .css({
-                            left: randomizer.digit({min: 1, max: container.width()}),
                             position: 'absolute'
                         })
                         .draggable({containment: 'parent'})
                         .hide();
 
-                    //that.helpers.shrink(ball);
-
                     container.append(ball);
+
+                    ball
+                        .css({
+                            left: randomizer.digit({min: 1, max: (container.width() - ball.width())})
+                        });
 
                     var distance = container.height() - ball.height();
 
@@ -197,7 +191,50 @@ function(Pencil, logger, randomizer, assets) {
 
             callback();
         });
-    }
+    };
+
+    //
+    // summary:
+    //     DOCME
+    //
+    // description:
+    //     DOCME
+    //
+    MagicWand.prototype.createWords = function(callback) {
+        var that = this;
+        var container = that.poster.get('container');
+
+        var tweet = that.poster.get('tweet').toJSON();
+        var words = that.pencil.createWords(tweet.text);
+
+        words.forEach(function(word) {
+            window.setTimeout(function() {
+                word
+                    .draggable({containment: 'parent'})
+                    .hide();
+
+                container.append(word);
+
+                word
+                    .css({
+                        left: randomizer.digit({min: 1, max: (container.width() - word.width())})
+                    });
+
+                var distance = container.height() - word.height();
+
+                //
+                // Gravity animation
+                //
+                word
+                    .fadeIn()
+                    .animate({
+                        top: distance + 'px'
+                    }, 2000, 'easeOutBounce');
+            }, randomizer.digit({min: 1, max: 3000}));
+        });
+
+        callback();
+    };
 
     //
     // summary:
@@ -208,6 +245,40 @@ function(Pencil, logger, randomizer, assets) {
     //
     MagicWand.prototype.createProfileDrop = function(callback) {
         logger.log(_name, 'createProfileDrop()');
+
+        var that = this;
+
+        var user = that.user.toJSON();
+
+        var profile = {
+            nick: '@' + user.nick,
+            name: user.name,
+            description: user.description,
+            followers: user.followers,
+            avatar: user.avatar,
+            statuscount: user.statuscount
+        };
+
+        that.pencil.createProfileDrop(profile).then(function(profileDrop) {
+            var container = that.poster.get('container');
+
+            container.append(profileDrop);
+
+            var distance = container.height() - profileDrop.height();
+
+            profileDrop
+                .css({
+                    left: randomizer.digit({min: 1, max: (container.width() - profileDrop.width())})
+                })
+                .draggable({containment: 'parent'})
+                .fadeIn()
+                .animate({
+                    top: distance + 'px'
+                 }, 2000, 'easeOutBounce');
+
+            callback();
+
+        });
 
     };
 

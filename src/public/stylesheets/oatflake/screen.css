@@ -115,8 +115,15 @@ top:20%;
     width:400px
 }
 
-#poster > canvas {
-    display:none }
+##poster > * {
+    display:none;
+    cursor:move;
+    position:absolute }
+
+#poster > p {
+    display:inline;
+    border-radius:5px;
+    padding:5px 10px }
 
 #hogwarts {
     background:#fff;

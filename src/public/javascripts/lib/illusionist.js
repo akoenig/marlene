@@ -70,14 +70,17 @@ function(MagicWand, logger) {
             function paper() {
                 magicwand.createPaper(this);
             },
+            function profiledrop() {
+                magicwand.createProfileDrop(this);
+            },
             function photodrops() {
                 magicwand.createPhotoDrops(this);
             },
             function createBalls() {
                 magicwand.createBalls(this);
             },
-            function profiledrop() {
-                magicwand.createProfileDrop(this);
+            function createWords() {
+                magicwand.createWords(this);
             },
             function tweetdrop() {
                 magicwand.createTweetDrop(this);
