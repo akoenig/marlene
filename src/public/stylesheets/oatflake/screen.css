@@ -203,6 +203,9 @@ a:hover {
     top:60px;
     width:100% }
 
+#poster-wrapper:hover {
+    background:url(img/bg-hello-logo.png) left top no-repeat }
+
 #poster {
     border:10px solid #000;
     display:none;

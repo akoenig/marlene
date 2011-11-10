@@ -290,11 +290,10 @@ function(logger, assets, randomizer) {
             .css({
                 width: size + 'px',
                 height: size + 'px',
-                position: 'absolute',
-                left: -200 + 'px',
-                top: -200 + 'px'
-
-            });
+                position: 'absolute'
+            })
+            .hide()
+            .appendTo('body');
        
        var circle = $('<canvas />')
            .attr({
@@ -309,14 +308,14 @@ function(logger, assets, randomizer) {
 
         graphics.fillStyle = assets.themes[theme][color];
         graphics.beginPath();
-        graphics.arc( size * .5, size * .5, size * .5, 0, Math.PI*2, true );
+        graphics.arc(size * 0.5, size * 0.5, size * 0.5, 0, Math.PI*2, true);
         graphics.closePath();
         graphics.fill();
 
         element.append(circle);
 
         var text = $('<div />')
-            .html('PROFILE')
+            .html('PROFILEasd asdasdasdasdasdasdasd')
             .css({
                 color: '#000',
                 position: 'absolute',
@@ -324,18 +323,19 @@ function(logger, assets, randomizer) {
                 textAlign: 'center'
             });
  
+        element.hide();
+        
         element.append(text);
+
+console.log("SIZES");
+console.log(text.width());
+console.log(text.height());
 
         text
             .css({
                 left: ((150 - text.width()) / 2) +'px',
                 top: ((150 - text.height()) / 2) +'px'
             });
-
-        window.setTimeout(function() {
-            console.log("HERE2");
-            deferred.resolve(element);
-        }, 2000);
 
         return deferred.promise();
 	};
