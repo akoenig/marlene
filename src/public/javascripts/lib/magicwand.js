@@ -88,6 +88,11 @@ function(Pencil, logger, randomizer, assets) {
                     left: ((viewport.width() - container.width()) / 2) + 'px'
                 })
                 .fadeIn('slow', callback);
+
+            container.css({
+                height: background.height(),
+                width: background.width()
+            });
         };
 
         background.src = assets.backgrounds[format].files[random].src;
@@ -217,6 +222,7 @@ function(Pencil, logger, randomizer, assets) {
 
                 word
                     .css({
+                        top:0,
                         left: randomizer.digit({min: 1, max: (container.width() - word.width())})
                     });
 

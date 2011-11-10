@@ -154,6 +154,8 @@ function(User, Poster, PosterList, HogwartsView, template, i18n, logger) {
 
             that.model.get('posters').add(poster);
 
+            that.$posterNode.hide();
+
             //
             // The following dom node is only for temporary purposes.
             // It is the Hogwarts el-element, which will be destroyed on

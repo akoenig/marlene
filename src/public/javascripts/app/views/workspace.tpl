@@ -13,5 +13,6 @@
 </div>
 
 
-
-<div id="poster"></div>
+<div id="poster-wrapper">
+    <div id="poster"></div>
+</div>

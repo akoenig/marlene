@@ -1,3 +1,16 @@
+/*
+ * marlene
+ *
+ * Licensed under the MIT:
+ * http://www.opensource.org/licenses/mit-license.php
+ *
+ * Copyright (c) 2011
+ *
+ * André König (andre.koenig -[at]- gmail [*dot*] com)
+ * Judith Ngo (jud.ngo -[at]- gmail [*dot*] com)
+ *
+ */
+
 * {
     margin:0;
     padding:0
@@ -29,8 +42,12 @@ footer {
     width:100% }
 
 a {
-    color:#000
-}
+    color:#000;
+    text-decoration:none }
+
+a:hover {
+    color:#fff !important;
+    text-decoration:underline }
 
 /* Clearfix */
 
@@ -49,12 +66,6 @@ a {
 }
 
 /* Static Pages */
-
-#hello a {
-    text-decoration:none }
-
-#hello a:hover {
-    text-decoration:underline }
 
 #hello article {
     margin:12% auto 0;
@@ -177,7 +188,6 @@ a {
 .topbar .logout:hover {
     color:#fff }
 
-
 #header section#user nav {
     display:none
 }
@@ -186,8 +196,19 @@ a {
     list-style-type:none
 }
 
+#poster-wrapper {
+    background:url(img/bg-app-workspace.png) center center no-repeat;
+    height:500px;
+    position:absolute;
+    top:60px;
+    width:100% }
+
 #poster {
-    top:190px;
+    border:10px solid #000;
+    display:none;
+    outline:1px solid rgba(83,83,83,0.2);
+    position:absolute;
+    top:0 !important;
     width:400px
 }
 
@@ -202,7 +223,8 @@ a {
 
 #poster > p {
     border-radius:5px;
-    padding:5px 10px }
+    padding:5px 10px;
+    position:absolute }
 
 #hogwarts {
     background:#fff
@@ -356,7 +378,8 @@ a {
     font-size:140%;
     line-height:1.4em;
     margin:20px;
-    width:320px }
+    text-align:center;
+    width:90% }
 
 #hogwarts #draco .retry {
     display:block;
