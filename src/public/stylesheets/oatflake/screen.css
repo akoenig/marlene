@@ -10,6 +10,7 @@ html, body {
 }
 
 body {
+    background:url(img/background.jpg) left top no-repeat;
     font: 14px "Lucida Grande", Helvetica, Arial, sans-serif
 }
 
@@ -19,21 +20,64 @@ a {
 
 /* Static Pages */
 
-#hello {
-    margin:0 auto;
-    width:500px
+#hello a {
+    text-decoration:none }
+
+#hello a:hover {
+    text-decoration:underline }
+
+#hello article {
+    margin:12% auto 0;
+    width:550px
 }
 
-#hello h1 {
-    color:#c08;
-    font-size:600%;
-    margin:200px 0 0
+#hello article header {
+    display:inline-block;
+    position:relative
 }
 
-#hello h2 {
-    font-weight:normal;
-    margin:0 0 40px
-}
+#hello article header h1 {
+    background:url(img/bg-hello-logo.png) left top no-repeat;
+    position:absolute;
+    left:176px;
+    height:179px;
+    width:198px;
+    text-indent:-9999px }
+
+#hello article .twitter-button {
+    margin:300px auto 0;
+    text-align:center }
+
+#hello article .twitter-button a {
+    background: #31759d;
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#31759d), color-stop(100%,#185e88));
+    background: -webkit-linear-gradient(top,  #31759d 0%,#185e88 100%);
+    color:#fff;
+    outline:4px solid rgba(255,255,255,.07);
+    display:inline-block;
+    font-size:85%;
+    line-height:50px;
+    padding:0 40px 0 20px;
+    text-shadow:0 1px 1px #000 }
+
+    #hello article .twitter-button a span {
+        background:url(img/bg-twitterbird.png) right center no-repeat;
+        display:block;
+        margin-right:70px;
+        width:100% }
+
+#hello article footer,
+#hello article footer a {
+    color:#737373;
+    text-decoration:none }
+
+#hello article footer {
+    bottom:10px;
+    font-size:70%;
+    position:fixed;
+    text-align:center;
+    text-shadow:0 1px 1px #000;
+    width:550px }
 
 /* # Static Pages */
 
