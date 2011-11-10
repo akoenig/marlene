@@ -197,14 +197,23 @@ a:hover {
 }
 
 #poster-wrapper {
-    background:url(img/bg-app-workspace.png) center center no-repeat;
+    background:url(img/bg-hello-logo.png) center center no-repeat;
     height:500px;
+    opacity:.05;
     position:absolute;
     top:60px;
-    width:100% }
+    width:100%;
+    -webkit-transition:opacity 0.2s ease-in;
+    -moz-transition:opacity 0.2s ease-in;
+    -o-transition:opacity 0.2s ease-in;
+    transition:opacity 0.2s ease-in }
 
 #poster-wrapper:hover {
-    background:url(img/bg-hello-logo.png) left top no-repeat }
+    opacity:1;
+    -webkit-transition:opacity 0.2s ease-in;
+    -moz-transition:opacity 0.2s ease-in;
+    -o-transition:opacity 0.2s ease-in;
+    transition:opacity 0.2s ease-in }
 
 #poster {
     border:10px solid #000;
