@@ -5,8 +5,10 @@ define([
     'vendor/order!vendor/backbone',
     'vendor/order!vendor/backbone.modelbinding',
     'vendor/order!vendor/backbone.viewhelper',
+    'vendor/order!vendor/html2canvas',
     'vendor/order!vendor/json2',
     'vendor/order!vendor/step',
     'vendor/order!vendor/jquery.easing',
+    'vendor/order!vendor/jquery.html2canvas',
     'vendor/order!vendor/spin'
 ]); 

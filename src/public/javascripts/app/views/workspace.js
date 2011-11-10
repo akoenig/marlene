@@ -183,13 +183,11 @@ function(User, Poster, PosterList, HogwartsView, template, i18n, logger) {
         download : function() {
             logger.log(_name, 'Downloading the current poster ...');
 
-            var imageMIME = 'image/jpeg';
-            var octetMIME = 'image/octet-stream';
+            var that = this;
 
-            var canvas = this.$posterNode.children('canvas')[0];
-            var data = canvas.toDataURL(imageMIME);
+            var poster = this.$posterNode.html2canvas();
 
-            document.location.href = data.replace(imageMIME, octetMIME);
+            console.log(poster);
         }
     });
 
