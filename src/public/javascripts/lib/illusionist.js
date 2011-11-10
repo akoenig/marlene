@@ -82,15 +82,6 @@ function(MagicWand, logger) {
             function createWords() {
                 magicwand.createWords(this);
             },
-            function tweetdrop() {
-                magicwand.createTweetDrop(this);
-            },
-            function semanticdrops() {
-                magicwand.createSemanticDrops(this);
-            },
-            function finish() {
-                magicwand.finish(this);
-            },
             function end(canvas) {
                 context.poster.set({
                     canvas: canvas,

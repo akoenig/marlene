@@ -292,42 +292,5 @@ function(Pencil, logger, randomizer, assets) {
 
     };
 
-    //
-    // summary:
-    //     DOCME
-    //
-    // description:
-    //     DOCME
-    //
-    MagicWand.prototype.createTweetDrop = function(callback) {
-        logger.log(_name, 'createTweetDrop()');
-
-    };
-
-    //
-    // summary:
-    //     DOCME
-    //
-    // description:
-    //     DOCME
-    //
-    MagicWand.prototype.createSemanticDrops = function(callback) {
-        logger.log(_name, 'createSemanticDrops()');
-
-        callback();
-    };
-
-    //
-    // summary:
-    //     DOCME
-    //
-    // description:
-    //     DOCME
-    //
-    MagicWand.prototype.finish = function(callback) {
-        logger.log(_name, 'finish()');
-
-    };
-
     return MagicWand;
 });

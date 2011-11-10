@@ -218,7 +218,7 @@ function(logger, assets, randomizer) {
 
                 graphics.fillStyle = assets.themes[theme][color];
                 graphics.beginPath();
-                graphics.arc(size * .5, size * .5, j * .5, 0, Math.PI*2, true); 
+                graphics.arc(size * 0.5, size * 0.5, j * 0.5, 0, Math.PI*2, true); 
                 graphics.closePath();
                 graphics.fill();
             }
