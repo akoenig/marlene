@@ -67,6 +67,14 @@ function() {
                     {
                         src: 'images/backgrounds/landscape/1.jpg',
                         textcolor: '#000'
+                    },
+                    {
+                        src: 'images/backgrounds/landscape/2.jpg',
+                        textcolor: '#fff'
+                    },
+                    {
+                        src: 'images/backgrounds/landscape/3.jpg',
+                        textcolor: '#fff'
                     }
                 ]
             },
@@ -79,6 +87,14 @@ function() {
                     {
                         src: 'images/backgrounds/portrait/1.jpg',
                         textcolor: '#000'
+                    },
+                    {
+                        src: 'images/backgrounds/portrait/2.jpg',
+                        textcolor: '#fff'
+                    },
+                    {
+                        src: 'images/backgrounds/portrait/3.jpg',
+                        textcolor: '#fff'
                     }
                 ]
             }
