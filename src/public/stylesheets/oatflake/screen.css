@@ -212,14 +212,16 @@ a:hover {
     width:400px
 }
 
-#poster > img {
-    width:400px
-}
-
-##poster > * {
+#poster > * {
     display:none;
     cursor:move;
     position:absolute }
+
+#poster > img {
+    cursor:default;
+    display:block;
+    position:static;
+    width:400px }
 
 #poster > p {
     border-radius:5px;

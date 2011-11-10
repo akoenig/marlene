@@ -93,6 +93,8 @@ function(Pencil, logger, randomizer, assets) {
                 height: background.height(),
                 width: background.width()
             });
+
+            background.disableSelection();
         };
 
         background.src = assets.backgrounds[format].files[random].src;
@@ -128,6 +130,7 @@ function(Pencil, logger, randomizer, assets) {
 
                     drop
                         .css({
+                            top:0,
                             left: randomizer.digit({min: 1, max: (container.width() - drop.width())}),
                         });
 
@@ -178,6 +181,7 @@ function(Pencil, logger, randomizer, assets) {
 
                     ball
                         .css({
+                            top:0,
                             left: randomizer.digit({min: 1, max: (container.width() - ball.width())})
                         });
 

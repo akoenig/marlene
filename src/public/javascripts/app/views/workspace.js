@@ -113,6 +113,8 @@ function(User, Poster, PosterList, HogwartsView, template, i18n, logger) {
 
             this.addReferences(this.nodes);
 
+            $(document).disableSelection();
+
             return this;
         },
 
