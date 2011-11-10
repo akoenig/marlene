@@ -15,7 +15,6 @@ define({
         'headline': "Wir sind bereit ...",
         'labels': {
             'user': 'Benutzer',
-            'tweet': 'Tweet',
             'format': 'Format',
             'statuscount': 'Tweets',
             'followers': 'Followers'

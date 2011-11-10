@@ -73,7 +73,7 @@ function(Lucius, Hermione, Ron, Draco, Harry, Illusionist, template, i18n, logge
         //     DOCME
         //
         events: {
-            'click .controls .cancel': 'cancel',
+            'click .close': 'cancel',
             'click .controls .previous': 'previous',
             'click .controls .next': 'next',
             'click .controls .finish': 'finish',
@@ -306,21 +306,23 @@ function(Lucius, Hermione, Ron, Draco, Harry, Illusionist, template, i18n, logge
         initialize : function() {
             logger.log(_name, 'HogwartsView::initialize()');
 
+            var that = this;
+
             //
             // Init the "examinations room."
             // DOCME
             //
-            this.examinationsroom = this.examinationsroom();
-            this.examinationsroom.reset();
+            that.examinationsroom = this.examinationsroom();
+            that.examinationsroom.reset();
 
             //
             // DOCME
             //
-            this.user = this.options.user;
+            that.user = this.options.user;
 
-            this.render();
+            that.render();
 
-            this.next();
+            that.next();
         },
 
         //
@@ -366,14 +368,22 @@ function(Lucius, Hermione, Ron, Draco, Harry, Illusionist, template, i18n, logge
 
             context.el.append(overlay);
 
+            var viewport = $(document);
+
             overlay
                 .addClass(this.css.classes.overlay)
                 .css({
-                    height: $(document).height() + 'px',
-                    wdith:  $(document).width() + 'px'
+                    height: viewport.height() + 'px',
+                    wdith:  viewport.width() + 'px'
                 })
                 .fadeIn(400, function() {
                     context.nodes.root.fadeIn(800);
+
+                    // Center the dialog ..
+                    var position = {
+                        left: ((viewport.width() - context.$root.width()) / 2) + 'px'
+                    };
+                    context.$root.css(position);
                 });
 
             context.addReferences(this.nodes);

@@ -4,9 +4,8 @@ define({
             'headline': 'marlene',
 
             'toolbar': {
-                'create': 'New',
-                'download': 'Download',
-                'fullscreen': 'Fullscreen',
+                'create': 'Neues Poster',
+                'download': 'Poster herunterladen'
             },
 
             'user': {

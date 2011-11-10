@@ -12,7 +12,7 @@
  */
 define({
     'root': {
-        'headline': 'Okay, dies sind deine Tweets. Such einen aus.',
+        'headline': 'Das sind deine Tweets ...',
         'buttons': {
             'moretweets': 'Mehr Tweets laden ...'
         }

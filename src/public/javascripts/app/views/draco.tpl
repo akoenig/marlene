@@ -1,7 +1,9 @@
 <section id="draco">
-	<h3><%= i18n.headline %></h3>
+    <header>
+		<h3><%= i18n.headline %></h3>
+	</header>
 
 	<div class="tweet"><%= i18n.loading %></div>
 
-	<a class="retry" href="#"><%= i18n.buttons.retry %></a>
+	<a class="btn success retry" href="#"><%= i18n.buttons.retry %></a>
 </section>

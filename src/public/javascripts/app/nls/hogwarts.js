@@ -12,10 +12,9 @@
  */
 define({
     'root': {
-        'headline': 'marlene',
         'buttons': {
             'cancel': 'Abbrechen',
-            'previous': 'Vorher',
+            'previous': 'Zurück',
             'next': 'Weiter',
             'finish': 'Erstellen'
         }

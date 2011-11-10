@@ -34,11 +34,8 @@ function(User, Poster, PosterList, HogwartsView, template, i18n, logger) {
         //     DOCME
         //
         events: {
-            'click section#toolbar .create': 'create',
-            'click section#toolbar .download': 'download',
-            'click section#toolbar .fullscreen': 'fullscreen',
-
-            'click section#user': 'toggleUserControl'
+            'click .create': 'create',
+            'click .download': 'download'
         },
 
         //
@@ -50,8 +47,7 @@ function(User, Poster, PosterList, HogwartsView, template, i18n, logger) {
         //
         nodes: {
             posterNode: '#poster',
-            downloadButton: 'section#toolbar .download a',
-            fullscreenButton: 'section#toolbar .fullscreen a'
+            downloadButton: 'section#toolbar .download a'
         },
 
         //
@@ -154,7 +150,6 @@ function(User, Poster, PosterList, HogwartsView, template, i18n, logger) {
                 // Activate the download and fullscreen button
                 //
                 that.$downloadButton.removeClass(that.css.button.disabled);
-                that.$fullscreenButton.removeClass(that.css.button.disabled);
             });
 
             that.model.get('posters').add(poster);
@@ -191,34 +186,6 @@ function(User, Poster, PosterList, HogwartsView, template, i18n, logger) {
             var data = canvas.toDataURL(imageMIME);
 
             document.location.href = data.replace(imageMIME, octetMIME);
-        },
-
-        //
-        // summary:
-        //     DOCME
-        //
-        // description:
-        //     DOCME
-        //
-        fullscreen : function() {
-            logger.log(_name, 'Open the current poster in fullscreen mode ...');
-        },
-
-        //
-        // summary:
-        //     DOCME
-        //
-        // description:
-        //     DOCME
-        //
-        toggleUserControl : function(e) {
-            var control = $(e.currentTarget).children('nav');
-
-            if (control.is(':visible')) {
-                control.fadeOut();
-            } else {
-                control.fadeIn();
-            }
         }
     });
 
