@@ -269,27 +269,24 @@ function(Pencil, logger, randomizer, assets) {
             statuscount: user.statuscount
         };
 
-        that.pencil.createProfileDrop(profile).then(function(profileDrop) {
-            var container = that.poster.get('container');
+        var profileDrop = that.pencil.createProfileDrop(profile);
+        var container = that.poster.get('container');
 
-            container.append(profileDrop);
+        container.append(profileDrop);
 
-            var distance = container.height() - profileDrop.height();
+        var distance = container.height() - profileDrop.height();
 
-            profileDrop
-                .css({
-                    left: randomizer.digit({min: 1, max: (container.width() - profileDrop.width())})
-                })
-                .draggable({containment: 'parent'})
-                .fadeIn()
-                .animate({
-                    top: distance + 'px'
-                 }, 2000, 'easeOutBounce');
+        profileDrop
+            .css({
+                left: randomizer.digit({min: 1, max: (container.width() - profileDrop.width())})
+            })
+            .draggable({containment: 'parent'})
+            .fadeIn()
+            .animate({
+                top: distance + 'px'
+            }, 2000, 'easeOutBounce');
 
-            callback();
-
-        });
-
+        callback();
     };
 
     return MagicWand;

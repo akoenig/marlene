@@ -281,18 +281,16 @@ function(logger, assets, randomizer) {
     // description:
     //     DOCME
     //
-    Pencil.prototype.createProfileDrop = function(profile) {
-        var deferred = $.Deferred();
-
-        var size = 150;
+    Pencil.prototype.createProfileDrop = function(profileData) {
+        var size = 180;
 
         var element = $('<div />')
             .css({
                 width: size + 'px',
                 height: size + 'px',
+                left: -9999 + 'px',
                 position: 'absolute'
             })
-            .hide()
             .appendTo('body');
        
        var circle = $('<canvas />')
@@ -314,30 +312,54 @@ function(logger, assets, randomizer) {
 
         element.append(circle);
 
-        var text = $('<div />')
-            .html('PROFILEasd asdasdasdasdasdasdasd')
+        var profile = $('<div />')
             .css({
-                color: '#000',
+                color: '#fff',
                 position: 'absolute',
-                fontFamily: 'Georgia',
                 textAlign: 'center'
             });
  
-        element.hide();
-        
-        element.append(text);
+        element.append(profile);
 
-console.log("SIZES");
-console.log(text.width());
-console.log(text.height());
-
-        text
+        var nick = $('<h2 />')
             .css({
-                left: ((150 - text.width()) / 2) +'px',
-                top: ((150 - text.height()) / 2) +'px'
-            });
+                color: '#fff',
+                fontSize: '110%',
+                lineHeight: '30px',
+                marginBottom: '2px',
+                paddingBottom: 0
+            })
+            .html(profileData.nick);
 
-        return deferred.promise();
+        profile.append(nick);
+
+        var name = $('<p />')
+            .css({
+                fontWeight: 'bold',
+                marginBottom: '5px'
+            })
+            .html(profileData.name);
+
+        profile.append(name);
+
+        if (profileData.description) {
+            var description = $('<p />')
+                .html(profileData.description)
+                .css({
+                    fontSize: '75%',
+                    maxWidth: (parseInt(element.width()) - 30) + 'px'
+                });
+            profile.append(description);
+        }
+console.log("1");
+console.log(((element.width() - profile.width()) / 2) +'px');
+        profile
+            .css({
+                left: ((element.width() - profile.width()) / 2) +'px',
+                top: ((element.width() - profile.height()) / 2) +'px'
+            });
+console.log("1");
+        return element;
 	};
 
     //

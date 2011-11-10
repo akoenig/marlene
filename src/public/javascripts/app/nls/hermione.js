@@ -12,10 +12,10 @@
  */
 define({
     'root': {
-        'headline': 'Willst du nach einem Tweet suchen?',
+        'headline': 'Willst du einen Tweet auswählen?',
         'mode': {
             'random': 'Nee, macht ihr das mal!',
-            'selection': 'Jupp.'
+            'selection': 'Joar.'
         }
     }
 });
